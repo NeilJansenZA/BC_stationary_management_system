@@ -122,7 +122,7 @@ public class DataConnection<T>
         try
         {
             query = "SELECT * FROM tblstationarycategory WHERE stationaryCategoryID = ?";
-            PreparedStatement ps = con.prepareStatement(query);
+            ps = con.prepareStatement(query);
             
             ps.setInt(1, stationaryCategoryID);            
             rs = ps.executeQuery();
@@ -141,6 +141,26 @@ public class DataConnection<T>
         finally
         {
             return readSingle;
+        }
+    }
+    
+    public void DeleteStockItem(int stockID)
+    {
+        ConnectToDB();
+        try
+        {
+            query = "DELETE FROM tblstationarystock WHERE stationarystockID = ?";
+            ps = con.prepareStatement(query);
+            
+            ps.setInt(1, stockID);
+            
+            ps.execute();
+            
+            con.close();
+        }
+        catch (SQLException ex)
+        {
+            Helper.DisplayError(ex.toString(), "Database Error");
         }
     }
     
@@ -170,7 +190,7 @@ public class DataConnection<T>
         try
         {
             query = "SELECT * FROM tblcampus WHERE campusID = ?";
-            PreparedStatement ps = con.prepareStatement(query);
+            ps = con.prepareStatement(query);
             
             ps.setInt(1, campusID);            
             rs = ps.executeQuery();
@@ -198,7 +218,7 @@ public class DataConnection<T>
         try
         {
             query = "SELECT * FROM tbldepartment WHERE departmentID = ?";
-            PreparedStatement ps = con.prepareStatement(query);
+            ps = con.prepareStatement(query);
             
             ps.setInt(1, departmentID);            
             rs = ps.executeQuery();
@@ -362,7 +382,7 @@ public class DataConnection<T>
         try
         {
             query = "SELECT * FROM tblcampus";
-            Statement st = con.createStatement();
+            st = con.createStatement();
             
             rs = st.executeQuery(query);
             

@@ -35,8 +35,6 @@ public class JAdminModule extends javax.swing.JFrame
     private JPanel[] tabPanels;
     private int totalTabs;
 
-    private List<StationaryCategory> categories = new ArrayList<>();
-
     /**
      * Creates new form AdminModule
      */
@@ -44,20 +42,7 @@ public class JAdminModule extends javax.swing.JFrame
     {
         initComponents();
 
-        LoadTab();
-        LoadBoxCategory();
-    }
-
-    private void LoadBoxCategory()
-    {
-        categories = new StationaryCategory().ReadStationaryCategory();
-
-        for (StationaryCategory categoryData : categories)
-        {
-            cmbInsertCatgory.addItem(categoryData.getName());
-        }
-
-        cmbInsertCatgory.setSelectedIndex(0);
+        LoadTab();   
     }
 
     private void LoadTab()
@@ -106,22 +91,6 @@ public class JAdminModule extends javax.swing.JFrame
         btnViewAllStockBack = new javax.swing.JButton();
         btnPromptUpdate = new javax.swing.JButton();
         btnDeleteStock = new javax.swing.JButton();
-        pnlInsertStock = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        txtInsertProductName = new javax.swing.JTextField();
-        cmbInsertCatgory = new javax.swing.JComboBox<>();
-        txtInsertModel = new javax.swing.JTextField();
-        spnInsertQuantity = new javax.swing.JSpinner();
-        txtInsertPrice = new javax.swing.JTextField();
-        btnInsertStock = new javax.swing.JButton();
-        btnBackFromInsertStock = new javax.swing.JButton();
-        btnClearStock = new javax.swing.JButton();
         jmbAdminModule = new javax.swing.JMenuBar();
         jmAdminApplication = new javax.swing.JMenu();
         jmAdminLogout = new javax.swing.JMenuItem();
@@ -331,119 +300,6 @@ public class JAdminModule extends javax.swing.JFrame
 
         tpAdminControls.addTab("Manage All Stock", pnlViewAllStock);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Stock Information"));
-
-        jLabel1.setText("Product Name:");
-
-        jLabel2.setText("Category Name:");
-
-        jLabel3.setText("Model:");
-
-        jLabel4.setText("Price:");
-
-        jLabel5.setText("Quantity:");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtInsertProductName))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbInsertCatgory, 0, 206, Short.MAX_VALUE)
-                            .addComponent(txtInsertModel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(spnInsertQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                    .addComponent(txtInsertPrice))
-                .addContainerGap(478, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4)
-                    .addComponent(txtInsertProductName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtInsertPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel5)
-                    .addComponent(cmbInsertCatgory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spnInsertQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel6)
-                    .addComponent(txtInsertModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(123, Short.MAX_VALUE))
-        );
-
-        btnInsertStock.setText("Insert Stock");
-        btnInsertStock.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnInsertStockMouseClicked(evt);
-            }
-        });
-
-        btnBackFromInsertStock.setText("Back");
-        btnBackFromInsertStock.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnBackFromInsertStockMouseClicked(evt);
-            }
-        });
-
-        btnClearStock.setText("Clear");
-
-        javax.swing.GroupLayout pnlInsertStockLayout = new javax.swing.GroupLayout(pnlInsertStock);
-        pnlInsertStock.setLayout(pnlInsertStockLayout);
-        pnlInsertStockLayout.setHorizontalGroup(
-            pnlInsertStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlInsertStockLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlInsertStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInsertStockLayout.createSequentialGroup()
-                        .addComponent(btnBackFromInsertStock)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnClearStock)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnInsertStock)))
-                .addContainerGap())
-        );
-        pnlInsertStockLayout.setVerticalGroup(
-            pnlInsertStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlInsertStockLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
-                .addGroup(pnlInsertStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnInsertStock)
-                    .addComponent(btnBackFromInsertStock)
-                    .addComponent(btnClearStock))
-                .addContainerGap())
-        );
-
-        tpAdminControls.addTab("Insert Stock", pnlInsertStock);
-
         jmAdminApplication.setText("Application");
 
         jmAdminLogout.setText("Logout");
@@ -497,7 +353,6 @@ public class JAdminModule extends javax.swing.JFrame
             }
         });
         jmManageStocks.add(jmManageAllStock);
-        jmManageAllStock.getAccessibleContext().setAccessibleName("Manage All Stock");
 
         jmInserStock.setText("Insert Stock");
         jmInserStock.setActionCommand("Insert New Stock");
@@ -671,13 +526,6 @@ public class JAdminModule extends javax.swing.JFrame
         }
     }//GEN-LAST:event_jmViewRegistrationRequestsActionPerformed
 
-    private void btnRegisterUserBackMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnRegisterUserBackMouseClicked
-    {//GEN-HEADEREND:event_btnRegisterUserBackMouseClicked
-        DefaultTableModel model = (DefaultTableModel) tblRegisterRequests.getModel();
-        model.setRowCount(0);
-        tpAdminControls.remove(tabPanels[1]);
-    }//GEN-LAST:event_btnRegisterUserBackMouseClicked
-
     private void SelectRowStock()
     {
         try
@@ -717,49 +565,6 @@ public class JAdminModule extends javax.swing.JFrame
             Helper.DisplayError("Please Select A Row First before Making a selection");
         }      
     }
-    private void btnAcceptUserMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnAcceptUserMouseClicked
-    {//GEN-HEADEREND:event_btnAcceptUserMouseClicked
-        try
-        {
-            selectedStaff.InsertStaff();
-            registerStaff.remove(selectedStaff);
-            tblRegisterRequests.setModel(new DefaultTableModel());
-            PopulateTableRegister();
-            JOptionPane.showConfirmDialog(this, "User succesfully Accepted", "Registration Completed", JOptionPane.DEFAULT_OPTION);
-        }
-        catch (NullPointerException npe)
-        {
-            Helper.DisplayError("There is no data currently available in the table");
-        }
-    }//GEN-LAST:event_btnAcceptUserMouseClicked
-
-    private void btnDeleteRegisterUserMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnDeleteRegisterUserMouseClicked
-    {//GEN-HEADEREND:event_btnDeleteRegisterUserMouseClicked
-        try
-        {
-            SelectRowRegister();
-            selectedStaff.DeleteRegistry();
-            registerStaff.remove(selectedStaff);
-            
-            DefaultTableModel model = (DefaultTableModel) tblRegisterRequests.getModel();
-            model.setRowCount(0);
-            
-            PopulateTableRegister();
-            JOptionPane.showConfirmDialog(this, "User succesfully Removed", "Registration Completed", JOptionPane.DEFAULT_OPTION);
-        }
-        catch (NullPointerException npe)
-        {
-            Helper.DisplayError("There is no data currently available in the table");
-        }
-    }//GEN-LAST:event_btnDeleteRegisterUserMouseClicked
-
-    private void btnViewUsersBackMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnViewUsersBackMouseClicked
-    {//GEN-HEADEREND:event_btnViewUsersBackMouseClicked
-        DefaultTableModel model = (DefaultTableModel) tblViewUsers.getModel();
-        model.setRowCount(0);
-        tpAdminControls.remove(tabPanels[0]);
-    }//GEN-LAST:event_btnViewUsersBackMouseClicked
-
     private void jmManageRegisteredUsersActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmManageRegisteredUsersActionPerformed
     {//GEN-HEADEREND:event_jmManageRegisteredUsersActionPerformed
         try
@@ -796,96 +601,25 @@ public class JAdminModule extends javax.swing.JFrame
         }
     }//GEN-LAST:event_jmManageAllStockActionPerformed
 
-    private void btnViewAllStockBackMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnViewAllStockBackMouseClicked
-    {//GEN-HEADEREND:event_btnViewAllStockBackMouseClicked
-        DefaultTableModel model = (DefaultTableModel) tblAllStock.getModel();
-        model.setRowCount(0);
-        tpAdminControls.remove(tabPanels[2]);
-    }//GEN-LAST:event_btnViewAllStockBackMouseClicked
-
-    private void btnBackFromInsertStockMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnBackFromInsertStockMouseClicked
-    {//GEN-HEADEREND:event_btnBackFromInsertStockMouseClicked
-        tpAdminControls.remove(tabPanels[3]);
-    }//GEN-LAST:event_btnBackFromInsertStockMouseClicked
-
-    private void btnInsertStockMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnInsertStockMouseClicked
-    {//GEN-HEADEREND:event_btnInsertStockMouseClicked
-        boolean validInput = false;
-        String productName, category, model, price, quantity;
-
-        productName = txtInsertProductName.getText();
-        category = cmbInsertCatgory.getSelectedItem().toString();
-        model = txtInsertModel.getText();
-        price = txtInsertPrice.getText();
-        quantity = spnInsertQuantity.getValue().toString();
-
-        try
-        {
-            Validation val = new Validation();
-            validInput = val.ValidateStockEntry(productName, category, model, price, quantity);
-            int categoryID = 0;
-
-            if (validInput)
-            {
-                for (StationaryCategory categoryData : categories)
-                {
-                    if (categoryData.getName().equals(category))
-                    {
-                        categoryID = categoryData.getStationaryCategoryID();
-                    }
-
-                }
-                if (categoryID != 0)
-                {
-                    StationaryStock statStock = new StationaryStock(productName, categoryID, model, Double.parseDouble(price), Integer.parseInt(quantity));
-                    statStock.InsertStationaryStock();
-                    JOptionPane.showConfirmDialog(this, "Sucesfully Added!", "Input Recieved", JOptionPane.DEFAULT_OPTION);
-
-                    tpAdminControls.remove(tabPanels[3]);
-                } else
-                {
-                    throw new Exception("Error in ID set for field!");
-                }
-            } else
-            {
-                ResetInsertForm();
-            }
-        } catch (Exception ex)
-        {
-            Helper.DisplayError(ex.toString());
-        }
-    }//GEN-LAST:event_btnInsertStockMouseClicked
-
     private void jmInserStockActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmInserStockActionPerformed
     {//GEN-HEADEREND:event_jmInserStockActionPerformed
-        try
-        {
-            if (!tpAdminControls.getSelectedComponent().equals(tabPanels[3]))
-            {
-                tpAdminControls.addTab("Insert Stock", tabPanels[3]);
-                tpAdminControls.setSelectedIndex(tpAdminControls.getComponentCount() - 1);
-                PopulateTableAllStock();
-            }
-        } catch (NullPointerException npe)
-        {
-            tpAdminControls.addTab("Insert Stock", tabPanels[3]);
-            tpAdminControls.setSelectedIndex(tpAdminControls.getComponentCount() - 1);
-            PopulateTableAllStock();
-        }
+        this.dispose();
+        StockDialog sd = new StockDialog(null, true);
+        sd.setVisible(true);     
     }//GEN-LAST:event_jmInserStockActionPerformed
 
     private void btnDeleteStockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteStockMouseClicked
         try
         {
             SelectRowStock();
-            selectedStock.DeleteRegistry();
-            registerStaff.remove(selectedStaff);
-            
-            DefaultTableModel model = (DefaultTableModel) tblRegisterRequests.getModel();
+            selectedStock.DeleteStockItem();
+            stationaryStock.remove(selectedStock);
+
+            DefaultTableModel model = (DefaultTableModel) tblAllStock.getModel();
             model.setRowCount(0);
-            
+
             PopulateTableRegister();
-            JOptionPane.showConfirmDialog(this, "User succesfully Removed", "Registration Completed", JOptionPane.DEFAULT_OPTION);
+            JOptionPane.showConfirmDialog(this, "Stock Item Succesfully Updated!", "Update Succesful", JOptionPane.DEFAULT_OPTION);
         }
         catch (NullPointerException npe)
         {
@@ -894,17 +628,75 @@ public class JAdminModule extends javax.swing.JFrame
     }//GEN-LAST:event_btnDeleteStockMouseClicked
 
     private void btnPromptUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPromptUpdateMouseClicked
-        
+        try
+        {
+            SelectRowStock();
+            selectedStock.DeleteStockItem();
+            stationaryStock.remove(selectedStock);
+
+            DefaultTableModel model = (DefaultTableModel) tblAllStock.getModel();
+            model.setRowCount(0);
+
+            PopulateTableRegister();
+            JOptionPane.showConfirmDialog(this, "Stock Item Succesfully Removed!", "Delete Succesful", JOptionPane.DEFAULT_OPTION);
+        }
+        catch (NullPointerException npe)
+        {
+            Helper.DisplayError("There is no data currently available in the table");
+        }
     }//GEN-LAST:event_btnPromptUpdateMouseClicked
 
-    private void ResetInsertForm()
-    {
-        txtInsertProductName.setText("");
-        txtInsertModel.setText("");
-        txtInsertPrice.setText("");
-        cmbInsertCatgory.setSelectedIndex(0);
-        spnInsertQuantity.setValue(0);
-    }
+    private void btnViewAllStockBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnViewAllStockBackMouseClicked
+        DefaultTableModel model = (DefaultTableModel) tblAllStock.getModel();
+        model.setRowCount(0);
+        tpAdminControls.remove(tabPanels[2]);
+    }//GEN-LAST:event_btnViewAllStockBackMouseClicked
+
+    private void btnAcceptUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcceptUserMouseClicked
+        try
+        {
+            selectedStaff.InsertStaff();
+            registerStaff.remove(selectedStaff);
+            tblRegisterRequests.setModel(new DefaultTableModel());
+            PopulateTableRegister();
+            JOptionPane.showConfirmDialog(this, "User succesfully Accepted", "Registration Completed", JOptionPane.DEFAULT_OPTION);
+        }
+        catch (NullPointerException npe)
+        {
+            Helper.DisplayError("There is no data currently available in the table");
+        }
+    }//GEN-LAST:event_btnAcceptUserMouseClicked
+
+    private void btnDeleteRegisterUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteRegisterUserMouseClicked
+        try
+        {
+            SelectRowRegister();
+            selectedStaff.DeleteRegistry();
+            registerStaff.remove(selectedStaff);
+
+            DefaultTableModel model = (DefaultTableModel) tblRegisterRequests.getModel();
+            model.setRowCount(0);
+
+            PopulateTableRegister();
+            JOptionPane.showConfirmDialog(this, "User succesfully Removed", "Registration Completed", JOptionPane.DEFAULT_OPTION);
+        }
+        catch (NullPointerException npe)
+        {
+            Helper.DisplayError("There is no data currently available in the table");
+        }
+    }//GEN-LAST:event_btnDeleteRegisterUserMouseClicked
+
+    private void btnRegisterUserBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegisterUserBackMouseClicked
+        DefaultTableModel model = (DefaultTableModel) tblRegisterRequests.getModel();
+        model.setRowCount(0);
+        tpAdminControls.remove(tabPanels[1]);
+    }//GEN-LAST:event_btnRegisterUserBackMouseClicked
+
+    private void btnViewUsersBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnViewUsersBackMouseClicked
+        DefaultTableModel model = (DefaultTableModel) tblViewUsers.getModel();
+        model.setRowCount(0);
+        tpAdminControls.remove(tabPanels[0]);
+    }//GEN-LAST:event_btnViewUsersBackMouseClicked
 
     /**
      * @param args the command line arguments
@@ -945,6 +737,7 @@ public class JAdminModule extends javax.swing.JFrame
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable()
         {
+            @Override
             public void run()
             {
                 new JAdminModule().setVisible(true);
@@ -970,24 +763,13 @@ public class JAdminModule extends javax.swing.JFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcceptUser;
-    private javax.swing.JButton btnBackFromInsertStock;
-    private javax.swing.JButton btnClearStock;
     private javax.swing.JButton btnDeleteRegisterUser;
     private javax.swing.JButton btnDeleteStock;
-    private javax.swing.JButton btnInsertStock;
     private javax.swing.JButton btnPromptUpdate;
     private javax.swing.JButton btnRegisterUserBack;
     private javax.swing.JButton btnViewAllStockBack;
     private javax.swing.JButton btnViewUsersBack;
-    private javax.swing.JComboBox<String> cmbInsertCatgory;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1002,17 +784,12 @@ public class JAdminModule extends javax.swing.JFrame
     private javax.swing.JMenu jmManageStocks;
     private javax.swing.JMenuItem jmViewRegistrationRequests;
     private javax.swing.JMenuBar jmbAdminModule;
-    private javax.swing.JPanel pnlInsertStock;
     private javax.swing.JPanel pnlManageStaff;
     private javax.swing.JPanel pnlUserRegistrationRequests;
     private javax.swing.JPanel pnlViewAllStock;
-    private javax.swing.JSpinner spnInsertQuantity;
     private javax.swing.JTable tblAllStock;
     private javax.swing.JTable tblRegisterRequests;
     private javax.swing.JTable tblViewUsers;
     private javax.swing.JTabbedPane tpAdminControls;
-    private javax.swing.JTextField txtInsertModel;
-    private javax.swing.JTextField txtInsertPrice;
-    private javax.swing.JTextField txtInsertProductName;
     // End of variables declaration//GEN-END:variables
 }

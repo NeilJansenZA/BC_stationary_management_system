@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class Staff
 {
-    private DataConnection dc;
+    private DataConnection dc = new DataConnection();;
     
     private int staffID;
     private String staffName;
@@ -49,7 +49,6 @@ public class Staff
 
     public Staff()
     {
-        this.dc = new DataConnection();
     }
     
     public Staff(String staffName, String staffSurname, int staffCampusID, int staffDepartment, String staffCellNo, String staffEmail, String staffUsername, String staffPassword)

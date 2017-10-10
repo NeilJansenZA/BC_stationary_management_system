@@ -34,13 +34,6 @@ public class Authentication
             register = ld.isRegistering();
         }
         
-        if(dialogResult)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return dialogResult;
     }
 }

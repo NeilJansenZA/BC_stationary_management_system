@@ -126,4 +126,9 @@ public class StationaryStock
         this.price = price;
         this.quantity = quantity;
     }
+    
+    public void DeleteStockItem()
+    {
+        dc.DeleteStockItem(this.stationaryStockID);
+    }
 }
