@@ -6,6 +6,8 @@
 package PresentationModule.JLayourForms;
 
 import ApplicationHelper.Helper;
+import Authentication.ActiveAccess;
+import Authentication.AuthenticationSettings;
 import BusinessModule.Campus;
 import BusinessModule.Department;
 import BusinessModule.Staff;
@@ -42,7 +44,7 @@ public class JAdminModule extends javax.swing.JFrame
     {
         initComponents();
 
-        LoadTab();   
+        LoadTab();
     }
 
     private void LoadTab()
@@ -72,7 +74,8 @@ public class JAdminModule extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         tpAdminControls = new javax.swing.JTabbedPane();
         pnlManageStaff = new javax.swing.JPanel();
@@ -105,20 +108,26 @@ public class JAdminModule extends javax.swing.JFrame
         jmInserStock = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("The Belgium Campus Stationary Management System - Administration Module");
 
         tblViewUsers.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
 
             },
-            new String [] {
-                "Request Date", "Name", "Surname", "Campus Name", "Department Name", "Cell No", "Email", "Username", "Password"
+            new String []
+            {
+                "ID", "Name", "Surname", "Campus Name", "Department Name", "Cell No", "Email", "Username", "Password"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
+        )
+        {
+            boolean[] canEdit = new boolean []
+            {
                 false, false, false, false, false, false, false, false, false
             };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
                 return canEdit [columnIndex];
             }
         });
@@ -126,8 +135,10 @@ public class JAdminModule extends javax.swing.JFrame
         jScrollPane2.setViewportView(tblViewUsers);
 
         btnViewUsersBack.setText("Back");
-        btnViewUsersBack.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnViewUsersBack.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnViewUsersBackMouseClicked(evt);
             }
         });
@@ -158,18 +169,23 @@ public class JAdminModule extends javax.swing.JFrame
         tpAdminControls.addTab("Manage Staff", pnlManageStaff);
 
         tblRegisterRequests.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
 
             },
-            new String [] {
+            new String []
+            {
                 "Request Date", "Name", "Surname", "Campus Name", "Department Name", "Cell No", "Email", "Username", "Password"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
+        )
+        {
+            boolean[] canEdit = new boolean []
+            {
                 false, false, false, false, false, false, false, false, false
             };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
                 return canEdit [columnIndex];
             }
         });
@@ -177,22 +193,28 @@ public class JAdminModule extends javax.swing.JFrame
         jScrollPane1.setViewportView(tblRegisterRequests);
 
         btnRegisterUserBack.setText("Back");
-        btnRegisterUserBack.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnRegisterUserBack.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnRegisterUserBackMouseClicked(evt);
             }
         });
 
         btnDeleteRegisterUser.setText("Delete User");
-        btnDeleteRegisterUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnDeleteRegisterUser.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnDeleteRegisterUserMouseClicked(evt);
             }
         });
 
         btnAcceptUser.setText("Accept User");
-        btnAcceptUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnAcceptUser.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnAcceptUserMouseClicked(evt);
             }
         });
@@ -230,41 +252,52 @@ public class JAdminModule extends javax.swing.JFrame
         pnlUserRegistrationRequests.getAccessibleContext().setAccessibleName("");
 
         tblAllStock.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
 
             },
-            new String [] {
+            new String []
+            {
                 "Stationary Stock ID", "Product Name", "Category Name", "Model", "Price", "Quantity", "Date Of Entry / Update"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
+        )
+        {
+            boolean[] canEdit = new boolean []
+            {
                 false, false, false, false, false, false, false
             };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
                 return canEdit [columnIndex];
             }
         });
         jScrollPane3.setViewportView(tblAllStock);
 
         btnViewAllStockBack.setLabel("Back");
-        btnViewAllStockBack.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnViewAllStockBack.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnViewAllStockBackMouseClicked(evt);
             }
         });
 
         btnPromptUpdate.setText("Update");
         btnPromptUpdate.setToolTipText("");
-        btnPromptUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnPromptUpdate.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnPromptUpdateMouseClicked(evt);
             }
         });
 
         btnDeleteStock.setText("Delete");
-        btnDeleteStock.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnDeleteStock.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnDeleteStockMouseClicked(evt);
             }
         });
@@ -289,8 +322,8 @@ public class JAdminModule extends javax.swing.JFrame
             pnlViewAllStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlViewAllStockLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                .addGap(120, 120, 120)
                 .addGroup(pnlViewAllStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnViewAllStockBack)
                     .addComponent(btnPromptUpdate)
@@ -303,8 +336,10 @@ public class JAdminModule extends javax.swing.JFrame
         jmAdminApplication.setText("Application");
 
         jmAdminLogout.setText("Logout");
-        jmAdminLogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmAdminLogout.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmAdminLogoutActionPerformed(evt);
             }
         });
@@ -312,8 +347,10 @@ public class JAdminModule extends javax.swing.JFrame
         jmAdminApplication.add(jSeparator1);
 
         jmAdminClose.setText("Close");
-        jmAdminClose.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmAdminClose.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmAdminCloseActionPerformed(evt);
             }
         });
@@ -324,16 +361,20 @@ public class JAdminModule extends javax.swing.JFrame
         jmAccounts.setText("Accounts");
 
         jmManageRegisteredUsers.setText("Manage Registered Users");
-        jmManageRegisteredUsers.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmManageRegisteredUsers.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmManageRegisteredUsersActionPerformed(evt);
             }
         });
         jmAccounts.add(jmManageRegisteredUsers);
 
         jmViewRegistrationRequests.setText("View Registration Requests");
-        jmViewRegistrationRequests.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmViewRegistrationRequests.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmViewRegistrationRequestsActionPerformed(evt);
             }
         });
@@ -347,8 +388,10 @@ public class JAdminModule extends javax.swing.JFrame
 
         jmManageAllStock.setText("Manage All Stock");
         jmManageAllStock.setActionCommand("");
-        jmManageAllStock.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmManageAllStock.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmManageAllStockActionPerformed(evt);
             }
         });
@@ -356,8 +399,10 @@ public class JAdminModule extends javax.swing.JFrame
 
         jmInserStock.setText("Insert Stock");
         jmInserStock.setActionCommand("Insert New Stock");
-        jmInserStock.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmInserStock.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmInserStockActionPerformed(evt);
             }
         });
@@ -414,6 +459,7 @@ public class JAdminModule extends javax.swing.JFrame
             }
 
             tblViewUsers.setModel(model);
+            tblViewUsers.getColumnModel().getColumn(0).setPreferredWidth(15);
         } catch (ArrayIndexOutOfBoundsException aiob)
         {
             Helper.DisplayError(aiob.toString());
@@ -478,12 +524,16 @@ public class JAdminModule extends javax.swing.JFrame
             }
 
             tblAllStock.setModel(model);
+
+            tblAllStock.getColumnModel().getColumn(0).setPreferredWidth(30);
+            tblAllStock.getColumnModel().getColumn(4).setPreferredWidth(30);
+            tblAllStock.getColumnModel().getColumn(5).setPreferredWidth(30);
         } catch (ArrayIndexOutOfBoundsException aiob)
         {
             Helper.DisplayError(aiob.toString());
         } catch (Exception ex)
         {
-            Helper.DisplayError(ex.toString());
+            Helper.DisplayError(ex.getMessage().toString());
         }
     }
 
@@ -504,6 +554,7 @@ public class JAdminModule extends javax.swing.JFrame
         if (choice == JOptionPane.YES_OPTION)
         {
             dispose();
+            AuthenticationSettings.setAdminConnected(false);
             new Thread(new BC_StationaryManagementSystem()).start();
         }
     }//GEN-LAST:event_jmAdminLogoutActionPerformed
@@ -530,22 +581,23 @@ public class JAdminModule extends javax.swing.JFrame
     {
         try
         {
-            for (StationaryStock stock : stationaryStock) {
-                if (tblAllStock.getValueAt(tblAllStock.getSelectedRow(), 0).toString().equals(stock.getStationaryStockID()))
+            for (StationaryStock stock : stationaryStock)
+            {
+                if (tblAllStock.getValueAt(tblAllStock.getSelectedRow(), 0).toString().equals(String.valueOf(stock.getStationaryStockID())))
                 {
-                    selectedStock = stock;              
-                }
-                else
-                {
-                    Helper.DisplayError("An Error Occoured When Selecting Active Row");
+                    selectedStock = stock;
                 }
             }
-        }
-        catch (ArrayIndexOutOfBoundsException aiob)
+            if (selectedStock == null)
+            {
+                Helper.DisplayError("An Error Occoured When Selecting Active Row");
+            }
+        } catch (ArrayIndexOutOfBoundsException aiob)
         {
             Helper.DisplayError("Please Select A Row First before Making a selection");
-        }   
+        }
     }
+
     private void SelectRowRegister()
     {
         try
@@ -555,15 +607,16 @@ public class JAdminModule extends javax.swing.JFrame
                 if (tblRegisterRequests.getValueAt(tblRegisterRequests.getSelectedRow(), 7).toString().equals(staff.getStaffUsername()))
                 {
                     selectedStaff = staff;
-                } else
-                {
-                    Helper.DisplayError("An Error Occoured When Selecting Active Row");
                 }
+            }
+            if (selectedStaff == null)
+            {
+                Helper.DisplayError("An Error Occoured When Selecting Active Row");
             }
         } catch (ArrayIndexOutOfBoundsException aiob)
         {
             Helper.DisplayError("Please Select A Row First before Making a selection");
-        }      
+        }
     }
     private void jmManageRegisteredUsersActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmManageRegisteredUsersActionPerformed
     {//GEN-HEADEREND:event_jmManageRegisteredUsersActionPerformed
@@ -603,25 +656,28 @@ public class JAdminModule extends javax.swing.JFrame
 
     private void jmInserStockActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmInserStockActionPerformed
     {//GEN-HEADEREND:event_jmInserStockActionPerformed
-        this.dispose();
         StockDialog sd = new StockDialog(null, true);
-        sd.setVisible(true);     
+        sd.setVisible(true);
     }//GEN-LAST:event_jmInserStockActionPerformed
 
     private void btnDeleteStockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteStockMouseClicked
         try
         {
-            SelectRowStock();
-            selectedStock.DeleteStockItem();
-            stationaryStock.remove(selectedStock);
+            int choice = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this selection?", "Confirmation", JOptionPane.YES_NO_OPTION);
 
-            DefaultTableModel model = (DefaultTableModel) tblAllStock.getModel();
-            model.setRowCount(0);
+            if (choice == JOptionPane.YES_OPTION)
+            {
+                SelectRowStock();
+                selectedStock.DeleteStockItem();
+                stationaryStock.remove(selectedStock);
 
-            PopulateTableRegister();
-            JOptionPane.showConfirmDialog(this, "Stock Item Succesfully Updated!", "Update Succesful", JOptionPane.DEFAULT_OPTION);
-        }
-        catch (NullPointerException npe)
+                DefaultTableModel model = (DefaultTableModel) tblAllStock.getModel();
+                model.setRowCount(0);
+
+                PopulateTableAllStock();
+                JOptionPane.showConfirmDialog(this, "Stock Item Succesfully Updated!", "Update Succesful", JOptionPane.DEFAULT_OPTION);
+            }
+        } catch (NullPointerException npe)
         {
             Helper.DisplayError("There is no data currently available in the table");
         }
@@ -630,17 +686,23 @@ public class JAdminModule extends javax.swing.JFrame
     private void btnPromptUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPromptUpdateMouseClicked
         try
         {
-            SelectRowStock();
-            selectedStock.DeleteStockItem();
-            stationaryStock.remove(selectedStock);
+            int choice = JOptionPane.showConfirmDialog(this, "Are you sure you want to update this selection?", "Confirmation", JOptionPane.YES_NO_OPTION);
+            
+            if (choice == JOptionPane.YES_OPTION)
+            {
+                SelectRowStock();
+                ActiveAccess.setCurrentStock(selectedStock);
+                StockDialog sd = new StockDialog(null, true);
+                sd.setVisible(true);
 
-            DefaultTableModel model = (DefaultTableModel) tblAllStock.getModel();
-            model.setRowCount(0);
+                stationaryStock.remove(selectedStock);
 
-            PopulateTableRegister();
-            JOptionPane.showConfirmDialog(this, "Stock Item Succesfully Removed!", "Delete Succesful", JOptionPane.DEFAULT_OPTION);
-        }
-        catch (NullPointerException npe)
+                DefaultTableModel model = (DefaultTableModel) tblAllStock.getModel();
+                model.setRowCount(0);
+
+                PopulateTableAllStock();
+            }
+        } catch (NullPointerException npe)
         {
             Helper.DisplayError("There is no data currently available in the table");
         }
@@ -660,8 +722,7 @@ public class JAdminModule extends javax.swing.JFrame
             tblRegisterRequests.setModel(new DefaultTableModel());
             PopulateTableRegister();
             JOptionPane.showConfirmDialog(this, "User succesfully Accepted", "Registration Completed", JOptionPane.DEFAULT_OPTION);
-        }
-        catch (NullPointerException npe)
+        } catch (NullPointerException npe)
         {
             Helper.DisplayError("There is no data currently available in the table");
         }
@@ -679,8 +740,7 @@ public class JAdminModule extends javax.swing.JFrame
 
             PopulateTableRegister();
             JOptionPane.showConfirmDialog(this, "User succesfully Removed", "Registration Completed", JOptionPane.DEFAULT_OPTION);
-        }
-        catch (NullPointerException npe)
+        } catch (NullPointerException npe)
         {
             Helper.DisplayError("There is no data currently available in the table");
         }

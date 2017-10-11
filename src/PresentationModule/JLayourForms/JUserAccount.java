@@ -64,6 +64,7 @@ public class JUserAccount extends javax.swing.JFrame
         btnStaffBack = new javax.swing.JButton();
         btnStaffUpdate = new javax.swing.JButton();
         btnStaffClose = new javax.swing.JButton();
+        btnAccountClear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -212,6 +213,15 @@ public class JUserAccount extends javax.swing.JFrame
             }
         });
 
+        btnAccountClear.setText("Clear");
+        btnAccountClear.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                btnAccountClearMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -219,7 +229,9 @@ public class JUserAccount extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnStaffBack)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 293, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAccountClear)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 227, Short.MAX_VALUE)
                 .addComponent(btnStaffClose)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnStaffUpdate)
@@ -240,7 +252,9 @@ public class JUserAccount extends javax.swing.JFrame
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(485, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnStaffBack, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnStaffBack)
+                        .addComponent(btnAccountClear))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnStaffClose)
                         .addComponent(btnStaffUpdate)))
@@ -380,6 +394,11 @@ public class JUserAccount extends javax.swing.JFrame
         }
     }//GEN-LAST:event_btnStaffCloseMouseClicked
 
+    private void btnAccountClearMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnAccountClearMouseClicked
+    {//GEN-HEADEREND:event_btnAccountClearMouseClicked
+        ResetForm();
+    }//GEN-LAST:event_btnAccountClearMouseClicked
+
     private void LoadBoxes()
     {
         Campus campus = new Campus();
@@ -445,6 +464,7 @@ public class JUserAccount extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAccountClear;
     private javax.swing.JButton btnStaffBack;
     private javax.swing.JButton btnStaffClose;
     private javax.swing.JButton btnStaffUpdate;

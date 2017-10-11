@@ -155,6 +155,7 @@ public class JStaffModule extends javax.swing.JFrame
         if (choice == JOptionPane.YES_OPTION)
         {
             dispose();
+            AuthenticationSettings.setConnected(false);
             new Thread(new BC_StationaryManagementSystem()).start();
         }   
     }//GEN-LAST:event_jmStaffLogoutActionPerformed

@@ -26,7 +26,9 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnStaffBack" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="293" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnAccountClear" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="227" max="32767" attributes="0"/>
               <Component id="btnStaffClose" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnStaffUpdate" min="-2" max="-2" attributes="0"/>
@@ -53,7 +55,10 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace pref="485" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnStaffBack" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                      <Component id="btnStaffBack" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAccountClear" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                       <Component id="btnStaffClose" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnStaffUpdate" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -324,6 +329,14 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnStaffCloseMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnAccountClear">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Clear"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAccountClearMouseClicked"/>
       </Events>
     </Component>
   </SubComponents>

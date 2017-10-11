@@ -27,6 +27,16 @@ public class StationaryStock
     
     public StationaryStock() {}
 
+    public StationaryStock(int stationaryStockID, String productName, int stationaryCategoryID, String model, double price, int quantity)
+    {
+        this.stationaryStockID = stationaryStockID;
+        this.productName = productName;
+        this.stationaryCategoryID = stationaryCategoryID;
+        this.model = model;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
     public StationaryStock(int stationaryStockID, String productName, int stationaryCategoryID, String model, double price, int quantity, Date dateOfEntryUpdate)
     {
         this.stationaryStockID = stationaryStockID;
@@ -126,9 +136,20 @@ public class StationaryStock
         this.price = price;
         this.quantity = quantity;
     }
+
+    @Override
+    public String toString()
+    {
+        return "StationaryStock{" + "dc=" + dc + ", stationaryStockID=" + stationaryStockID + ", productName=" + productName + ", stationaryCategoryID=" + stationaryCategoryID + ", model=" + model + ", price=" + price + ", quantity=" + quantity + ", dateOfEntryUpdate=" + dateOfEntryUpdate + '}';
+    }
     
     public void DeleteStockItem()
     {
         dc.DeleteStockItem(this.stationaryStockID);
+    }
+    
+    public void UpdateStockEntry()
+    {
+        dc.UpdateStockEntry(this);
     }
 }

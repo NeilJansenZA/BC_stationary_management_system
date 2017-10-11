@@ -294,6 +294,31 @@ public class DataConnection<T>
         }
     }
     
+    public void UpdateStockEntry(StationaryStock stock)
+    {
+        ConnectToDB();
+        try
+        {
+            query = "CALL proc_UpdateStationaryStock(?,?,?,?,?,?,?)";
+            cs = con.prepareCall(query);
+            
+            cs.setInt(1, stock.getStationaryStockID());
+            cs.setString(2, stock.getProductName());
+            cs.setInt(3, stock.getStationaryCategoryID());
+            cs.setString(4, stock.getModel());
+            cs.setDouble(5, stock.getPrice());
+            cs.setInt(6, stock.getQuantity());
+            cs.setDate(7, new java.sql.Date(date.getTime()));
+            
+            cs.execute();
+            con.close();
+        }
+        catch (SQLException ex)
+        {
+            Helper.DisplayError(ex.toString(), "Database Error");
+        }
+    }
+    
     public void UpdateStaffEntry(Staff staff)
     {
         ConnectToDB();

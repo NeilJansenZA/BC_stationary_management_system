@@ -6,6 +6,7 @@
 package PresentationModule.JLayourForms;
 
 import ApplicationHelper.Helper;
+import Authentication.ActiveAccess;
 import BusinessModule.StationaryCategory;
 import BusinessModule.StationaryStock;
 import java.util.ArrayList;
@@ -16,20 +17,25 @@ import javax.swing.JOptionPane;
  *
  * @author monteh
  */
-public class StockDialog extends javax.swing.JDialog {
+public class StockDialog extends javax.swing.JDialog
+{
 
     private List<StationaryCategory> categories = new ArrayList<>();
+
     /**
      * Creates new form StockDialog
+     *
      * @param parent
      * @param modal
      */
-    public StockDialog(java.awt.Frame parent, boolean modal) {
+    public StockDialog(java.awt.Frame parent, boolean modal)
+    {
         super(parent, modal);
         initComponents();
         LoadBoxCategory();
+        ResetInsertForm();
     }
-    
+
     private void LoadBoxCategory()
     {
         try
@@ -42,8 +48,7 @@ public class StockDialog extends javax.swing.JDialog {
             }
 
             cmbInsertCatgory.setSelectedIndex(0);
-        }
-        catch(NullPointerException npe)
+        } catch (NullPointerException npe)
         {
             Helper.DisplayError(npe.toString());
         }
@@ -221,9 +226,7 @@ public class StockDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackStockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackStockMouseClicked
-        this.setVisible(false);
-        JAdminModule jam = new JAdminModule();
-        jam.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnBackStockMouseClicked
 
     private void btnCloseStockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseStockMouseClicked
@@ -240,52 +243,137 @@ public class StockDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClearStockMouseClicked
 
     private void btnSubmitStockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubmitStockMouseClicked
-        
+        Validation val = new Validation();
+        boolean validInput = false;
+        String productName, category, model, price, quantity;
+        int categoryID = 0;
+
+        productName = txtInsertProductName.getText();
+        category = cmbInsertCatgory.getSelectedItem().toString();
+        model = txtInsertModel.getText();
+        price = txtInsertPrice.getText();
+        quantity = spnInsertQuantity.getValue().toString();
+
+        try
+        {
+            validInput = val.ValidateStockEntry(productName, category, model, price, quantity);
+
+            if (validInput)
+            {
+                for (StationaryCategory categoryData : categories)
+                {
+                    if (categoryData.getName().equals(category))
+                    {
+                        categoryID = categoryData.getStationaryCategoryID();
+                    }
+                }
+
+                if (categoryID != 0)
+                {                
+                    if (ActiveAccess.getCurrentStock() == null)
+                    {
+                        StationaryStock statStock = new StationaryStock(productName, categoryID, model, Double.parseDouble(price), Integer.parseInt(quantity));
+                        statStock.InsertStationaryStock();
+                        JOptionPane.showConfirmDialog(this, "Stock Entry Has Been Entered Succesfully", "Entry Recieved", JOptionPane.DEFAULT_OPTION);
+                        dispose();
+                    }
+                    else
+                    {
+                        StationaryStock statStock = new StationaryStock(ActiveAccess.getCurrentStock().getStationaryStockID(), productName, categoryID, model, Double.parseDouble(price), Integer.parseInt(quantity));
+                        statStock.UpdateStockEntry();
+                        System.out.println(statStock.toString());
+                        ActiveAccess.setCurrentStock(null);
+                        JOptionPane.showConfirmDialog(this, "Stock Item Succesfully Updated!", "Update Succesful", JOptionPane.DEFAULT_OPTION);
+                        dispose();
+                    }          
+                } else
+                {
+                    throw new Exception("Error in ID set for field!");
+                }
+            } else
+            {
+                ResetInsertForm();
+            }
+        } catch (Exception ex)
+        {
+            Helper.DisplayError(ex.toString());
+        }
     }//GEN-LAST:event_btnSubmitStockMouseClicked
 
     private void ResetInsertForm()
     {
-        txtInsertProductName.setText("");
-        txtInsertModel.setText("");
-        txtInsertPrice.setText("");
-        cmbInsertCatgory.setSelectedIndex(0);
-        spnInsertQuantity.setValue(0);
+        if (ActiveAccess.getCurrentStock() == null)
+        {
+            txtInsertProductName.setText("");
+            txtInsertModel.setText("");
+            txtInsertPrice.setText("");
+            cmbInsertCatgory.setSelectedIndex(0);
+            spnInsertQuantity.setValue(0);
+        } else
+        {
+            txtInsertProductName.setText(ActiveAccess.getCurrentStock().getProductName());
+            txtInsertModel.setText(ActiveAccess.getCurrentStock().getModel());
+            txtInsertPrice.setText(String.valueOf(ActiveAccess.getCurrentStock().getPrice()));
+            cmbInsertCatgory.setSelectedIndex(categories.indexOf(ActiveAccess.getCurrentStock().getStationaryCategoryID()));
+            spnInsertQuantity.setValue(ActiveAccess.getCurrentStock().getQuantity());
+            
+            for (StationaryCategory category : categories)
+            {
+                if(category.getStationaryCategoryID() == ActiveAccess.getCurrentStock().getStationaryCategoryID())
+                {
+                    cmbInsertCatgory.setSelectedItem(category.getName());
+                }
+            }
+        }
     }
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(StockDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        } catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(StockDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(StockDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(StockDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 StockDialog dialog = new StockDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                dialog.addWindowListener(new java.awt.event.WindowAdapter()
+                {
                     @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
+                    public void windowClosing(java.awt.event.WindowEvent e)
+                    {
                         System.exit(0);
                     }
                 });
