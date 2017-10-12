@@ -281,7 +281,6 @@ public class StockDialog extends javax.swing.JDialog
                     {
                         StationaryStock statStock = new StationaryStock(ActiveAccess.getCurrentStock().getStationaryStockID(), productName, categoryID, model, Double.parseDouble(price), Integer.parseInt(quantity));
                         statStock.UpdateStockEntry();
-                        System.out.println(statStock.toString());
                         ActiveAccess.setCurrentStock(null);
                         JOptionPane.showConfirmDialog(this, "Stock Item Succesfully Updated!", "Update Succesful", JOptionPane.DEFAULT_OPTION);
                         dispose();

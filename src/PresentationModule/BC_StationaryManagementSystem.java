@@ -5,7 +5,6 @@
  */
 package PresentationModule;
 
-import ApplicationHelper.Helper;
 import Authentication.AuthenticationSettings;
 import PresentationModule.JLayourForms.JAdminModule;
 import PresentationModule.JLayourForms.JStaffModule;

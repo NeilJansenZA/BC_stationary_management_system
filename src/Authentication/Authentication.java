@@ -7,8 +7,6 @@ package Authentication;
 
 import PresentationModule.JLayourForms.LoginDialog;
 import SecurityModule.Internal;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 
 
 public class Authentication

@@ -52,8 +52,7 @@ public class LoginDialog extends javax.swing.JDialog
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -74,28 +73,22 @@ public class LoginDialog extends javax.swing.JDialog
         jLabel2.setText("Password:");
 
         btnLogin.setText("Login");
-        btnLogin.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginMouseClicked(evt);
             }
         });
 
         btnLoginCancel.setText("Cancel");
-        btnLoginCancel.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        btnLoginCancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginCancelMouseClicked(evt);
             }
         });
 
         btnLoginRegister.setText("Register");
-        btnLoginRegister.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        btnLoginRegister.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginRegisterMouseClicked(evt);
             }
         });
@@ -109,7 +102,7 @@ public class LoginDialog extends javax.swing.JDialog
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnLoginRegister)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
                         .addComponent(btnLogin)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnLoginCancel))

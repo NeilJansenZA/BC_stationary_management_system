@@ -20,8 +20,7 @@ public class Startup
         {
             Authentication logon = new Authentication();
             
-            boolean authenticated = false;
-            boolean connected = false;
+            boolean authenticated;
             
             authenticated = logon.Logon();
             

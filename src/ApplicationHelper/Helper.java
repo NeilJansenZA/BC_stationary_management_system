@@ -5,12 +5,7 @@
  */
 package ApplicationHelper;
 
-import PresentationModule.BC_StationaryManagementSystem;
 import java.awt.Window;
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
 import javax.swing.FocusManager;
 import javax.swing.JOptionPane;
 
@@ -60,7 +55,7 @@ public class Helper
         }
         catch(Exception ex)
         {
-            
+            JOptionPane.showConfirmDialog(null, ex.toString(), "Error Display Error", JOptionPane.DEFAULT_OPTION);
         }
     }
 }
