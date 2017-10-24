@@ -7,15 +7,18 @@ package PresentationModule.JLayourForms;
 
 import ApplicationHelper.Helper;
 import Authentication.AuthenticationSettings;
-import BusinessModule.Staff;
+import BusinessModule.Order;
+import BusinessModule.StaffOrder;
+import BusinessModule.StaffStockOrder;
+import BusinessModule.StationaryStock;
 import PresentationModule.BC_StationaryManagementSystem;
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,10 +26,17 @@ import javax.swing.JOptionPane;
  */
 public class JStaffModule extends javax.swing.JFrame
 {
+    private JPanel[] tabPanels;
+    private int totalTabs;
+    
+    private List<Order> approvedOrders = new ArrayList<>();
+    private List<StaffStockOrder> orderDetails = new ArrayList<>();
 
     public JStaffModule()
     {
         initComponents();
+        
+        LoadTab();
     }
 
     /**
@@ -42,6 +52,25 @@ public class JStaffModule extends javax.swing.JFrame
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        tpStaffControls = new javax.swing.JTabbedPane();
+        pnlManageStaff = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblMyOrders = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblOrderDetails = new javax.swing.JTable();
+        btnMyOrdersCloseTab = new javax.swing.JButton();
+        pnlUserRegistrationRequests = new javax.swing.JPanel();
+        pnlViewAllStock = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblAllStockStaff = new javax.swing.JTable();
+        btnViewStationaryCloseTab = new javax.swing.JButton();
+        btnAddFromStationry = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtFilterProductName = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        cmbFilterCategory = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        cmbPrioritySort = new javax.swing.JComboBox<>();
         jmbStaffModule = new javax.swing.JMenuBar();
         jmStaffAccount = new javax.swing.JMenu();
         jmStaffMyAccount = new javax.swing.JMenuItem();
@@ -50,8 +79,9 @@ public class JStaffModule extends javax.swing.JFrame
         jmStaffModuleClose = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jmStaffOrders = new javax.swing.JMenu();
+        jmMyOrders = new javax.swing.JMenuItem();
         jmStaffOrdersPending = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jmCurrentOrder = new javax.swing.JMenuItem();
         jmStaffStationary = new javax.swing.JMenu();
         jmStaffViewStationary = new javax.swing.JMenuItem();
 
@@ -62,6 +92,224 @@ public class JStaffModule extends javax.swing.JFrame
         jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        tblMyOrders.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][]
+            {
+
+            },
+            new String []
+            {
+                "Order ID", "Stock Order ID", "Order Date", "Order Total"
+            }
+        )
+        {
+            Class[] types = new Class []
+            {
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean []
+            {
+                true, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex)
+            {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
+                return canEdit [columnIndex];
+            }
+        });
+        tblMyOrders.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                tblMyOrdersMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblMyOrders);
+
+        tblOrderDetails.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][]
+            {
+
+            },
+            new String []
+            {
+                "Product Name", "Quantity", "Price"
+            }
+        )
+        {
+            Class[] types = new Class []
+            {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean []
+            {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex)
+            {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tblOrderDetails);
+
+        btnMyOrdersCloseTab.setText("Close Tab");
+        btnMyOrdersCloseTab.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                btnMyOrdersCloseTabMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlManageStaffLayout = new javax.swing.GroupLayout(pnlManageStaff);
+        pnlManageStaff.setLayout(pnlManageStaffLayout);
+        pnlManageStaffLayout.setHorizontalGroup(
+            pnlManageStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlManageStaffLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlManageStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlManageStaffLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlManageStaffLayout.createSequentialGroup()
+                        .addComponent(btnMyOrdersCloseTab)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        pnlManageStaffLayout.setVerticalGroup(
+            pnlManageStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlManageStaffLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlManageStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addComponent(btnMyOrdersCloseTab)
+                .addContainerGap())
+        );
+
+        tpStaffControls.addTab("My Orders", pnlManageStaff);
+
+        javax.swing.GroupLayout pnlUserRegistrationRequestsLayout = new javax.swing.GroupLayout(pnlUserRegistrationRequests);
+        pnlUserRegistrationRequests.setLayout(pnlUserRegistrationRequestsLayout);
+        pnlUserRegistrationRequestsLayout.setHorizontalGroup(
+            pnlUserRegistrationRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1017, Short.MAX_VALUE)
+        );
+        pnlUserRegistrationRequestsLayout.setVerticalGroup(
+            pnlUserRegistrationRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 464, Short.MAX_VALUE)
+        );
+
+        tpStaffControls.addTab("Pending Orders", pnlUserRegistrationRequests);
+
+        tblAllStockStaff.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][]
+            {
+
+            },
+            new String []
+            {
+                "Stationary Stock ID", "Product Name", "Category Name", "Model", "Price", "Quantity", "Date Of Entry / Update"
+            }
+        )
+        {
+            boolean[] canEdit = new boolean []
+            {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tblAllStockStaff);
+
+        btnViewStationaryCloseTab.setText("Close Tab");
+        btnViewStationaryCloseTab.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                btnViewStationaryCloseTabMouseClicked(evt);
+            }
+        });
+
+        btnAddFromStationry.setText("Add To Current Order");
+
+        jLabel1.setText("Product Name:");
+
+        jLabel2.setText("Category Name:");
+
+        jLabel3.setText("Priority Sort:");
+
+        cmbPrioritySort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Price - High to Low", "Price - Low to High", "Quantity - High to Low", "Quantity - Low to High", "Date - Closest Date to Furthest Date", "Date - Furthest Date to Closest Date" }));
+
+        javax.swing.GroupLayout pnlViewAllStockLayout = new javax.swing.GroupLayout(pnlViewAllStock);
+        pnlViewAllStock.setLayout(pnlViewAllStockLayout);
+        pnlViewAllStockLayout.setHorizontalGroup(
+            pnlViewAllStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlViewAllStockLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlViewAllStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
+                    .addGroup(pnlViewAllStockLayout.createSequentialGroup()
+                        .addComponent(btnViewStationaryCloseTab)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAddFromStationry))
+                    .addGroup(pnlViewAllStockLayout.createSequentialGroup()
+                        .addGroup(pnlViewAllStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlViewAllStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlViewAllStockLayout.createSequentialGroup()
+                                .addComponent(cmbFilterCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(pnlViewAllStockLayout.createSequentialGroup()
+                                .addComponent(txtFilterProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel3)))
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbPrioritySort, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        pnlViewAllStockLayout.setVerticalGroup(
+            pnlViewAllStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlViewAllStockLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(pnlViewAllStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtFilterProductName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(cmbPrioritySort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(pnlViewAllStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(cmbFilterCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlViewAllStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnViewStationaryCloseTab)
+                    .addComponent(btnAddFromStationry))
+                .addContainerGap())
+        );
+
+        tpStaffControls.addTab("View All Stationary", pnlViewAllStock);
 
         jmStaffAccount.setText("Account");
 
@@ -101,11 +349,21 @@ public class JStaffModule extends javax.swing.JFrame
 
         jmStaffOrders.setText("Orders");
 
+        jmMyOrders.setText("My Orders");
+        jmMyOrders.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jmMyOrdersActionPerformed(evt);
+            }
+        });
+        jmStaffOrders.add(jmMyOrders);
+
         jmStaffOrdersPending.setText("My Pending Orders");
         jmStaffOrders.add(jmStaffOrdersPending);
 
-        jMenuItem1.setText("My Orders");
-        jmStaffOrders.add(jMenuItem1);
+        jmCurrentOrder.setText("View Current Order");
+        jmStaffOrders.add(jmCurrentOrder);
 
         jmbStaffModule.add(jmStaffOrders);
 
@@ -113,6 +371,13 @@ public class JStaffModule extends javax.swing.JFrame
 
         jmStaffViewStationary.setText("View Stationary");
         jmStaffViewStationary.setToolTipText("");
+        jmStaffViewStationary.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jmStaffViewStationaryActionPerformed(evt);
+            }
+        });
         jmStaffStationary.add(jmStaffViewStationary);
 
         jmbStaffModule.add(jmStaffStationary);
@@ -123,17 +388,103 @@ public class JStaffModule extends javax.swing.JFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tpStaffControls)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 379, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tpStaffControls, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    // <editor-fold defaultstate="collapsed" desc="LoadTab">
+    private void LoadTab()
+    {
+        totalTabs = tpStaffControls.getComponentCount();
+        tabPanels = new JPanel[totalTabs];
+        try
+        {
+            for (int i = 0; i < totalTabs; i++)
+            {
+                JPanel singlePanel = ((JPanel) tpStaffControls.getComponent(0));
+                tabPanels[i] = singlePanel;
+
+                tpStaffControls.remove(0);
+            }
+
+        } catch (Exception ex)
+        {
+            Helper.DisplayError(ex.toString());
+        }
+    }
+    // </editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Populate Tables">
+    private void PopulateUserOrdersTable()
+    {
+        try
+        {
+            approvedOrders = new Order().LoadMyApprovedOrders();
+            
+            DefaultTableModel model = (DefaultTableModel) tblMyOrders.getModel();
+            
+            for (Order order : approvedOrders)
+            {
+                Object[] o = new Object[4];
+                o[0] = order.getOrderID();
+                o[1] = order.getStaffOrder().getStaffStockOrderID();
+                o[2] = order.getStaffOrder().getOrderDate();
+                o[3] = order.getStaffOrder().getOrderTotal();
+                model.addRow(o);
+            }
+            
+            tblMyOrders.setModel(model);       
+        }
+        catch (ArrayIndexOutOfBoundsException aiob)
+        {
+            Helper.DisplayError(aiob.toString());
+        } catch (Exception ex)
+        {
+            Helper.DisplayError(ex.toString());
+        }
+    }
+    
+    private void PopulateOrderDetails()
+    {
+        try
+       {        
+            DefaultTableModel model = (DefaultTableModel) tblOrderDetails.getModel();
+            
+            for (StaffStockOrder details : orderDetails)
+            {
+                Object[] o = new Object[3];
+                o[0] = new StationaryStock().GetProductFromID(details.getStationaryStockID());
+                o[1] = details.getQuantity();
+                o[2] = details.getPrice();
+                model.addRow(o);
+            }
+            
+            tblOrderDetails.setModel(model);       
+        }
+        catch (ArrayIndexOutOfBoundsException aiob)
+        {
+            Helper.DisplayError(aiob.toString());
+        } catch (Exception ex)
+        {
+            Helper.DisplayError(ex.toString());
+        }
+    }
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Menu Buttons Press">
     private void jmStaffMyAccountActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmStaffMyAccountActionPerformed
     {//GEN-HEADEREND:event_jmStaffMyAccountActionPerformed
         try
@@ -170,10 +521,69 @@ public class JStaffModule extends javax.swing.JFrame
         }
     }//GEN-LAST:event_jmStaffModuleCloseActionPerformed
 
+    private void jmMyOrdersActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmMyOrdersActionPerformed
+    {//GEN-HEADEREND:event_jmMyOrdersActionPerformed
+        try
+        {
+            if (!tpStaffControls.getSelectedComponent().equals(tabPanels[0]))
+            {
+                tpStaffControls.addTab("My Orders", tabPanels[0]);
+                tpStaffControls.setSelectedIndex(tpStaffControls.getComponentCount() - 1);
+                PopulateUserOrdersTable();
+            }
+        } catch (NullPointerException npe)
+        {
+            tpStaffControls.addTab("My Orders", tabPanels[0]);
+            tpStaffControls.setSelectedIndex(tpStaffControls.getComponentCount() - 1);
+            PopulateUserOrdersTable();
+        }
+    }//GEN-LAST:event_jmMyOrdersActionPerformed
+
+    private void tblMyOrdersMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_tblMyOrdersMouseClicked
+    {//GEN-HEADEREND:event_tblMyOrdersMouseClicked
+        String stockOrderID = tblMyOrders.getValueAt(tblMyOrders.getSelectedRow(), 1).toString();
+        orderDetails = new StaffStockOrder().GetOrderDetails(stockOrderID);
+        PopulateOrderDetails();
+    }//GEN-LAST:event_tblMyOrdersMouseClicked
+
+    private void btnMyOrdersCloseTabMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnMyOrdersCloseTabMouseClicked
+    {//GEN-HEADEREND:event_btnMyOrdersCloseTabMouseClicked
+        DefaultTableModel model = (DefaultTableModel) tblMyOrders.getModel();
+        model.setRowCount(0);
+        DefaultTableModel model2 = (DefaultTableModel) tblOrderDetails.getModel();
+        model2.setRowCount(0);
+        tpStaffControls.remove(tabPanels[0]);
+    }//GEN-LAST:event_btnMyOrdersCloseTabMouseClicked
+
+    private void jmStaffViewStationaryActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmStaffViewStationaryActionPerformed
+    {//GEN-HEADEREND:event_jmStaffViewStationaryActionPerformed
+        try
+        {
+            if (!tpStaffControls.getSelectedComponent().equals(tabPanels[2]))
+            {
+                tpStaffControls.addTab("View All Stationary", tabPanels[2]);
+                tpStaffControls.setSelectedIndex(tpStaffControls.getComponentCount() - 1);
+                PopulateUserOrdersTable();
+            }
+        } catch (NullPointerException npe)
+        {
+            tpStaffControls.addTab("View All Stationary", tabPanels[2]);
+            tpStaffControls.setSelectedIndex(tpStaffControls.getComponentCount() - 1);
+            PopulateUserOrdersTable();
+        }
+    }//GEN-LAST:event_jmStaffViewStationaryActionPerformed
+
+    private void btnViewStationaryCloseTabMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnViewStationaryCloseTabMouseClicked
+    {//GEN-HEADEREND:event_btnViewStationaryCloseTabMouseClicked
+        DefaultTableModel model = (DefaultTableModel) tblAllStockStaff.getModel();
+        model.setRowCount(0);
+        tpStaffControls.remove(tabPanels[0]);
+    }//GEN-LAST:event_btnViewStationaryCloseTabMouseClicked
+    //</editor-fold>
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[])
+    public void main(String args[])
     {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -210,18 +620,30 @@ public class JStaffModule extends javax.swing.JFrame
         {
             public void run()
             {
-                new JStaffModule().setVisible(true);
+                new JStaffModule().setVisible(true);             
             }
-        });
+        });   
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddFromStationry;
+    private javax.swing.JButton btnMyOrdersCloseTab;
+    private javax.swing.JButton btnViewStationaryCloseTab;
+    private javax.swing.JComboBox<String> cmbFilterCategory;
+    private javax.swing.JComboBox<String> cmbPrioritySort;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JMenuItem jmCurrentOrder;
+    private javax.swing.JMenuItem jmMyOrders;
     private javax.swing.JMenu jmStaffAccount;
     private javax.swing.JMenuItem jmStaffLogout;
     private javax.swing.JMenuItem jmStaffModuleClose;
@@ -231,5 +653,13 @@ public class JStaffModule extends javax.swing.JFrame
     private javax.swing.JMenu jmStaffStationary;
     private javax.swing.JMenuItem jmStaffViewStationary;
     private javax.swing.JMenuBar jmbStaffModule;
+    private javax.swing.JPanel pnlManageStaff;
+    private javax.swing.JPanel pnlUserRegistrationRequests;
+    private javax.swing.JPanel pnlViewAllStock;
+    private javax.swing.JTable tblAllStockStaff;
+    private javax.swing.JTable tblMyOrders;
+    private javax.swing.JTable tblOrderDetails;
+    private javax.swing.JTabbedPane tpStaffControls;
+    private javax.swing.JTextField txtFilterProductName;
     // End of variables declaration//GEN-END:variables
 }

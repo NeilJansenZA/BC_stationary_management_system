@@ -38,6 +38,33 @@ public class DataConnection<T>
 
     public DataConnection(){}
     
+    public String GetProductFromID(int productID)
+    {
+        String name = "";
+        ConnectToDB();
+        try
+        {
+            query = "SELECT productName FROM tblstationarystock WHERE stationaryStockID = ?";
+            ps = con.prepareStatement(query);
+            
+            ps.setInt(1, productID);     
+            rs = ps.executeQuery();
+            
+            while(rs.next())
+            {
+                name = rs.getString(1);
+            }
+        }
+        catch (SQLException ex)
+        {
+            Helper.DisplayError(ex.toString(), "Database Error");
+        }
+        finally
+        {
+            return name;
+        }
+    }
+    
     public void InsertStationaryStock(StationaryStock stationaryStock)
     {
         ConnectToDB();
@@ -59,6 +86,95 @@ public class DataConnection<T>
         catch (SQLException ex)
         {
             Helper.DisplayError(ex.toString(), "Database Error");
+        }
+    }
+    
+    public List<T> GetOrderDetails(String staffStockID)
+    {
+        ConnectToDB();
+        try
+        {
+            query = "SELECT * FROM tblstaffstockorders WHERE staffStockID = ?";
+            ps = con.prepareStatement(query);
+            
+            ps.setString(1, staffStockID);
+            
+            rs = ps.executeQuery();
+            
+            while(rs.next())
+            {
+                readList.add((T) new StaffStockOrder(rs.getInt(2), rs.getInt(3), rs.getDouble(4)));
+            }
+            
+            con.close();
+        }
+        catch (SQLException ex)
+        {
+            Helper.DisplayError(ex.toString(), "Database Error");
+        }
+        finally
+        {
+            return readList;
+        }
+    }
+    
+    public List<T> LoadMyApprovedOrders()
+    {
+        ConnectToDB();
+        List<Integer> orders = new ArrayList<>();
+        try
+        {
+            query = "SELECT staffOrderID FROM tblstafforders WHERE staffID = ?";
+            ps = con.prepareStatement(query);
+            
+            ps.setInt(1, AuthenticationSettings.getCurrentUserID());
+            
+            rs = ps.executeQuery();
+            
+            while(rs.next())
+            {
+                orders.add(rs.getInt(1));
+            }
+   
+            for (Integer order : orders)
+            {
+                query = "SELECT * FROM tblorders WHERE staffOrderID = ?";
+                ps = con.prepareStatement(query);
+                
+                ps.setInt(1, order);
+                
+                rs = ps.executeQuery();
+                
+                while(rs.next())
+                {
+                    String orderID = "";
+                    java.sql.Date approvalDate = null;
+                    query = "SELECT * FROM tblstafforders WHERE staffOrderID = ?";
+                    ps = con.prepareStatement(query);
+                    
+                    ps.setInt(1, rs.getInt(2));
+                    orderID = rs.getString(1);
+                    approvalDate = rs.getDate(3);
+                    
+                    ResultSet rs2 = ps.executeQuery();
+                    while(rs2.next())
+                    {
+                        readList.add((T) new Order(orderID, new StaffOrder(rs2.getString(3), rs2.getDate(4), rs2.getDouble(5)), approvalDate));
+                    }
+                }
+            }
+            
+            
+            
+            con.close();
+        }
+        catch (SQLException ex)
+        {
+            Helper.DisplayError(ex.toString(), "Database Error");
+        }
+        finally
+        {
+            return readList;
         }
     }
     

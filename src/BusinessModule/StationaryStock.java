@@ -152,4 +152,9 @@ public class StationaryStock
     {
         dc.UpdateStockEntry(this);
     }
+    
+    public String GetProductFromID(int productID)
+    {
+        return dc.GetProductFromID(productID);
+    }
 }

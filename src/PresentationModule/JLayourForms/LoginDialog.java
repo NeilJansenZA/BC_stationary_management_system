@@ -169,7 +169,7 @@ public class LoginDialog extends javax.swing.JDialog
         {
             JOptionPane.showConfirmDialog(this, "This application will now be terminated due to 3 failed authentication attempts", "Authentication Error", JOptionPane.DEFAULT_OPTION);
             dialog = false;
-            dispose();
+            System.exit(-1);
         }
     }
 

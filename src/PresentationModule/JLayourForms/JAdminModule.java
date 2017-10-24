@@ -74,7 +74,8 @@ public class JAdminModule extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         tpAdminControls = new javax.swing.JTabbedPane();
         pnlManageStaff = new javax.swing.JPanel();
@@ -110,27 +111,34 @@ public class JAdminModule extends javax.swing.JFrame
         setTitle("The Belgium Campus Stationary Management System - Administration Module");
 
         tblViewUsers.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
 
             },
-            new String [] {
+            new String []
+            {
                 "ID", "Name", "Surname", "Campus Name", "Department Name", "Cell No", "Email", "Username", "Password"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
+        )
+        {
+            boolean[] canEdit = new boolean []
+            {
                 false, false, false, false, false, false, false, false, false
             };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
                 return canEdit [columnIndex];
             }
         });
         tblViewUsers.setName(""); // NOI18N
         jScrollPane2.setViewportView(tblViewUsers);
 
-        btnViewUsersBack.setText("Back");
-        btnViewUsersBack.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnViewUsersBack.setText("Close Tab");
+        btnViewUsersBack.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnViewUsersBackMouseClicked(evt);
             }
         });
@@ -153,7 +161,7 @@ public class JAdminModule extends javax.swing.JFrame
             .addGroup(pnlManageStaffLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnViewUsersBack)
                 .addContainerGap())
         );
@@ -161,41 +169,52 @@ public class JAdminModule extends javax.swing.JFrame
         tpAdminControls.addTab("Manage Staff", pnlManageStaff);
 
         tblRegisterRequests.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
 
             },
-            new String [] {
+            new String []
+            {
                 "Request Date", "Name", "Surname", "Campus Name", "Department Name", "Cell No", "Email", "Username", "Password"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
+        )
+        {
+            boolean[] canEdit = new boolean []
+            {
                 false, false, false, false, false, false, false, false, false
             };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
                 return canEdit [columnIndex];
             }
         });
         tblRegisterRequests.setName(""); // NOI18N
         jScrollPane1.setViewportView(tblRegisterRequests);
 
-        btnRegisterUserBack.setText("Back");
-        btnRegisterUserBack.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnRegisterUserBack.setText("Clase Tab");
+        btnRegisterUserBack.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnRegisterUserBackMouseClicked(evt);
             }
         });
 
         btnDeleteRegisterUser.setText("Delete User");
-        btnDeleteRegisterUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnDeleteRegisterUser.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnDeleteRegisterUserMouseClicked(evt);
             }
         });
 
         btnAcceptUser.setText("Accept User");
-        btnAcceptUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnAcceptUser.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnAcceptUserMouseClicked(evt);
             }
         });
@@ -207,7 +226,7 @@ public class JAdminModule extends javax.swing.JFrame
             .addGroup(pnlUserRegistrationRequestsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlUserRegistrationRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1032, Short.MAX_VALUE)
                     .addGroup(pnlUserRegistrationRequestsLayout.createSequentialGroup()
                         .addComponent(btnRegisterUserBack)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -221,7 +240,7 @@ public class JAdminModule extends javax.swing.JFrame
             .addGroup(pnlUserRegistrationRequestsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlUserRegistrationRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegisterUserBack)
                     .addComponent(btnAcceptUser)
@@ -233,41 +252,52 @@ public class JAdminModule extends javax.swing.JFrame
         pnlUserRegistrationRequests.getAccessibleContext().setAccessibleName("");
 
         tblAllStock.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
 
             },
-            new String [] {
+            new String []
+            {
                 "Stationary Stock ID", "Product Name", "Category Name", "Model", "Price", "Quantity", "Date Of Entry / Update"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
+        )
+        {
+            boolean[] canEdit = new boolean []
+            {
                 false, false, false, false, false, false, false
             };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
                 return canEdit [columnIndex];
             }
         });
         jScrollPane3.setViewportView(tblAllStock);
 
-        btnViewAllStockBack.setLabel("Back");
-        btnViewAllStockBack.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnViewAllStockBack.setText("Close Tab");
+        btnViewAllStockBack.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnViewAllStockBackMouseClicked(evt);
             }
         });
 
         btnPromptUpdate.setText("Update");
         btnPromptUpdate.setToolTipText("");
-        btnPromptUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnPromptUpdate.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnPromptUpdateMouseClicked(evt);
             }
         });
 
         btnDeleteStock.setText("Delete");
-        btnDeleteStock.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnDeleteStock.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnDeleteStockMouseClicked(evt);
             }
         });
@@ -279,7 +309,7 @@ public class JAdminModule extends javax.swing.JFrame
             .addGroup(pnlViewAllStockLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlViewAllStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1032, Short.MAX_VALUE)
                     .addGroup(pnlViewAllStockLayout.createSequentialGroup()
                         .addComponent(btnViewAllStockBack)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -306,8 +336,10 @@ public class JAdminModule extends javax.swing.JFrame
         jmAdminApplication.setText("Application");
 
         jmAdminLogout.setText("Logout");
-        jmAdminLogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmAdminLogout.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmAdminLogoutActionPerformed(evt);
             }
         });
@@ -315,8 +347,10 @@ public class JAdminModule extends javax.swing.JFrame
         jmAdminApplication.add(jSeparator1);
 
         jmAdminClose.setText("Close");
-        jmAdminClose.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmAdminClose.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmAdminCloseActionPerformed(evt);
             }
         });
@@ -327,16 +361,20 @@ public class JAdminModule extends javax.swing.JFrame
         jmAccounts.setText("Accounts");
 
         jmManageRegisteredUsers.setText("Manage Registered Users");
-        jmManageRegisteredUsers.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmManageRegisteredUsers.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmManageRegisteredUsersActionPerformed(evt);
             }
         });
         jmAccounts.add(jmManageRegisteredUsers);
 
         jmViewRegistrationRequests.setText("View Registration Requests");
-        jmViewRegistrationRequests.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmViewRegistrationRequests.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmViewRegistrationRequestsActionPerformed(evt);
             }
         });
@@ -350,8 +388,10 @@ public class JAdminModule extends javax.swing.JFrame
 
         jmManageAllStock.setText("Manage All Stock");
         jmManageAllStock.setActionCommand("");
-        jmManageAllStock.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmManageAllStock.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmManageAllStockActionPerformed(evt);
             }
         });
@@ -359,8 +399,10 @@ public class JAdminModule extends javax.swing.JFrame
 
         jmInserStock.setText("Insert Stock");
         jmInserStock.setActionCommand("Insert New Stock");
-        jmInserStock.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmInserStock.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmInserStockActionPerformed(evt);
             }
         });
@@ -768,23 +810,7 @@ public class JAdminModule extends javax.swing.JFrame
             @Override
             public void run()
             {
-                new JAdminModule().setVisible(true);
-
-                tblRegisterRequests.getModel().addTableModelListener(new TableModelListener()
-                {
-                    @Override
-                    public void tableChanged(TableModelEvent e)
-                    {
-                        for (Staff staff : registerStaff)
-                        {
-                            if (tblRegisterRequests.getValueAt(e.getFirstRow(), 7).toString().equals(staff.getStaffUsername()))
-                            {
-                                selectedStaff = staff;
-                                System.out.println(selectedStaff.toString());
-                            }
-                        }
-                    }
-                });
+                new JAdminModule().setVisible(true);       
             }
         });
     }

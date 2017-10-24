@@ -5,10 +5,15 @@
  */
 package PresentationModule;
 
+import ApplicationHelper.Helper;
 import Authentication.AuthenticationSettings;
 import PresentationModule.JLayourForms.JAdminModule;
 import PresentationModule.JLayourForms.JStaffModule;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 
 /**
@@ -24,26 +29,35 @@ public class BC_StationaryManagementSystem implements Runnable{
     @Override
     public void run()
     {
-        if(ApplicationHelper.Startup.Logon())
+        try
         {
-            if(AuthenticationSettings.isAdminConnected())
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            if(ApplicationHelper.Startup.Logon())
             {
-                JOptionPane.showConfirmDialog(null, "Welcome Administrator", "Authentication Succesful", JOptionPane.DEFAULT_OPTION);
-                JAdminModule jam = new JAdminModule();
-                jam.setVisible(true);
-                
+                if(AuthenticationSettings.isAdminConnected())
+                {
+                    JOptionPane.showConfirmDialog(null, "Welcome Administrator", "Authentication Succesful", JOptionPane.DEFAULT_OPTION);
+                    
+                    JAdminModule jam = new JAdminModule();
+                    jam.setVisible(true);               
+                }
+                else if(AuthenticationSettings.isConnected())
+                {
+                    JOptionPane.showConfirmDialog(null, "Welcome " + AuthenticationSettings.getConnectedStaff().getStaffUsername(), "Authentication Succesful", JOptionPane.DEFAULT_OPTION);
+                    JStaffModule jsm = new JStaffModule();
+                    jsm.setVisible(true);
+                }
             }
-            else if(AuthenticationSettings.isConnected())
+            else
             {
-                JOptionPane.showConfirmDialog(null, "Welcome " + AuthenticationSettings.getConnectedStaff().getStaffUsername(), "Authentication Succesful", JOptionPane.DEFAULT_OPTION);
-                JStaffModule jsm = new JStaffModule();
-                jsm.setVisible(true);
+                System.exit(0);
             }
         }
-        else
+        catch (ClassNotFoundException | InstantiationException| IllegalAccessException | UnsupportedLookAndFeelException ex) 
         {
-            System.exit(0);
+            Helper.DisplayError(ex.toString(), "Error in Setting UI Theme");
         }
+        
     }
     
 }

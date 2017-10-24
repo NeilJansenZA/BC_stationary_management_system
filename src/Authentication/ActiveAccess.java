@@ -5,7 +5,9 @@
  */
 package Authentication;
 
+import BusinessModule.StaffStockOrder;
 import BusinessModule.StationaryStock;
+import java.util.List;
 
 /**
  *
@@ -14,7 +16,8 @@ import BusinessModule.StationaryStock;
 public class ActiveAccess
 {
     private static StationaryStock CurrentStock;
-
+    private static List<StaffStockOrder> CurrentOrderList;
+    
     public static StationaryStock getCurrentStock()
     {
         return CurrentStock;
@@ -23,5 +26,15 @@ public class ActiveAccess
     public static void setCurrentStock(StationaryStock aCurrentStock)
     {
         CurrentStock = aCurrentStock;
+    }
+
+    public static List<StaffStockOrder> getCurrentOrderList()
+    {
+        return CurrentOrderList;
+    }
+
+    public static void setCurrentOrderList(List<StaffStockOrder> aCurrentOrderList)
+    {
+        CurrentOrderList = aCurrentOrderList;
     }
 }

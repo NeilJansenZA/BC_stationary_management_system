@@ -163,7 +163,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="332" max="-2" attributes="0"/>
-                      <EmptySpace pref="88" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnViewUsersBack" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -252,7 +252,7 @@
             </Container>
             <Component class="javax.swing.JButton" name="btnViewUsersBack">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Back"/>
+                <Property name="text" type="java.lang.String" value="Close Tab"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnViewUsersBackMouseClicked"/>
@@ -278,7 +278,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" alignment="0" pref="1005" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="0" pref="1032" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btnRegisterUserBack" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
@@ -296,7 +296,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="332" max="-2" attributes="0"/>
-                      <EmptySpace pref="88" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnRegisterUserBack" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnAcceptUser" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -389,7 +389,7 @@
             </Container>
             <Component class="javax.swing.JButton" name="btnRegisterUserBack">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Back"/>
+                <Property name="text" type="java.lang.String" value="Clase Tab"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnRegisterUserBackMouseClicked"/>
@@ -428,7 +428,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane3" alignment="0" pref="1005" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" alignment="0" pref="1032" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btnViewAllStockBack" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
@@ -526,7 +526,7 @@
             </Container>
             <Component class="javax.swing.JButton" name="btnViewAllStockBack">
               <Properties>
-                <Property name="label" type="java.lang.String" value="Back"/>
+                <Property name="text" type="java.lang.String" value="Close Tab"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnViewAllStockBackMouseClicked"/>
