@@ -8,16 +8,18 @@ package PresentationModule.JLayourForms;
 import ApplicationHelper.Helper;
 import Authentication.AuthenticationSettings;
 import BusinessModule.Order;
-import BusinessModule.StaffOrder;
 import BusinessModule.StaffStockOrder;
+import BusinessModule.StationaryCategory;
 import BusinessModule.StationaryStock;
+import BusinessModule.StockComporators.*;
+import BusinessModule.OrderComparators.*;
+import BusinessModule.OrderDetailsComparators.*;
 import PresentationModule.BC_StationaryManagementSystem;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,16 +29,22 @@ import javax.swing.table.DefaultTableModel;
 public class JStaffModule extends javax.swing.JFrame
 {
     private JPanel[] tabPanels;
+    private boolean[] loadedTabs;
     private int totalTabs;
     
     private List<Order> approvedOrders = new ArrayList<>();
     private List<StaffStockOrder> orderDetails = new ArrayList<>();
+    private List<StationaryStock> stationaryStock = new ArrayList<>();
+    private List<StationaryCategory> categories = new ArrayList<>();
+    private boolean formLoad = false;
 
     public JStaffModule()
     {
         initComponents();
         
         LoadTab();
+        LoadBoxCategory();
+        formLoad = true;
     }
 
     /**
@@ -46,8 +54,7 @@ public class JStaffModule extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -59,6 +66,10 @@ public class JStaffModule extends javax.swing.JFrame
         jScrollPane2 = new javax.swing.JScrollPane();
         tblOrderDetails = new javax.swing.JTable();
         btnMyOrdersCloseTab = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        cmbSortOrder = new javax.swing.JComboBox();
+        cmbSortDetails = new javax.swing.JComboBox();
         pnlUserRegistrationRequests = new javax.swing.JPanel();
         pnlViewAllStock = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -68,9 +79,9 @@ public class JStaffModule extends javax.swing.JFrame
         jLabel1 = new javax.swing.JLabel();
         txtFilterProductName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        cmbFilterCategory = new javax.swing.JComboBox<>();
+        cmbFilterCategory = new javax.swing.JComboBox<String>();
         jLabel3 = new javax.swing.JLabel();
-        cmbPrioritySort = new javax.swing.JComboBox<>();
+        cmbPrioritySort = new javax.swing.JComboBox<String>();
         jmbStaffModule = new javax.swing.JMenuBar();
         jmStaffAccount = new javax.swing.JMenu();
         jmStaffMyAccount = new javax.swing.JMenuItem();
@@ -81,9 +92,12 @@ public class JStaffModule extends javax.swing.JFrame
         jmStaffOrders = new javax.swing.JMenu();
         jmMyOrders = new javax.swing.JMenuItem();
         jmStaffOrdersPending = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jmCurrentOrder = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jmStaffStationary = new javax.swing.JMenu();
         jmStaffViewStationary = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
 
         jMenu1.setText("jMenu1");
 
@@ -94,82 +108,84 @@ public class JStaffModule extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         tblMyOrders.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
+            new Object [][] {
 
             },
-            new String []
-            {
-                "Order ID", "Stock Order ID", "Order Date", "Order Total"
+            new String [] {
+                "Order ID", "Stock Order ID", "Order Date", "Approval Date", "Order Total"
             }
-        )
-        {
-            Class[] types = new Class []
-            {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Double.class
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
             };
-            boolean[] canEdit = new boolean []
-            {
-                true, false, false, false
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
             };
 
-            public Class getColumnClass(int columnIndex)
-            {
+            public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tblMyOrders.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        tblMyOrders.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblMyOrdersMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tblMyOrders);
 
         tblOrderDetails.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
+            new Object [][] {
 
             },
-            new String []
-            {
+            new String [] {
                 "Product Name", "Quantity", "Price"
             }
-        )
-        {
-            Class[] types = new Class []
-            {
+        ) {
+            Class[] types = new Class [] {
                 java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
             };
-            boolean[] canEdit = new boolean []
-            {
+            boolean[] canEdit = new boolean [] {
                 false, false, false
             };
 
-            public Class getColumnClass(int columnIndex)
-            {
+            public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
         jScrollPane2.setViewportView(tblOrderDetails);
 
         btnMyOrdersCloseTab.setText("Close Tab");
-        btnMyOrdersCloseTab.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        btnMyOrdersCloseTab.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnMyOrdersCloseTabMouseClicked(evt);
+            }
+        });
+
+        jLabel4.setText("Priority Order Sort:");
+
+        jLabel5.setText("Priority Details Sort:");
+
+        cmbSortOrder.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Order Total - Highest to Lowest", "Order Total - Lowest to Highest", "Order Date - Closest Date to Furthest Date", "Order Date - Furthest Date to Closest Date", "Approval Date - Closest Date to Furthest Date", "Approval Date - Furthest Date to Closest Date" }));
+        cmbSortOrder.setSelectedIndex(-1);
+        cmbSortOrder.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbSortOrderItemStateChanged(evt);
+            }
+        });
+
+        cmbSortDetails.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Quantity - Highest to Lowest", "Quantity - Lowest to Highest", "Price - Highest to Lowest", "Price - Lowest to Highest" }));
+        cmbSortDetails.setSelectedIndex(-1);
+        cmbSortDetails.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbSortDetailsItemStateChanged(evt);
             }
         });
 
@@ -180,23 +196,35 @@ public class JStaffModule extends javax.swing.JFrame
             .addGroup(pnlManageStaffLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlManageStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMyOrdersCloseTab)
                     .addGroup(pnlManageStaffLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbSortOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addGroup(pnlManageStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlManageStaffLayout.createSequentialGroup()
-                        .addComponent(btnMyOrdersCloseTab)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbSortDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         pnlManageStaffLayout.setVerticalGroup(
             pnlManageStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlManageStaffLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlManageStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addGap(25, 25, 25)
+                .addGroup(pnlManageStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(cmbSortOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbSortDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(pnlManageStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnMyOrdersCloseTab)
                 .addContainerGap())
         );
@@ -217,33 +245,26 @@ public class JStaffModule extends javax.swing.JFrame
         tpStaffControls.addTab("Pending Orders", pnlUserRegistrationRequests);
 
         tblAllStockStaff.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
+            new Object [][] {
 
             },
-            new String []
-            {
+            new String [] {
                 "Stationary Stock ID", "Product Name", "Category Name", "Model", "Price", "Quantity", "Date Of Entry / Update"
             }
-        )
-        {
-            boolean[] canEdit = new boolean []
-            {
+        ) {
+            boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false
             };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
         jScrollPane3.setViewportView(tblAllStockStaff);
 
         btnViewStationaryCloseTab.setText("Close Tab");
-        btnViewStationaryCloseTab.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        btnViewStationaryCloseTab.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnViewStationaryCloseTabMouseClicked(evt);
             }
         });
@@ -252,11 +273,29 @@ public class JStaffModule extends javax.swing.JFrame
 
         jLabel1.setText("Product Name:");
 
+        txtFilterProductName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFilterProductNameKeyReleased(evt);
+            }
+        });
+
         jLabel2.setText("Category Name:");
+
+        cmbFilterCategory.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbFilterCategoryItemStateChanged(evt);
+            }
+        });
 
         jLabel3.setText("Priority Sort:");
 
-        cmbPrioritySort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Price - High to Low", "Price - Low to High", "Quantity - High to Low", "Quantity - Low to High", "Date - Closest Date to Furthest Date", "Date - Furthest Date to Closest Date" }));
+        cmbPrioritySort.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Price - High to Low", "Price - Low to High", "Quantity - High to Low", "Quantity - Low to High", "Date - Closest Date to Furthest Date", "Date - Furthest Date to Closest Date" }));
+        cmbPrioritySort.setSelectedIndex(-1);
+        cmbPrioritySort.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbPrioritySortItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlViewAllStockLayout = new javax.swing.GroupLayout(pnlViewAllStock);
         pnlViewAllStock.setLayout(pnlViewAllStockLayout);
@@ -314,20 +353,16 @@ public class JStaffModule extends javax.swing.JFrame
         jmStaffAccount.setText("Account");
 
         jmStaffMyAccount.setText("My Account");
-        jmStaffMyAccount.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmStaffMyAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmStaffMyAccountActionPerformed(evt);
             }
         });
         jmStaffAccount.add(jmStaffMyAccount);
 
         jmStaffLogout.setText("Logout");
-        jmStaffLogout.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmStaffLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmStaffLogoutActionPerformed(evt);
             }
         });
@@ -335,10 +370,8 @@ public class JStaffModule extends javax.swing.JFrame
         jmStaffAccount.add(jSeparator2);
 
         jmStaffModuleClose.setText("Close");
-        jmStaffModuleClose.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmStaffModuleClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmStaffModuleCloseActionPerformed(evt);
             }
         });
@@ -350,10 +383,8 @@ public class JStaffModule extends javax.swing.JFrame
         jmStaffOrders.setText("Orders");
 
         jmMyOrders.setText("My Orders");
-        jmMyOrders.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmMyOrders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmMyOrdersActionPerformed(evt);
             }
         });
@@ -361,9 +392,11 @@ public class JStaffModule extends javax.swing.JFrame
 
         jmStaffOrdersPending.setText("My Pending Orders");
         jmStaffOrders.add(jmStaffOrdersPending);
+        jmStaffOrders.add(jSeparator4);
 
         jmCurrentOrder.setText("View Current Order");
         jmStaffOrders.add(jmCurrentOrder);
+        jmStaffOrders.add(jSeparator3);
 
         jmbStaffModule.add(jmStaffOrders);
 
@@ -371,14 +404,13 @@ public class JStaffModule extends javax.swing.JFrame
 
         jmStaffViewStationary.setText("View Stationary");
         jmStaffViewStationary.setToolTipText("");
-        jmStaffViewStationary.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmStaffViewStationary.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmStaffViewStationaryActionPerformed(evt);
             }
         });
         jmStaffStationary.add(jmStaffViewStationary);
+        jmStaffStationary.add(jSeparator5);
 
         jmbStaffModule.add(jmStaffStationary);
 
@@ -405,11 +437,31 @@ public class JStaffModule extends javax.swing.JFrame
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void LoadBoxCategory()
+    {
+        try
+        {
+            cmbFilterCategory.addItem(null);
+            categories = new StationaryCategory().ReadStationaryCategory();
+
+            for (StationaryCategory categoryData : categories)
+            {
+                cmbFilterCategory.addItem(categoryData.getName());
+            }
+
+            cmbFilterCategory.setSelectedIndex(-1);
+        } catch (NullPointerException npe)
+        {
+            Helper.DisplayError(npe.toString());
+        }
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="LoadTab">
     private void LoadTab()
     {
         totalTabs = tpStaffControls.getComponentCount();
         tabPanels = new JPanel[totalTabs];
+        loadedTabs = new boolean[totalTabs];
         try
         {
             for (int i = 0; i < totalTabs; i++)
@@ -418,6 +470,7 @@ public class JStaffModule extends javax.swing.JFrame
                 tabPanels[i] = singlePanel;
 
                 tpStaffControls.remove(0);
+                loadedTabs[i] = false;
             }
 
         } catch (Exception ex)
@@ -427,22 +480,36 @@ public class JStaffModule extends javax.swing.JFrame
     }
     // </editor-fold>
     
+    private void LoadTableUserOrderData()
+    {
+        approvedOrders = new Order().LoadMyApprovedOrders();
+    }
+    
+    private void LoadTableOrderDetailsData()
+    {
+        String stockOrderID = tblMyOrders.getValueAt(tblMyOrders.getSelectedRow(), 1).toString();
+        orderDetails = new StaffStockOrder().GetOrderDetails(stockOrderID);
+    }
+    
+    private void LoadTableAllStockData()
+    {
+        stationaryStock = new StationaryStock().LoadStationaryStock();
+    }
     //<editor-fold defaultstate="collapsed" desc="Populate Tables">
     private void PopulateUserOrdersTable()
     {
         try
-        {
-            approvedOrders = new Order().LoadMyApprovedOrders();
-            
+        {        
             DefaultTableModel model = (DefaultTableModel) tblMyOrders.getModel();
             
             for (Order order : approvedOrders)
             {
-                Object[] o = new Object[4];
+                Object[] o = new Object[5];
                 o[0] = order.getOrderID();
                 o[1] = order.getStaffOrder().getStaffStockOrderID();
                 o[2] = order.getStaffOrder().getOrderDate();
-                o[3] = order.getStaffOrder().getOrderTotal();
+                o[3] = order.getApprovalDate();
+                o[4] = order.getStaffOrder().getOrderTotal();
                 model.addRow(o);
             }
             
@@ -480,6 +547,39 @@ public class JStaffModule extends javax.swing.JFrame
         } catch (Exception ex)
         {
             Helper.DisplayError(ex.toString());
+        }
+    }
+    
+    private void PopulateTableAllStock()
+    {
+        try
+        {
+            DefaultTableModel model = (DefaultTableModel) tblAllStockStaff.getModel();
+
+            for (StationaryStock stockData : stationaryStock)
+            {
+                Object[] o = new Object[9];
+                o[0] = stockData.getStationaryStockID();
+                o[1] = stockData.getProductName();
+                o[2] = new StationaryCategory().GetStationaryCategory(stockData.getStationaryCategoryID()).getName();
+                o[3] = stockData.getModel();
+                o[4] = stockData.getPrice();
+                o[5] = stockData.getQuantity();
+                o[6] = stockData.getDateOfEntryUpdate();
+                model.addRow(o);
+            }
+
+            tblAllStockStaff.setModel(model);
+
+            tblAllStockStaff.getColumnModel().getColumn(0).setPreferredWidth(30);
+            tblAllStockStaff.getColumnModel().getColumn(4).setPreferredWidth(30);
+            tblAllStockStaff.getColumnModel().getColumn(5).setPreferredWidth(30);
+        } catch (ArrayIndexOutOfBoundsException aiob)
+        {
+            Helper.DisplayError(aiob.toString());
+        } catch (Exception ex)
+        {
+            Helper.DisplayError(ex.getMessage());
         }
     }
     //</editor-fold>
@@ -523,26 +623,32 @@ public class JStaffModule extends javax.swing.JFrame
 
     private void jmMyOrdersActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmMyOrdersActionPerformed
     {//GEN-HEADEREND:event_jmMyOrdersActionPerformed
-        try
+        if(!loadedTabs[0])
         {
-            if (!tpStaffControls.getSelectedComponent().equals(tabPanels[0]))
+            try
+            {
+                if (!tpStaffControls.getSelectedComponent().equals(tabPanels[0]))
+                {
+                    tpStaffControls.addTab("My Orders", tabPanels[0]);
+                    tpStaffControls.setSelectedIndex(tpStaffControls.getComponentCount() - 1);
+                    LoadTableUserOrderData();
+                    PopulateUserOrdersTable();
+                    loadedTabs[0] = true;
+                }
+            } catch (NullPointerException npe)
             {
                 tpStaffControls.addTab("My Orders", tabPanels[0]);
                 tpStaffControls.setSelectedIndex(tpStaffControls.getComponentCount() - 1);
+                LoadTableUserOrderData();
                 PopulateUserOrdersTable();
+                loadedTabs[0] = true;
             }
-        } catch (NullPointerException npe)
-        {
-            tpStaffControls.addTab("My Orders", tabPanels[0]);
-            tpStaffControls.setSelectedIndex(tpStaffControls.getComponentCount() - 1);
-            PopulateUserOrdersTable();
         }
     }//GEN-LAST:event_jmMyOrdersActionPerformed
 
     private void tblMyOrdersMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_tblMyOrdersMouseClicked
     {//GEN-HEADEREND:event_tblMyOrdersMouseClicked
-        String stockOrderID = tblMyOrders.getValueAt(tblMyOrders.getSelectedRow(), 1).toString();
-        orderDetails = new StaffStockOrder().GetOrderDetails(stockOrderID);
+        LoadTableOrderDetailsData();
         PopulateOrderDetails();
     }//GEN-LAST:event_tblMyOrdersMouseClicked
 
@@ -553,23 +659,31 @@ public class JStaffModule extends javax.swing.JFrame
         DefaultTableModel model2 = (DefaultTableModel) tblOrderDetails.getModel();
         model2.setRowCount(0);
         tpStaffControls.remove(tabPanels[0]);
+        loadedTabs[0] = false;
     }//GEN-LAST:event_btnMyOrdersCloseTabMouseClicked
 
     private void jmStaffViewStationaryActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmStaffViewStationaryActionPerformed
     {//GEN-HEADEREND:event_jmStaffViewStationaryActionPerformed
-        try
+        if(!loadedTabs[2])
         {
-            if (!tpStaffControls.getSelectedComponent().equals(tabPanels[2]))
+            try
+            {
+                if (!tpStaffControls.getSelectedComponent().equals(tabPanels[2]))
+                {
+                    tpStaffControls.addTab("View All Stationary", tabPanels[2]);
+                    tpStaffControls.setSelectedIndex(tpStaffControls.getComponentCount() - 1);
+                    LoadTableAllStockData();
+                    PopulateTableAllStock();
+                    loadedTabs[2] = true;
+                }
+            } catch (NullPointerException npe)
             {
                 tpStaffControls.addTab("View All Stationary", tabPanels[2]);
                 tpStaffControls.setSelectedIndex(tpStaffControls.getComponentCount() - 1);
-                PopulateUserOrdersTable();
+                LoadTableAllStockData();
+                PopulateTableAllStock();
+                loadedTabs[2] = true;
             }
-        } catch (NullPointerException npe)
-        {
-            tpStaffControls.addTab("View All Stationary", tabPanels[2]);
-            tpStaffControls.setSelectedIndex(tpStaffControls.getComponentCount() - 1);
-            PopulateUserOrdersTable();
         }
     }//GEN-LAST:event_jmStaffViewStationaryActionPerformed
 
@@ -577,8 +691,167 @@ public class JStaffModule extends javax.swing.JFrame
     {//GEN-HEADEREND:event_btnViewStationaryCloseTabMouseClicked
         DefaultTableModel model = (DefaultTableModel) tblAllStockStaff.getModel();
         model.setRowCount(0);
-        tpStaffControls.remove(tabPanels[0]);
+        tpStaffControls.remove(tabPanels[2]);
+        loadedTabs[2] = false;
     }//GEN-LAST:event_btnViewStationaryCloseTabMouseClicked
+
+    private void txtFilterProductNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFilterProductNameKeyReleased
+        try
+        {
+            LoadTableAllStockData();
+            List<StationaryStock> stockToRemove = new ArrayList<>();
+
+            for (StationaryStock stock : stationaryStock) {
+                if(!stock.getProductName().toUpperCase().contains(txtFilterProductName.getText().toUpperCase()))
+                {
+                    stockToRemove.add(stock);
+                }
+            }
+        
+            stationaryStock.removeAll(stockToRemove);
+            
+            DefaultTableModel model = (DefaultTableModel) tblAllStockStaff.getModel();
+            model.setRowCount(0);
+            PopulateTableAllStock();
+        }
+        catch (Exception ex)
+        {
+            Helper.DisplayError(ex.toString(), "Error In Filter");
+        }
+    }//GEN-LAST:event_txtFilterProductNameKeyReleased
+
+    private void cmbFilterCategoryItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbFilterCategoryItemStateChanged
+        if(formLoad)
+        {
+            try
+            {
+                LoadTableAllStockData();
+                List<StationaryStock> stockToRemove = new ArrayList<>();
+
+                for (StationaryStock stock : stationaryStock) 
+                {
+                    for (StationaryCategory category : categories) {
+                        if(category.getName().equalsIgnoreCase(cmbFilterCategory.getSelectedItem().toString()))
+                        {
+                            if(stock.getStationaryCategoryID() != category.getStationaryCategoryID())
+                            {
+                                stockToRemove.add(stock);
+                            }
+                        }
+                    }
+                }
+
+                stationaryStock.removeAll(stockToRemove);
+
+                DefaultTableModel model = (DefaultTableModel) tblAllStockStaff.getModel();
+                model.setRowCount(0);
+                PopulateTableAllStock();
+            }
+            catch (Exception ex)
+            {
+                if(ex instanceof NullPointerException)
+                {
+                    LoadTableAllStockData();
+                    PopulateTableAllStock();
+                }
+                else
+                {
+                    Helper.DisplayError(ex.toString(), "Error In Filter");
+                }
+            }
+        }
+    }//GEN-LAST:event_cmbFilterCategoryItemStateChanged
+
+    private void cmbPrioritySortItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbPrioritySortItemStateChanged
+        switch(cmbPrioritySort.getSelectedIndex())
+        {
+            case 0:
+                Collections.sort(stationaryStock, new StockPrice_HighToLow());
+                break;
+                
+            case 1:
+                Collections.sort(stationaryStock, new StockPrice_LowToHigh());
+                break;
+                
+            case 2:
+                Collections.sort(stationaryStock, new StockQuantity_HighToLow());
+                break;
+                
+            case 3:
+                Collections.sort(stationaryStock, new StockQuantity_LowToHigh());
+                break;
+                
+            case 4:
+                Collections.sort(stationaryStock, new StockDate_ClosestToFurthest());
+                break;
+                
+            case 5:
+                Collections.sort(stationaryStock, new StockDate_FurthestToClosest());
+                break;
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) tblAllStockStaff.getModel();
+        model.setRowCount(0);
+        PopulateTableAllStock();
+    }//GEN-LAST:event_cmbPrioritySortItemStateChanged
+
+    private void cmbSortOrderItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbSortOrderItemStateChanged
+        switch(cmbSortOrder.getSelectedIndex())
+        {
+            case 0:
+                Collections.sort(approvedOrders, new OrderTotal_HighestToLowest());
+                break;
+                
+            case 1:
+                Collections.sort(approvedOrders, new OrderTotal_LowestToHighest());
+                break;
+                
+            case 2:
+                Collections.sort(approvedOrders, new OrderDate_ClosestToFurthest());
+                break;
+              
+            case 3:
+                Collections.sort(approvedOrders, new OrderDate_FurthestToClosest());
+                break;
+                
+            case 4:
+                Collections.sort(approvedOrders, new OrderApprovalDate_ClosestToFurthest());
+                break;
+                
+            case 5:
+                Collections.sort(approvedOrders, new OrderApprovalDate_FurthestToClosest());
+                break;
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) tblMyOrders.getModel();
+        model.setRowCount(0);
+        PopulateUserOrdersTable();
+    }//GEN-LAST:event_cmbSortOrderItemStateChanged
+
+    private void cmbSortDetailsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbSortDetailsItemStateChanged
+        switch(cmbSortDetails.getSelectedIndex())
+        {
+            case 0:
+                Collections.sort(orderDetails, new OrderDetailsQuantity_HighestToLowest());
+                break;
+                
+            case 1:
+                Collections.sort(orderDetails, new OrderDetailsQuantity_LowestToHighest());
+                break;
+                
+            case 2:
+                Collections.sort(orderDetails, new OrderDetailsPrice_HighestToLowest());
+                break;
+                
+            case 3:
+                Collections.sort(orderDetails, new OrderDetailsPrice_LowestToHighest());
+                break;
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) tblOrderDetails.getModel();
+        model.setRowCount(0);
+        PopulateOrderDetails();
+    }//GEN-LAST:event_cmbSortDetailsItemStateChanged
     //</editor-fold>
     /**
      * @param args the command line arguments
@@ -618,6 +891,7 @@ public class JStaffModule extends javax.swing.JFrame
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable()
         {
+            @Override
             public void run()
             {
                 new JStaffModule().setVisible(true);             
@@ -631,9 +905,13 @@ public class JStaffModule extends javax.swing.JFrame
     private javax.swing.JButton btnViewStationaryCloseTab;
     private javax.swing.JComboBox<String> cmbFilterCategory;
     private javax.swing.JComboBox<String> cmbPrioritySort;
+    private javax.swing.JComboBox cmbSortDetails;
+    private javax.swing.JComboBox cmbSortOrder;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem2;
@@ -642,6 +920,9 @@ public class JStaffModule extends javax.swing.JFrame
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JMenuItem jmCurrentOrder;
     private javax.swing.JMenuItem jmMyOrders;
     private javax.swing.JMenu jmStaffAccount;
