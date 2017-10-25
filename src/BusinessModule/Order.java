@@ -68,4 +68,10 @@ public class Order
         this.dc = new DataConnection();
         return (List<Order>) dc.LoadMyApprovedOrders();
     }
+    
+    public List<Order> LoadAllOrders()
+    {
+        this.dc = new DataConnection();
+        return (List<Order>) dc.LoadAllOrders();
+    }
 }

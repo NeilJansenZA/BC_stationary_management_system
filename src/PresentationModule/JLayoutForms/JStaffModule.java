@@ -1279,7 +1279,7 @@ public class JStaffModule extends javax.swing.JFrame
 
     private void jmCurrentOrderActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmCurrentOrderActionPerformed
     {//GEN-HEADEREND:event_jmCurrentOrderActionPerformed
-        if(Authentication.ActiveAccess.getCurrentOrderList().size() != 0)
+        if(!Authentication.ActiveAccess.getCurrentOrderList().isEmpty())
         {
             OrderDialog od = new OrderDialog(null, true);
             od.setVisible(true);

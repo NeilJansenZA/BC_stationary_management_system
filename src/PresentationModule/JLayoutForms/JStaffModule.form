@@ -34,9 +34,6 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmStaffMyAccount">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="J:\Belgium Campus\Third Year (2017)\PRG 321\Project\BC_stationary_management_system\icons\icons8-Checked User Male-16.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="My Account"/>
               </Properties>
               <Events>
@@ -45,9 +42,6 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmStaffLogout">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="J:\Belgium Campus\Third Year (2017)\PRG 321\Project\BC_stationary_management_system\icons\icons8-Logout Rounded Up-16.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Logout"/>
               </Properties>
               <Events>
@@ -58,9 +52,6 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmStaffModuleClose">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="J:\Belgium Campus\Third Year (2017)\PRG 321\Project\BC_stationary_management_system\icons\icons8-Cancel-16.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Close"/>
               </Properties>
               <Events>
@@ -78,9 +69,6 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmMyOrders">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="J:\Belgium Campus\Third Year (2017)\PRG 321\Project\BC_stationary_management_system\icons\icons8-List-16.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="My Orders"/>
               </Properties>
               <Events>
@@ -89,9 +77,6 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmStaffOrdersPending">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="J:\Belgium Campus\Third Year (2017)\PRG 321\Project\BC_stationary_management_system\icons\icons8-Bulleted List-16.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="My Pending Orders"/>
               </Properties>
               <Events>
@@ -102,9 +87,6 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmCurrentOrder">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="J:\Belgium Campus\Third Year (2017)\PRG 321\Project\BC_stationary_management_system\icons\icons8-Buy-16.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="View Current Order"/>
               </Properties>
               <Events>
@@ -122,9 +104,6 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmStaffViewStationary">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="J:\Belgium Campus\Third Year (2017)\PRG 321\Project\BC_stationary_management_system\icons\icons8-Edit-16.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="View Stationary"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>

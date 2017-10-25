@@ -116,12 +116,12 @@
         </Component>
         <Component class="javax.swing.JPasswordField" name="txtLoginPassword">
           <Properties>
-            <Property name="text" type="java.lang.String" value="drogonGOT"/>
+            <Property name="text" type="java.lang.String" value="Password1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtLoginUsername">
           <Properties>
-            <Property name="text" type="java.lang.String" value="DrogonGOT"/>
+            <Property name="text" type="java.lang.String" value="RepentZA"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnLogin">
