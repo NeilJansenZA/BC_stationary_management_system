@@ -157,4 +157,9 @@ public class StationaryStock
     {
         return dc.GetProductFromID(productID);
     }
+    
+    public void UpdateAfterOrder(List<StationaryStock> ss)
+    {
+        //dc.UpdateStockAfterOrder();
+    }
 }

@@ -34,6 +34,15 @@ public class StaffOrder
         this.orderStatus = orderStatus;
     }
 
+    public StaffOrder(String staffStockOrderID, Date orderDate, double orderTotal, String orderStatus)
+    {
+        this.dc = new DataConnection();
+        this.staffStockOrderID = staffStockOrderID;
+        this.orderDate = orderDate;
+        this.orderTotal = orderTotal;
+        this.orderStatus = orderStatus;
+    }
+
     public StaffOrder(String staffStockOrderID, Date orderDate, double orderTotal)
     {
         this.dc = new DataConnection();
@@ -41,22 +50,12 @@ public class StaffOrder
         this.orderDate = orderDate;
         this.orderTotal = orderTotal;
     }
-
+    
     public StaffOrder(int staffID, String staffStockOrderID, Date orderDate, double orderTotal)
     {
         this.dc = new DataConnection();
         this.staffID = staffID;
         this.staffStockOrderID = staffStockOrderID;       
-        this.orderDate = orderDate;
-        this.orderTotal = orderTotal;
-    }
-
-    public StaffOrder(int staffOrderID, int staffID, String staffStockOrderID, Date orderDate, double orderTotal)
-    {
-        this.dc = new DataConnection();
-        this.staffOrderID = staffOrderID;
-        this.staffID = staffID;
-        this.staffStockOrderID = staffStockOrderID;
         this.orderDate = orderDate;
         this.orderTotal = orderTotal;
     }
@@ -114,5 +113,20 @@ public class StaffOrder
     public void setStaffID(int staffID)
     {
         this.staffID = staffID;
+    }
+
+    public String getOrderStatus()
+    {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus)
+    {
+        this.orderStatus = orderStatus;
+    }
+    
+    public List<StaffOrder> LoadPendingOrders()
+    {
+        return dc.LoadMyPendingOrders();
     }
 }

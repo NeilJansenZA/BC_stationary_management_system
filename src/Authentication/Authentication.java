@@ -5,7 +5,7 @@
  */
 package Authentication;
 
-import PresentationModule.JLayourForms.LoginDialog;
+import PresentationModule.JLayoutForms.LoginDialog;
 import SecurityModule.Internal;
 
 

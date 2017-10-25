@@ -5,8 +5,10 @@
  */
 package Authentication;
 
+import BusinessModule.CurrentOrder;
 import BusinessModule.StaffStockOrder;
 import BusinessModule.StationaryStock;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +18,18 @@ import java.util.List;
 public class ActiveAccess
 {
     private static StationaryStock CurrentStock;
-    private static List<StaffStockOrder> CurrentOrderList;
+    public static List<StaffStockOrder> CurrentOrderList = new ArrayList<>();
+    public static CurrentOrder CurrentOrder;
+
+    public static CurrentOrder getCurrentOrder()
+    {
+        return CurrentOrder;
+    }
+
+    public static void setCurrentOrder(CurrentOrder currentOrder)
+    {
+        ActiveAccess.CurrentOrder = currentOrder;
+    }
     
     public static StationaryStock getCurrentStock()
     {
@@ -31,10 +44,5 @@ public class ActiveAccess
     public static List<StaffStockOrder> getCurrentOrderList()
     {
         return CurrentOrderList;
-    }
-
-    public static void setCurrentOrderList(List<StaffStockOrder> aCurrentOrderList)
-    {
-        CurrentOrderList = aCurrentOrderList;
     }
 }

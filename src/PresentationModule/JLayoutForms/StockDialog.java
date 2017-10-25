@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PresentationModule.JLayourForms;
+package PresentationModule.JLayoutForms;
 
 import ApplicationHelper.Helper;
 import Authentication.ActiveAccess;
@@ -61,7 +61,8 @@ public class StockDialog extends javax.swing.JDialog
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         btnSubmitStock = new javax.swing.JButton();
         btnBackStock = new javax.swing.JButton();
@@ -84,22 +85,28 @@ public class StockDialog extends javax.swing.JDialog
         setTitle("Stationary Stock Form");
 
         btnSubmitStock.setText("Submit");
-        btnSubmitStock.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnSubmitStock.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnSubmitStockMouseClicked(evt);
             }
         });
 
         btnBackStock.setText("Back");
-        btnBackStock.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnBackStock.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnBackStockMouseClicked(evt);
             }
         });
 
         btnClearStock.setText("Clear");
-        btnClearStock.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnClearStock.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnClearStockMouseClicked(evt);
             }
         });
@@ -181,8 +188,10 @@ public class StockDialog extends javax.swing.JDialog
         );
 
         btnCloseStock.setText("Close");
-        btnCloseStock.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnCloseStock.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnCloseStockMouseClicked(evt);
             }
         });

@@ -38,6 +38,98 @@ public class DataConnection<T>
 
     public DataConnection(){}
     
+    public void RequestCurrentOrderWithPurchaseOrder(List<PurchaseOrder> po)
+    {
+        ConnectToDB();
+        try
+        {
+            query = "CALL proc_InsertStaffStockOrders(?,?,?,?)";
+            cs = con.prepareCall(query);
+            
+            for (StaffStockOrder stock : Authentication.ActiveAccess.CurrentOrder.getOrderStock())
+            {
+                cs.setString(1, stock.getStaffStockID());
+                cs.setInt(2, stock.getStationaryStockID());
+                cs.setInt(3, stock.getQuantity());
+                cs.setDouble(4, stock.getPrice());
+                
+                cs.addBatch();
+            }
+            
+            cs.executeBatch();
+            
+            query = "CALL proc_InsertStaffOrder";
+            cs = con.prepareCall(query);
+            
+            cs.setInt(1, Authentication.ActiveAccess.CurrentOrder.getStaffID());
+            cs.setString(2, Authentication.ActiveAccess.CurrentOrder.getStaffStockID());
+            cs.setDate(3, new java.sql.Date(Authentication.ActiveAccess.CurrentOrder.getCurrentDate().getTime()));
+            cs.setDouble(4, Authentication.ActiveAccess.CurrentOrder.getOrderTotal());
+            cs.setString(5, "Pending Purchase Order");
+            
+            cs.executeQuery();
+            
+            query = "CALL proc_InsertPurchaseOrder";
+            cs = con.prepareCall(query);          
+            
+            for (PurchaseOrder poData : po)
+            {
+                cs.setString(1, SecurityModule.IDCreation.CreateOrderID());
+                cs.setInt(2, poData.getStationaryStockID());
+                cs.setDate(3, new java.sql.Date(new java.util.Date().getTime()));
+                
+                cs.addBatch();
+            }
+            
+            cs.executeBatch();
+            
+            con.close();
+        }
+        catch (SQLException ex)
+        {
+            Helper.DisplayError(ex.toString(), "Database Error");
+        }
+    }
+    
+    public void RequestCurrentOrder()
+    {
+        ConnectToDB();
+        try
+        {
+            query = "CALL proc_InsertStaffStockOrders(?,?,?,?)";
+            cs = con.prepareCall(query);
+            
+            for (StaffStockOrder stock : Authentication.ActiveAccess.CurrentOrder.getOrderStock())
+            {
+                cs.setString(1, Authentication.ActiveAccess.CurrentOrder.getStaffStockID());
+                cs.setInt(2, stock.getStationaryStockID());
+                cs.setInt(3, stock.getQuantity());
+                cs.setDouble(4, stock.getPrice());
+                
+                cs.addBatch();
+            }
+            
+            cs.executeBatch();
+            
+            query = "CALL proc_InsertStaffOrder(?,?,?,?,?)";
+            cs = con.prepareCall(query);
+            
+            cs.setInt(1, Authentication.ActiveAccess.CurrentOrder.getStaffID());
+            cs.setString(2, Authentication.ActiveAccess.CurrentOrder.getStaffStockID());
+            cs.setDate(3, new java.sql.Date(Authentication.ActiveAccess.CurrentOrder.getCurrentDate().getTime()));
+            cs.setDouble(4, Authentication.ActiveAccess.CurrentOrder.getOrderTotal());
+            cs.setString(5, "Pending Approval");
+            
+            cs.executeQuery();
+            
+            con.close();
+        }
+        catch (SQLException ex)
+        {
+            Helper.DisplayError(ex.toString(), "Database Error");
+        }
+    }
+    
     public String GetProductFromID(int productID)
     {
         String name = "";
@@ -118,6 +210,35 @@ public class DataConnection<T>
         }
     }
     
+    public List<T> LoadMyPendingOrders()
+    {
+        ConnectToDB();
+        List<Integer> orders = new ArrayList<>();
+        try
+        {
+            query =  "SELECT * FROM tblstafforders WHERE NOT EXISTS (SELECT null FROM tblorders WHERE tblstafforders.staffOrderID = tblorders.staffOrderID) AND staffID = ?";
+            ps = con.prepareStatement(query);
+            
+            ps.setInt(1, AuthenticationSettings.getCurrentUserID());
+            rs = ps.executeQuery();
+            
+            while(rs.next())
+            {
+                readList.add((T) new StaffOrder(rs.getString(3), rs.getDate(4), rs.getDouble(5), rs.getString(6)));
+            }
+            
+            con.close();
+        }
+        catch (SQLException ex)
+        {
+            Helper.DisplayError(ex.toString(), "Database Error");
+        }
+        finally
+        {
+            return readList;
+        }
+    }
+    
     public List<T> LoadMyApprovedOrders()
     {
         ConnectToDB();
@@ -162,10 +283,7 @@ public class DataConnection<T>
                         readList.add((T) new Order(orderID, new StaffOrder(rs2.getString(3), rs2.getDate(4), rs2.getDouble(5)), approvalDate));
                     }
                 }
-            }
-            
-            
-            
+            }                      
             con.close();
         }
         catch (SQLException ex)

@@ -7,8 +7,8 @@ package PresentationModule;
 
 import ApplicationHelper.Helper;
 import Authentication.AuthenticationSettings;
-import PresentationModule.JLayourForms.JAdminModule;
-import PresentationModule.JLayourForms.JStaffModule;
+import PresentationModule.JLayoutForms.JAdminModule;
+import PresentationModule.JLayoutForms.JStaffModule;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -31,7 +31,7 @@ public class BC_StationaryManagementSystem implements Runnable{
     {
         try
         {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
             if(ApplicationHelper.Startup.Logon())
             {
                 if(AuthenticationSettings.isAdminConnected())

@@ -11,6 +11,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmAdminLogout">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="J:\Belgium Campus\Third Year (2017)\PRG 321\Project\BC_stationary_management_system\icons\icons8-Logout Rounded Up-16.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Logout"/>
               </Properties>
               <Events>
@@ -21,6 +24,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmAdminClose">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="J:\Belgium Campus\Third Year (2017)\PRG 321\Project\BC_stationary_management_system\icons\icons8-Cancel-16.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Close"/>
               </Properties>
               <Events>
@@ -36,6 +42,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmManageRegisteredUsers">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="J:\Belgium Campus\Third Year (2017)\PRG 321\Project\BC_stationary_management_system\icons\icons8-Conference-16.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Manage Registered Users"/>
               </Properties>
               <Events>
@@ -44,6 +53,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmViewRegistrationRequests">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="J:\Belgium Campus\Third Year (2017)\PRG 321\Project\BC_stationary_management_system\icons\icons8-Bulleted List-16.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="View Registration Requests"/>
               </Properties>
               <Events>
@@ -59,11 +71,17 @@
           <SubComponents>
             <Menu class="javax.swing.JMenu" name="jmManageStocks">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="J:\Belgium Campus\Third Year (2017)\PRG 321\Project\BC_stationary_management_system\icons\icons8-List-16.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Manage Stocks"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="jmManageAllStock">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="2" name="J:\Belgium Campus\Third Year (2017)\PRG 321\Project\BC_stationary_management_system\icons\icons8-List-16.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Manage All Stock"/>
                     <Property name="actionCommand" type="java.lang.String" value=""/>
                   </Properties>
@@ -73,6 +91,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jmInserStock">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="2" name="J:\Belgium Campus\Third Year (2017)\PRG 321\Project\BC_stationary_management_system\icons\icons8-Edit-16.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Insert Stock"/>
                     <Property name="actionCommand" type="java.lang.String" value="Insert New Stock"/>
                   </Properties>

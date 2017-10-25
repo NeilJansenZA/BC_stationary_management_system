@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PresentationModule.JLayourForms;
+package PresentationModule.JLayoutForms;
 
 import ApplicationHelper.Helper;
 import Authentication.ActiveAccess;
@@ -335,6 +335,7 @@ public class JAdminModule extends javax.swing.JFrame
 
         jmAdminApplication.setText("Application");
 
+        jmAdminLogout.setIcon(new javax.swing.ImageIcon("J:\\Belgium Campus\\Third Year (2017)\\PRG 321\\Project\\BC_stationary_management_system\\icons\\icons8-Logout Rounded Up-16.png")); // NOI18N
         jmAdminLogout.setText("Logout");
         jmAdminLogout.addActionListener(new java.awt.event.ActionListener()
         {
@@ -346,6 +347,7 @@ public class JAdminModule extends javax.swing.JFrame
         jmAdminApplication.add(jmAdminLogout);
         jmAdminApplication.add(jSeparator1);
 
+        jmAdminClose.setIcon(new javax.swing.ImageIcon("J:\\Belgium Campus\\Third Year (2017)\\PRG 321\\Project\\BC_stationary_management_system\\icons\\icons8-Cancel-16.png")); // NOI18N
         jmAdminClose.setText("Close");
         jmAdminClose.addActionListener(new java.awt.event.ActionListener()
         {
@@ -360,6 +362,7 @@ public class JAdminModule extends javax.swing.JFrame
 
         jmAccounts.setText("Accounts");
 
+        jmManageRegisteredUsers.setIcon(new javax.swing.ImageIcon("J:\\Belgium Campus\\Third Year (2017)\\PRG 321\\Project\\BC_stationary_management_system\\icons\\icons8-Conference-16.png")); // NOI18N
         jmManageRegisteredUsers.setText("Manage Registered Users");
         jmManageRegisteredUsers.addActionListener(new java.awt.event.ActionListener()
         {
@@ -370,6 +373,7 @@ public class JAdminModule extends javax.swing.JFrame
         });
         jmAccounts.add(jmManageRegisteredUsers);
 
+        jmViewRegistrationRequests.setIcon(new javax.swing.ImageIcon("J:\\Belgium Campus\\Third Year (2017)\\PRG 321\\Project\\BC_stationary_management_system\\icons\\icons8-Bulleted List-16.png")); // NOI18N
         jmViewRegistrationRequests.setText("View Registration Requests");
         jmViewRegistrationRequests.addActionListener(new java.awt.event.ActionListener()
         {
@@ -384,8 +388,10 @@ public class JAdminModule extends javax.swing.JFrame
 
         jMenu2.setText("Stationary");
 
+        jmManageStocks.setIcon(new javax.swing.ImageIcon("J:\\Belgium Campus\\Third Year (2017)\\PRG 321\\Project\\BC_stationary_management_system\\icons\\icons8-List-16.png")); // NOI18N
         jmManageStocks.setText("Manage Stocks");
 
+        jmManageAllStock.setIcon(new javax.swing.ImageIcon("J:\\Belgium Campus\\Third Year (2017)\\PRG 321\\Project\\BC_stationary_management_system\\icons\\icons8-List-16.png")); // NOI18N
         jmManageAllStock.setText("Manage All Stock");
         jmManageAllStock.setActionCommand("");
         jmManageAllStock.addActionListener(new java.awt.event.ActionListener()
@@ -397,6 +403,7 @@ public class JAdminModule extends javax.swing.JFrame
         });
         jmManageStocks.add(jmManageAllStock);
 
+        jmInserStock.setIcon(new javax.swing.ImageIcon("J:\\Belgium Campus\\Third Year (2017)\\PRG 321\\Project\\BC_stationary_management_system\\icons\\icons8-Edit-16.png")); // NOI18N
         jmInserStock.setText("Insert Stock");
         jmInserStock.setActionCommand("Insert New Stock");
         jmInserStock.addActionListener(new java.awt.event.ActionListener()

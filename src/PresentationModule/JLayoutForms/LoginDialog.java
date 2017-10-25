@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PresentationModule.JLayourForms;
+package PresentationModule.JLayoutForms;
 
 import Authentication.AuthenticationSettings;
 import BusinessModule.Staff;
@@ -52,7 +52,8 @@ public class LoginDialog extends javax.swing.JDialog
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -77,22 +78,28 @@ public class LoginDialog extends javax.swing.JDialog
         txtLoginUsername.setText("DrogonGOT");
 
         btnLogin.setText("Login");
-        btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnLogin.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnLoginMouseClicked(evt);
             }
         });
 
         btnLoginCancel.setText("Cancel");
-        btnLoginCancel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnLoginCancel.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnLoginCancelMouseClicked(evt);
             }
         });
 
         btnLoginRegister.setText("Register");
-        btnLoginRegister.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnLoginRegister.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnLoginRegisterMouseClicked(evt);
             }
         });
