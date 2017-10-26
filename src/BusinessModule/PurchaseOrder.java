@@ -7,6 +7,7 @@ package BusinessModule;
 
 import DataAccessModule.DataConnection;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -19,7 +20,7 @@ public class PurchaseOrder
     private int stationaryStockID;
     private Date purchaseDate;
     private int quantity;
-    private int price;
+    private double price;
 
     public PurchaseOrder(String purchaseOrderID, int stationaryStockID, Date purchaseDate)
     {
@@ -30,7 +31,7 @@ public class PurchaseOrder
     }
     
 
-    public PurchaseOrder(String purchaseOrderID, int stationaryStockID, Date purchaseDate, int quantity, int price)
+    public PurchaseOrder(String purchaseOrderID, int stationaryStockID, Date purchaseDate, int quantity, double price)
     {
         this.dc = new DataConnection();
         this.purchaseOrderID = purchaseOrderID;
@@ -40,7 +41,7 @@ public class PurchaseOrder
         this.price = price;
     }
 
-    public PurchaseOrder(int stationaryStockID, Date purchaseDate, int quantity, int price)
+    public PurchaseOrder(int stationaryStockID, Date purchaseDate, int quantity, double price)
     {
         this.dc = new DataConnection();
         this.stationaryStockID = stationaryStockID;
@@ -94,12 +95,12 @@ public class PurchaseOrder
         this.quantity = quantity;
     }
 
-    public int getPrice()
+    public double getPrice()
     {
         return price;
     }
 
-    public void setPrice(int price)
+    public void setPrice(double price)
     {
         this.price = price;
     }
@@ -107,5 +108,22 @@ public class PurchaseOrder
     public void InsertPurchaseOrder()
     {
         dc.InsertPurchaseOrder(this);
+    }
+
+    public PurchaseOrder() {
+        this.dc = new DataConnection();
+    }
+    
+    public void UpdateAndRemovePurchaseOrder()
+    {
+        int currentStock = 0;
+        currentStock = new StationaryStock().GetAllProductFromID(this.getStationaryStockID()).getQuantity();
+        currentStock += this.getQuantity();
+        dc.UpdateAndRemovePurchaseOrder(this, currentStock);
+    }
+    
+    public List<PurchaseOrder> LoadAllPurchaseOrders()
+    {
+        return (List<PurchaseOrder>) dc.LoadPurchaseOrders();
     }
 }

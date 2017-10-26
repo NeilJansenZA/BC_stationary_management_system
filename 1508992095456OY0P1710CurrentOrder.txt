@@ -1,1 +1,0 @@
-CurrentOrder{orderID=VRS71710, staffStockID=FCDT1710, orderStock=[BusinessModule.StaffStockOrder@1905690, BusinessModule.StaffStockOrder@1234336], currentDate=2016-10-24, orderTotal=0.0, approvalDate=2017-10-26, staffUsername=DrogonGOT, staffID=0, totalPrice=259.0, viewOrder=true, viewStaffOrder=false, viewStaffPending=false}

@@ -187,6 +187,54 @@ public class DataConnection<T>
             Helper.DisplayError(ex.toString(), "Database Error");
         }
     }
+    
+    public void UpdateAndRemovePurchaseOrder(PurchaseOrder po, int stockQuantity)
+    {
+        ConnectToDB();
+        try
+        {
+            query = "UPDATE tblstationarystock SET quantity = ? WHERE stationaryStockID = ?";
+            ps = con.prepareStatement(query);
+            ps.setInt(1, stockQuantity);
+            ps.setInt(2, po.getStationaryStockID());
+            ps.execute();
+            
+            query = "DELETE FROM tblpurchaseorder WHERE purchaseOrderID = ?";
+            ps = con.prepareStatement(query);
+
+            ps.setString(1, po.getPurchaseOrderID());
+            ps.execute();
+            con.close();
+        } catch (SQLException ex)
+        {
+            Helper.DisplayError(ex.toString(), "Database Error");
+        }
+    }
+    
+    public List<T> LoadPurchaseOrders()
+    {
+        ConnectToDB();
+        try
+        {
+            query = "SELECT * FROM tblpurchaseorder";
+            st = con.createStatement();
+
+            rs = st.executeQuery(query);
+
+            while (rs.next())
+            {
+                readList.add((T) new PurchaseOrder(rs.getString(1), rs.getInt(2), rs.getDate(3), rs.getInt(4), rs.getDouble(5)));
+            }
+
+            con.close();
+        } catch (SQLException ex)
+        {
+            Helper.DisplayError(ex.toString(), "Database Error");
+        } finally
+        {
+            return readList;
+        }
+    }
 
     public List<T> GetOrderDetails(String staffStockID)
     {

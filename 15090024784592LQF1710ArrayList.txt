@@ -1,0 +1,4 @@
+Order{orderID=14SJ1710, staffOrder=StaffOrder{staffOrderID=0, staffID=3, staffStockOrderID=RSFL1710, orderDate=2017-10-26, orderTotal=6598.0, orderStatus=null}, approvalDate=2017-10-26}
+Order{orderID=LIAY1710, staffOrder=StaffOrder{staffOrderID=0, staffID=1, staffStockOrderID=CYEY1710, orderDate=2017-10-23, orderTotal=2495.0, orderStatus=null}, approvalDate=2017-10-24}
+Order{orderID=ODXR1710, staffOrder=StaffOrder{staffOrderID=0, staffID=1, staffStockOrderID=PWWI1710, orderDate=2017-09-25, orderTotal=1940.0, orderStatus=null}, approvalDate=2017-10-26}
+Order{orderID=VRS71710, staffOrder=StaffOrder{staffOrderID=0, staffID=1, staffStockOrderID=FCDT1710, orderDate=2016-10-24, orderTotal=259.0, orderStatus=null}, approvalDate=2017-10-26}

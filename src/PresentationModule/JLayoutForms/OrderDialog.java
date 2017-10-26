@@ -20,8 +20,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Neil
  */
-public class OrderDialog extends javax.swing.JDialog
-{
+public class OrderDialog extends javax.swing.JDialog {
 
     private double grandTotal = 0.0;
     private boolean isLoadedOrder = false;
@@ -31,8 +30,7 @@ public class OrderDialog extends javax.swing.JDialog
     /**
      * Creates new form OrderDialog
      */
-    public OrderDialog(java.awt.Frame parent, boolean modal)
-    {
+    public OrderDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
 
@@ -46,8 +44,7 @@ public class OrderDialog extends javax.swing.JDialog
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         pnlOrderItems = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -73,35 +70,28 @@ public class OrderDialog extends javax.swing.JDialog
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Current Order Dialog");
 
-        pnlOrderItems.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Order Items", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
+        pnlOrderItems.setBorder(javax.swing.BorderFactory.createTitledBorder("Order Items"));
 
         tblOrderItems.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
+            new Object [][] {
 
             },
-            new String []
-            {
+            new String [] {
                 "Product Name", "Quantity", "Unit Price", "Total Price"
             }
-        )
-        {
-            Class[] types = new Class []
-            {
+        ) {
+            Class[] types = new Class [] {
                 java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
             };
-            boolean[] canEdit = new boolean []
-            {
+            boolean[] canEdit = new boolean [] {
                 false, false, false, false
             };
 
-            public Class getColumnClass(int columnIndex)
-            {
+            public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
@@ -120,42 +110,34 @@ public class OrderDialog extends javax.swing.JDialog
         );
 
         btnBackFromOrder.setText("Back");
-        btnBackFromOrder.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        btnBackFromOrder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnBackFromOrderMouseClicked(evt);
             }
         });
 
         btnApproveOrder.setText("Request Order");
-        btnApproveOrder.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        btnApproveOrder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnApproveOrderMouseClicked(evt);
             }
         });
 
         btnRemoveSelectedItem.setText("Remove Item");
-        btnRemoveSelectedItem.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        btnRemoveSelectedItem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnRemoveSelectedItemMouseClicked(evt);
             }
         });
 
         btnCancelOrder.setText("Cancel Order");
-        btnCancelOrder.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        btnCancelOrder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCancelOrderMouseClicked(evt);
             }
         });
 
-        pnlOrderDetails.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Order Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
+        pnlOrderDetails.setBorder(javax.swing.BorderFactory.createTitledBorder("Order Details"));
         pnlOrderDetails.setToolTipText("");
 
         jLabel1.setText("Staff Stock Order ID:");
@@ -191,14 +173,6 @@ public class OrderDialog extends javax.swing.JDialog
                 .addContainerGap()
                 .addGroup(pnlOrderDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlOrderDetailsLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(135, 135, 135)
-                        .addComponent(lblOrderID))
-                    .addGroup(pnlOrderDetailsLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(69, 69, 69)
-                        .addComponent(lblStaffStockOrderID))
-                    .addGroup(pnlOrderDetailsLayout.createSequentialGroup()
                         .addGroup(pnlOrderDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
@@ -207,8 +181,16 @@ public class OrderDialog extends javax.swing.JDialog
                         .addGroup(pnlOrderDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblCreatedUser)
                             .addComponent(lblDateCompleted)
-                            .addComponent(lblDateCreated))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblDateCreated)))
+                    .addGroup(pnlOrderDetailsLayout.createSequentialGroup()
+                        .addGroup(pnlOrderDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(69, 69, 69)
+                        .addGroup(pnlOrderDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblOrderID)
+                            .addComponent(lblStaffStockOrderID))))
+                .addContainerGap(386, Short.MAX_VALUE))
         );
         pnlOrderDetailsLayout.setVerticalGroup(
             pnlOrderDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,8 +270,7 @@ public class OrderDialog extends javax.swing.JDialog
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ClearDialog()
-    {
+    private void ClearDialog() {
         Authentication.ActiveAccess.CurrentOrderList.clear();
         DefaultTableModel model = (DefaultTableModel) tblOrderItems.getModel();
         model.setRowCount(0);
@@ -297,15 +278,12 @@ public class OrderDialog extends javax.swing.JDialog
         Authentication.ActiveAccess.CurrentOrder = null;
         dispose();
     }
-    
-    private void PopulateOrderItemsTable()
-    {
-        try
-        {
+
+    private void PopulateOrderItemsTable() {
+        try {
             DefaultTableModel model = (DefaultTableModel) tblOrderItems.getModel();
 
-            for (StaffStockOrder orderStockData : Authentication.ActiveAccess.getCurrentOrderList())
-            {
+            for (StaffStockOrder orderStockData : Authentication.ActiveAccess.getCurrentOrderList()) {
                 Object[] o = new Object[4];
                 o[0] = new StationaryStock().GetProductFromID(orderStockData.getStationaryStockID());
                 o[1] = orderStockData.getQuantity();
@@ -317,112 +295,82 @@ public class OrderDialog extends javax.swing.JDialog
 
             tblOrderItems.setModel(model);
 
-        } catch (ArrayIndexOutOfBoundsException aiob)
-        {
+        } catch (ArrayIndexOutOfBoundsException aiob) {
             Helper.DisplayError(aiob.toString());
-        } catch (Exception ex)
-        {
+        } catch (Exception ex) {
             Helper.DisplayError(ex.getMessage());
         }
-    }    
-    
-    private void CheckStationaryQuantity()
-    {
+    }
+
+    private void CheckStationaryQuantity() {
         stationary = new StationaryStock().LoadStationaryStock();
-        
-        for (StationaryStock stationaryStock : stationary)
-        {
-            for (StaffStockOrder checkQuantity : Authentication.ActiveAccess.CurrentOrderList)
-            {
-                if(stationaryStock.getStationaryStockID() == checkQuantity.getStationaryStockID())
-                {
+
+        for (StationaryStock stationaryStock : stationary) {
+            for (StaffStockOrder checkQuantity : Authentication.ActiveAccess.CurrentOrderList) {
+                if (stationaryStock.getStationaryStockID() == checkQuantity.getStationaryStockID()) {
                     stationaryStock.setQuantity(stationaryStock.getQuantity() - checkQuantity.getQuantity());
-                    if(stationaryStock.getQuantity() < 0)
-                    {
+                    if (stationaryStock.getQuantity() < 0) {
                         purchaseOrders.add(new PurchaseOrder(stationaryStock.getStationaryCategoryID()));
                     }
                 }
             }
-        }    
+        }
     }
 
-    private void LoadDialogData()
-    {
-        try
-        {
-            if (Authentication.ActiveAccess.getCurrentOrder() == null)
-            {
+    private void LoadDialogData() {
+        try {
+            if (Authentication.ActiveAccess.getCurrentOrder() == null) {
                 Authentication.ActiveAccess.CurrentOrder = new CurrentOrder(SecurityModule.IDCreation.CreateStaffStockID(), Authentication.ActiveAccess.getCurrentOrderList(),
                         new java.sql.Date(new java.util.Date().getTime()), Authentication.AuthenticationSettings.getConnectedStaff().getStaffID(), grandTotal);
 
-                lblOrderID.setText("N/a");  
+                lblOrderID.setText("N/a");
                 lblStaffStockOrderID.setText(Authentication.ActiveAccess.CurrentOrder.getStaffStockID());
                 lblDateCreated.setText(new java.sql.Date(new java.util.Date().getTime()).toString());
                 lblDateCompleted.setText("N/a");
                 lblCreatedUser.setText(Authentication.AuthenticationSettings.getConnectedStaff().getStaffUsername());
                 lblGrandTotal.setText("0.0");
-            }
-            else
-            {
-                if(Authentication.ActiveAccess.CurrentOrder.getOrderID() != null)
-                {
-                    lblOrderID.setText(Authentication.ActiveAccess.CurrentOrder.getOrderID());                 
+            } else {
+                if (Authentication.ActiveAccess.CurrentOrder.getOrderID() != null) {
+                    lblOrderID.setText(Authentication.ActiveAccess.CurrentOrder.getOrderID());
+                } else {
+                    lblOrderID.setText("N/a");
                 }
-                else
-                {
-                    lblOrderID.setText("N/a"); 
-                }
-                
-                if(Authentication.ActiveAccess.CurrentOrder.getApprovalDate() != null)
-                {
+
+                if (Authentication.ActiveAccess.CurrentOrder.getApprovalDate() != null) {
                     lblDateCompleted.setText(Authentication.ActiveAccess.CurrentOrder.getApprovalDate().toString());
-                }
-                else
-                {
+                } else {
                     lblDateCompleted.setText("N/a");
                 }
-                
-                if(String.valueOf(Authentication.ActiveAccess.CurrentOrder.getTotalPrice()) != null)
-                {
+
+                if (String.valueOf(Authentication.ActiveAccess.CurrentOrder.getTotalPrice()) != null) {
                     lblGrandTotal.setText(String.valueOf(Authentication.ActiveAccess.CurrentOrder.getTotalPrice()));
                 }
-                
-                if(Authentication.AuthenticationSettings.getConnectedStaff() != null)
-                {
+
+                if (Authentication.AuthenticationSettings.getConnectedStaff() != null) {
                     lblCreatedUser.setText(Authentication.AuthenticationSettings.getConnectedStaff().getStaffUsername());
-                }
-                else
-                {
+                } else {
                     lblCreatedUser.setText(Authentication.ActiveAccess.CurrentOrder.getStaffUsername());
                 }
-                
-                if(Authentication.ActiveAccess.CurrentOrder.getCurrentDate() != null)
-                {
+
+                if (Authentication.ActiveAccess.CurrentOrder.getCurrentDate() != null) {
                     lblDateCreated.setText(Authentication.ActiveAccess.CurrentOrder.getCurrentDate().toString());
+                } else {
+                    lblDateCreated.setText(new java.sql.Date(new java.util.Date().getTime()).toString());
                 }
-                else
-                {
-                     lblDateCreated.setText(new java.sql.Date(new java.util.Date().getTime()).toString());   
-                }
-         
+
                 lblStaffStockOrderID.setText(Authentication.ActiveAccess.CurrentOrder.getStaffStockID());
-                       
+
             }
-            
-            if(Authentication.ActiveAccess.CurrentOrder.isViewOrder())
-            {
+
+            if (Authentication.ActiveAccess.CurrentOrder.isViewOrder()) {
                 btnApproveOrder.setText("Generate Order Report");
                 btnCancelOrder.setVisible(false);
                 btnRemoveSelectedItem.setVisible(false);
-            }
-            else if(Authentication.ActiveAccess.CurrentOrder.isViewStaffOrder())
-            {
+            } else if (Authentication.ActiveAccess.CurrentOrder.isViewStaffOrder()) {
                 btnRemoveSelectedItem.setVisible(false);
                 btnApproveOrder.setText("Approve Order");
                 btnCancelOrder.setText("Deny Order");
-            }
-            else if(Authentication.ActiveAccess.CurrentOrder.isViewStaffPending())
-            {
+            } else if (Authentication.ActiveAccess.CurrentOrder.isViewStaffPending()) {
                 btnApproveOrder.setVisible(false);
                 btnCancelOrder.setVisible(false);
                 btnRemoveSelectedItem.setVisible(false);
@@ -430,13 +378,9 @@ public class OrderDialog extends javax.swing.JDialog
 
             PopulateOrderItemsTable();
             lblGrandTotal.setText(String.valueOf(grandTotal));
-        }
-        catch (NullPointerException npe)
-        {
+        } catch (NullPointerException npe) {
             Helper.DisplayError(npe.toString());
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             Helper.DisplayError(ex.toString());
         }
     }
@@ -447,8 +391,7 @@ public class OrderDialog extends javax.swing.JDialog
 
     private void btnRemoveSelectedItemMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnRemoveSelectedItemMouseClicked
     {//GEN-HEADEREND:event_btnRemoveSelectedItemMouseClicked
-       try
-       {
+        try {
             int rowSelection = tblOrderItems.getSelectedRow();
             Authentication.ActiveAccess.CurrentOrderList.remove(rowSelection);
 
@@ -457,32 +400,25 @@ public class OrderDialog extends javax.swing.JDialog
 
             grandTotal = 0.0;
             LoadDialogData();
-       }
-       catch(ArrayIndexOutOfBoundsException aex)
-       {
-           Helper.DisplayError("No Rows Remaining", "Removal Error");
-       }
+        } catch (ArrayIndexOutOfBoundsException aex) {
+            Helper.DisplayError("No Rows Remaining", "Removal Error");
+        }
     }//GEN-LAST:event_btnRemoveSelectedItemMouseClicked
 
     private void btnCancelOrderMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnCancelOrderMouseClicked
     {//GEN-HEADEREND:event_btnCancelOrderMouseClicked
-        
-        if(btnCancelOrder.getText().equals("Deny Order"))
-        {
+
+        if (btnCancelOrder.getText().equals("Deny Order")) {
             int choice = JOptionPane.showConfirmDialog(this, "Are you sure you want deny this current order? All changes will be lost.", "User Confirmation", JOptionPane.YES_NO_OPTION);
 
-            if (choice == JOptionPane.YES_OPTION)
-            {
+            if (choice == JOptionPane.YES_OPTION) {
                 Authentication.ActiveAccess.CurrentOrder.DenyOrder();
                 ClearDialog();
             }
-        }
-        else
-        {
+        } else {
             int choice = JOptionPane.showConfirmDialog(this, "Are you sure you want cancel this current order? All changes will be lost.", "User Confirmation", JOptionPane.YES_NO_OPTION);
 
-            if (choice == JOptionPane.YES_OPTION)
-            {
+            if (choice == JOptionPane.YES_OPTION) {
                 ClearDialog();
             }
         }
@@ -492,116 +428,109 @@ public class OrderDialog extends javax.swing.JDialog
     {//GEN-HEADEREND:event_btnApproveOrderMouseClicked
         boolean createPurchaseOrder = false;
         List<StationaryStock> stockList = new ArrayList<>();
-        if(btnApproveOrder.getText().equals("Approve Order"))
-        {
-            int choice = JOptionPane.showConfirmDialog(this, "You are about to approve this order, are you sure?", "User Confirmation", JOptionPane.YES_NO_OPTION);
+        try {
+            switch (btnApproveOrder.getText()) {
+                case "Request Order":
+                    Authentication.ActiveAccess.CurrentOrder.setStaffStockID(lblStaffStockOrderID.getText());
+                    Authentication.ActiveAccess.CurrentOrder.setOrderStock(Authentication.ActiveAccess.getCurrentOrderList());
+                    Authentication.ActiveAccess.CurrentOrder.setCurrentDate(new Date());
+                    Authentication.ActiveAccess.CurrentOrder.setStaffID(Authentication.AuthenticationSettings.getCurrentUserID());
+                    Authentication.ActiveAccess.CurrentOrder.setOrderTotal(grandTotal);
+                    Authentication.ActiveAccess.CurrentOrder.RequestCurrentOrder();  
 
-            if (choice == JOptionPane.YES_OPTION)
-            {                      
-                for (StaffStockOrder staffStockOrder : Authentication.ActiveAccess.CurrentOrderList)
-                {
-                    StationaryStock stock = new StationaryStock().GetAllProductFromID(staffStockOrder.getStationaryStockID());
-                    stock.setQuantity(stock.getQuantity() - staffStockOrder.getQuantity());
-                    
-                    if(stock.getQuantity() < 0)
-                    {
-                        createPurchaseOrder = true;
-                        CreatePurchaseOrder(staffStockOrder);
-                    }
-                    else
-                    {
-                        stockList.add(stock);
-                    }
-                }
+                    Helper.DisplayError("Order request submitted successful!", "Request Submit successful");
+                    ClearDialog();
+                    break;
+                case "Approve Order": {
+                    int choice = JOptionPane.showConfirmDialog(this, "You are about to approve this order, are you sure?", "User Confirmation", JOptionPane.YES_NO_OPTION);
+                    if (choice == JOptionPane.YES_OPTION) {
+                        for (StaffStockOrder staffStockOrder : Authentication.ActiveAccess.CurrentOrderList) {
+                            StationaryStock stock = new StationaryStock().GetAllProductFromID(staffStockOrder.getStationaryStockID());
+                            stock.setQuantity(stock.getQuantity() - staffStockOrder.getQuantity());
 
-                if(!createPurchaseOrder)
-                {
-                    Authentication.ActiveAccess.CurrentOrder.ApproveOrder(stockList);
-                    Helper.DisplayError("Order approval successfull!", "Request Submit successful");
-                    ClearDialog();
+                            if (stock.getQuantity() < 0) {
+                                createPurchaseOrder = true;
+                                CreatePurchaseOrder(staffStockOrder);
+                            } else {
+                                stockList.add(stock);
+                            }
+                        }
+
+                        if (!createPurchaseOrder) {
+                            Authentication.ActiveAccess.CurrentOrder.ApproveOrder(stockList);
+                            Helper.DisplayError("Order approval successfull!", "Request Submit successful");
+                            ClearDialog();
+                        } else {
+                            Helper.DisplayError("Order approval unsucessfull, Stock order due to lack of items!", "Request Submit Unsucessfully");
+                            ClearDialog();
+                        }
+                    }
+                    break;
                 }
-                else
-                {
-                    Helper.DisplayError("Order approval unsucessfull, Stock order due to lack of items!", "Request Submit Unsucessfully");
-                    ClearDialog();
+                case "Generate Order Report":
+                    new ApplicationHelper.ReportGenerator(Authentication.ActiveAccess.CurrentOrder);
+                    Helper.DisplayError("Report Generated Successfully");
+                    break;
+                default: {
+                    int choice = JOptionPane.showConfirmDialog(this, "You are about to request this order, are you sure?", "User Confirmation", JOptionPane.YES_NO_OPTION);
+                    if (choice == JOptionPane.YES_OPTION) {
+                        Authentication.ActiveAccess.CurrentOrder.setStaffStockID(lblStaffStockOrderID.getText());
+                        Authentication.ActiveAccess.CurrentOrder.setOrderStock(Authentication.ActiveAccess.getCurrentOrderList());
+                        Authentication.ActiveAccess.CurrentOrder.setCurrentDate(new Date());
+                        Authentication.ActiveAccess.CurrentOrder.setStaffID(Authentication.AuthenticationSettings.getCurrentUserID());
+                        Authentication.ActiveAccess.CurrentOrder.setOrderTotal(grandTotal);
+                        Authentication.ActiveAccess.CurrentOrder.RequestCurrentOrder();
+
+                        Helper.DisplayError("Order request submitted successful!", "Request Submit successful");
+                        ClearDialog();
+                    }
+                    break;
                 }
             }
-        }
-        else if(btnApproveOrder.getText().equals("Generate Order Report"))
-        {
-            new ApplicationHelper.ReportGenerator(Authentication.ActiveAccess.CurrentOrder);
-            Helper.DisplayError("Report Generated Successfully");
-        }
-        else
-        {
-            int choice = JOptionPane.showConfirmDialog(this, "You are about to request this order, are you sure?", "User Confirmation", JOptionPane.YES_NO_OPTION);
-
-            if (choice == JOptionPane.YES_OPTION)
-            {               
-                Authentication.ActiveAccess.CurrentOrder.setStaffStockID(lblStaffStockOrderID.getText());
-                Authentication.ActiveAccess.CurrentOrder.setOrderStock(Authentication.ActiveAccess.getCurrentOrderList());
-                Authentication.ActiveAccess.CurrentOrder.setCurrentDate(new Date());
-                Authentication.ActiveAccess.CurrentOrder.setStaffID(Authentication.AuthenticationSettings.getCurrentUserID());
-                Authentication.ActiveAccess.CurrentOrder.setOrderTotal(grandTotal);
-                Authentication.ActiveAccess.CurrentOrder.RequestCurrentOrder();  
-
-                Helper.DisplayError("Order request submitted successful!", "Request Submit successful");
-                ClearDialog();
-            }
+        } catch (NullPointerException npe) {
+            Helper.DisplayError("Error in Approval Request");
         }
     }//GEN-LAST:event_btnApproveOrderMouseClicked
 
-    public void CreatePurchaseOrder(StaffStockOrder staffStockOrder)
-    {
+    public void CreatePurchaseOrder(StaffStockOrder staffStockOrder) {
         PurchaseOrder po = new PurchaseOrder(SecurityModule.IDCreation.CreateOrderID(), staffStockOrder.getStationaryStockID(), new Date());
         po.InsertPurchaseOrder();
     }
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try
-        {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex)
-        {
+        } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(OrderDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
-        {
+        } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(OrderDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
-        {
+        } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(OrderDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
-        {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(OrderDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
-            {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
                 OrderDialog dialog = new OrderDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter()
-                {
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
-                    public void windowClosing(java.awt.event.WindowEvent e)
-                    {
+                    public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
                 });

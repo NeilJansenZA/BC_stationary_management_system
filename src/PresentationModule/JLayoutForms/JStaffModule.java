@@ -55,8 +55,7 @@ public class JStaffModule extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -73,7 +72,7 @@ public class JStaffModule extends javax.swing.JFrame
         btnViewMySelectedOrder = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         txtMyOrderFilterID = new javax.swing.JTextField();
-        cmdOrderViewByDate = new javax.swing.JComboBox<>();
+        cmdOrderViewByDate = new javax.swing.JComboBox<String>();
         jLabel9 = new javax.swing.JLabel();
         pnlMyPendingOrders = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -84,7 +83,7 @@ public class JStaffModule extends javax.swing.JFrame
         txtMyOrderRequestFilter = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        cmdMyOrderRequestViewByDate = new javax.swing.JComboBox<>();
+        cmdMyOrderRequestViewByDate = new javax.swing.JComboBox<String>();
         pnlViewAllStock = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblAllStockStaff = new javax.swing.JTable();
@@ -93,9 +92,9 @@ public class JStaffModule extends javax.swing.JFrame
         jLabel1 = new javax.swing.JLabel();
         txtFilterProductName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        cmbFilterCategory = new javax.swing.JComboBox<>();
+        cmbFilterCategory = new javax.swing.JComboBox<String>();
         jLabel3 = new javax.swing.JLabel();
-        cmbPrioritySort = new javax.swing.JComboBox<>();
+        cmbPrioritySort = new javax.swing.JComboBox<String>();
         jmbStaffModule = new javax.swing.JMenuBar();
         jmStaffAccount = new javax.swing.JMenu();
         jmStaffMyAccount = new javax.swing.JMenuItem();
@@ -121,10 +120,8 @@ public class JStaffModule extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnMyOrdersCloseTab.setText("Close Tab");
-        btnMyOrdersCloseTab.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        btnMyOrdersCloseTab.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnMyOrdersCloseTabMouseClicked(evt);
             }
         });
@@ -132,70 +129,55 @@ public class JStaffModule extends javax.swing.JFrame
         jLabel4.setText("Priority Order Sort:");
 
         cmbSortOrder.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None", "Order Total - Highest to Lowest", "Order Total - Lowest to Highest", "Order Date - Closest Date to Furthest Date", "Order Date - Furthest Date to Closest Date", "Approval Date - Closest Date to Furthest Date", "Approval Date - Furthest Date to Closest Date" }));
-        cmbSortOrder.addItemListener(new java.awt.event.ItemListener()
-        {
-            public void itemStateChanged(java.awt.event.ItemEvent evt)
-            {
+        cmbSortOrder.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbSortOrderItemStateChanged(evt);
             }
         });
 
         tblMyOrders.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
+            new Object [][] {
 
             },
-            new String []
-            {
+            new String [] {
                 "Order ID", "Stock Order ID", "Order Date", "Approval Date", "Order Total"
             }
-        )
-        {
-            Class[] types = new Class []
-            {
+        ) {
+            Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
             };
-            boolean[] canEdit = new boolean []
-            {
+            boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
             };
 
-            public Class getColumnClass(int columnIndex)
-            {
+            public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(tblMyOrders);
 
         btnViewMySelectedOrder.setText("View Selected Order");
-        btnViewMySelectedOrder.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        btnViewMySelectedOrder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnViewMySelectedOrderMouseClicked(evt);
             }
         });
 
         jLabel10.setText("Order ID:");
 
-        txtMyOrderFilterID.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyReleased(java.awt.event.KeyEvent evt)
-            {
+        txtMyOrderFilterID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtMyOrderFilterIDKeyReleased(evt);
             }
         });
 
-        cmdOrderViewByDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Yearly", "Monthly", "Daily" }));
-        cmdOrderViewByDate.addItemListener(new java.awt.event.ItemListener()
-        {
-            public void itemStateChanged(java.awt.event.ItemEvent evt)
-            {
+        cmdOrderViewByDate.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All", "Yearly", "Monthly", "Daily" }));
+        cmdOrderViewByDate.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmdOrderViewByDateItemStateChanged(evt);
             }
         });
@@ -260,42 +242,33 @@ public class JStaffModule extends javax.swing.JFrame
         tpMyOrderControls.addTab("All My Orders", pnlMyOrders);
 
         tblPendingOrders.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
+            new Object [][] {
 
             },
-            new String []
-            {
+            new String [] {
                 "Stock Order ID", "Order Date", "Order Total", "Order Status"
             }
-        )
-        {
-            Class[] types = new Class []
-            {
+        ) {
+            Class[] types = new Class [] {
                 java.lang.String.class, java.lang.Object.class, java.lang.Double.class, java.lang.String.class
             };
-            boolean[] canEdit = new boolean []
-            {
+            boolean[] canEdit = new boolean [] {
                 false, false, false, false
             };
 
-            public Class getColumnClass(int columnIndex)
-            {
+            public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
         jScrollPane4.setViewportView(tblPendingOrders);
 
         cmbSortOrderPending.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None", "Order Total - Highest to Lowest", "Order Total - Lowest to Highest", "Order Date - Closest Date to Furthest Date", "Order Date - Furthest Date to Closest Date" }));
-        cmbSortOrderPending.addItemListener(new java.awt.event.ItemListener()
-        {
-            public void itemStateChanged(java.awt.event.ItemEvent evt)
-            {
+        cmbSortOrderPending.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbSortOrderPendingItemStateChanged(evt);
             }
         });
@@ -303,18 +276,14 @@ public class JStaffModule extends javax.swing.JFrame
         jLabel6.setText("Priority Order Sort:");
 
         btnViewMySelectedOrder1.setText("View Selected Order");
-        btnViewMySelectedOrder1.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        btnViewMySelectedOrder1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnViewMySelectedOrder1MouseClicked(evt);
             }
         });
 
-        txtMyOrderRequestFilter.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyReleased(java.awt.event.KeyEvent evt)
-            {
+        txtMyOrderRequestFilter.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtMyOrderRequestFilterKeyReleased(evt);
             }
         });
@@ -323,11 +292,9 @@ public class JStaffModule extends javax.swing.JFrame
 
         jLabel12.setText("View Orders By Date:");
 
-        cmdMyOrderRequestViewByDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Yearly", "Monthly", "Daily" }));
-        cmdMyOrderRequestViewByDate.addItemListener(new java.awt.event.ItemListener()
-        {
-            public void itemStateChanged(java.awt.event.ItemEvent evt)
-            {
+        cmdMyOrderRequestViewByDate.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All", "Yearly", "Monthly", "Daily" }));
+        cmdMyOrderRequestViewByDate.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmdMyOrderRequestViewByDateItemStateChanged(evt);
             }
         });
@@ -405,73 +372,58 @@ public class JStaffModule extends javax.swing.JFrame
         tpStaffControls.addTab("Orders", pnlManageStaff);
 
         tblAllStockStaff.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
+            new Object [][] {
 
             },
-            new String []
-            {
+            new String [] {
                 "Stationary Stock ID", "Product Name", "Category Name", "Model", "Price", "Quantity", "Date Of Entry / Update"
             }
-        )
-        {
-            boolean[] canEdit = new boolean []
-            {
+        ) {
+            boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false
             };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
         jScrollPane3.setViewportView(tblAllStockStaff);
 
         btnViewStationaryCloseTab.setText("Close Tab");
-        btnViewStationaryCloseTab.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        btnViewStationaryCloseTab.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnViewStationaryCloseTabMouseClicked(evt);
             }
         });
 
         btnAddFromStationary.setText("Add To Current Order");
-        btnAddFromStationary.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        btnAddFromStationary.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAddFromStationaryMouseClicked(evt);
             }
         });
 
         jLabel1.setText("Product Name:");
 
-        txtFilterProductName.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyReleased(java.awt.event.KeyEvent evt)
-            {
+        txtFilterProductName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtFilterProductNameKeyReleased(evt);
             }
         });
 
         jLabel2.setText("Category Name:");
 
-        cmbFilterCategory.addItemListener(new java.awt.event.ItemListener()
-        {
-            public void itemStateChanged(java.awt.event.ItemEvent evt)
-            {
+        cmbFilterCategory.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbFilterCategoryItemStateChanged(evt);
             }
         });
 
         jLabel3.setText("Priority Sort:");
 
-        cmbPrioritySort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "Price - High to Low", "Price - Low to High", "Quantity - High to Low", "Quantity - Low to High", "Date - Closest Date to Furthest Date", "Date - Furthest Date to Closest Date" }));
-        cmbPrioritySort.addItemListener(new java.awt.event.ItemListener()
-        {
-            public void itemStateChanged(java.awt.event.ItemEvent evt)
-            {
+        cmbPrioritySort.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None", "Price - High to Low", "Price - Low to High", "Quantity - High to Low", "Quantity - Low to High", "Date - Closest Date to Furthest Date", "Date - Furthest Date to Closest Date" }));
+        cmbPrioritySort.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbPrioritySortItemStateChanged(evt);
             }
         });
@@ -531,20 +483,16 @@ public class JStaffModule extends javax.swing.JFrame
         jmStaffAccount.setText("Account");
 
         jmStaffMyAccount.setText("My Account");
-        jmStaffMyAccount.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmStaffMyAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmStaffMyAccountActionPerformed(evt);
             }
         });
         jmStaffAccount.add(jmStaffMyAccount);
 
         jmStaffLogout.setText("Logout");
-        jmStaffLogout.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmStaffLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmStaffLogoutActionPerformed(evt);
             }
         });
@@ -552,10 +500,8 @@ public class JStaffModule extends javax.swing.JFrame
         jmStaffAccount.add(jSeparator2);
 
         jmStaffModuleClose.setText("Close");
-        jmStaffModuleClose.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmStaffModuleClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmStaffModuleCloseActionPerformed(evt);
             }
         });
@@ -567,10 +513,8 @@ public class JStaffModule extends javax.swing.JFrame
         jmStaffOrders.setText("Orders");
 
         jmMyOrders.setText("My Orders");
-        jmMyOrders.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmMyOrders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmMyOrdersActionPerformed(evt);
             }
         });
@@ -578,10 +522,8 @@ public class JStaffModule extends javax.swing.JFrame
         jmStaffOrders.add(jSeparator4);
 
         jmCurrentOrder.setText("View Current Order");
-        jmCurrentOrder.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmCurrentOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmCurrentOrderActionPerformed(evt);
             }
         });
@@ -594,10 +536,8 @@ public class JStaffModule extends javax.swing.JFrame
 
         jmStaffViewStationary.setText("View Stationary");
         jmStaffViewStationary.setToolTipText("");
-        jmStaffViewStationary.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmStaffViewStationary.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmStaffViewStationaryActionPerformed(evt);
             }
         });
@@ -871,11 +811,18 @@ public class JStaffModule extends javax.swing.JFrame
 
     private void jmCurrentOrderActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmCurrentOrderActionPerformed
     {//GEN-HEADEREND:event_jmCurrentOrderActionPerformed
-        if (!Authentication.ActiveAccess.getCurrentOrderList().isEmpty())
+        try
         {
-            OrderDialog od = new OrderDialog(null, true);
-            od.setVisible(true);           
-        } else
+            if (!Authentication.ActiveAccess.getCurrentOrderList().isEmpty())
+            {
+                OrderDialog od = new OrderDialog(null, true);
+                od.setVisible(true);           
+            } else
+            {
+                Helper.DisplayError("There is no current order yet, please add some stationary stock to create one.", "No Existing Order");
+            }
+        }
+        catch (NullPointerException npe)
         {
             Helper.DisplayError("There is no current order yet, please add some stationary stock to create one.", "No Existing Order");
         }
@@ -1373,6 +1320,9 @@ public class JStaffModule extends javax.swing.JFrame
         Authentication.ActiveAccess.CurrentOrderList = Authentication.ActiveAccess.CurrentOrder.getOrderStock();
         OrderDialog od = new OrderDialog(null, true);
         od.setVisible(true);
+        
+        Authentication.ActiveAccess.CurrentOrder = null;
+        Authentication.ActiveAccess.CurrentOrderList = null;
         
         DefaultTableModel model = (DefaultTableModel) tblMyOrders.getModel();
         model.setRowCount(0);
