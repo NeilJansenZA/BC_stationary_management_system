@@ -235,6 +235,11 @@ public class Staff
         return (Staff) dc.ReadStaffMember();
     }
     
+    public Staff ReadStaffMemberOrder(int orderStaffID)
+    {
+        return (Staff) dc.ReadStaffMemberOrder(orderStaffID);
+    }
+    
     public void DeleteRegistry()
     {
         dc.DeleteRegistry(this.registerID);

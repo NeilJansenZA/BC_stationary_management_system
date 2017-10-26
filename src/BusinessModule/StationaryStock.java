@@ -6,6 +6,7 @@
 package BusinessModule;
 
 import DataAccessModule.DataConnection;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  *
  * @author Neil
  */
-public class StationaryStock
+public class StationaryStock implements Serializable
 {
     private DataConnection dc = new DataConnection();
     
@@ -158,8 +159,8 @@ public class StationaryStock
         return dc.GetProductFromID(productID);
     }
     
-    public void UpdateAfterOrder(List<StationaryStock> ss)
+    public StationaryStock GetAllProductFromID(int productID)
     {
-        //dc.UpdateStockAfterOrder();
+        return (StationaryStock) dc.GetAllProductFromID(productID);
     }
 }

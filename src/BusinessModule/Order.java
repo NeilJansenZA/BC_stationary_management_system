@@ -74,4 +74,12 @@ public class Order
         this.dc = new DataConnection();
         return (List<Order>) dc.LoadAllOrders();
     }
+
+    @Override
+    public String toString()
+    {
+        return "Order{" + "orderID=" + orderID + ", staffOrder=" + staffOrder + ", approvalDate=" + approvalDate + '}';
+    }
+
+    
 }

@@ -23,10 +23,57 @@ public class CurrentOrder
     private double orderTotal;
     private Date approvalDate;
 
+    private String staffUsername;
     
     private int staffID;
     private double totalPrice;
+    
+    private boolean viewOrder;
+    private boolean viewStaffOrder;
+    private boolean viewStaffPending;
 
+    public boolean isViewStaffPending()
+    {
+        return viewStaffPending;
+    }
+
+    public void setViewStaffPending(boolean viewStaffPending)
+    {
+        this.viewStaffPending = viewStaffPending;
+    }
+
+    public boolean isViewOrder()
+    {
+        return viewOrder;
+    }
+
+    public void setViewOrder(boolean viewOrder)
+    {
+        this.viewOrder = viewOrder;
+    }
+
+    public boolean isViewStaffOrder()
+    {
+        return viewStaffOrder;
+    }
+
+    public void setViewStaffOrder(boolean viewStaffOrder)
+    {
+        this.viewStaffOrder = viewStaffOrder;
+    }
+
+    public CurrentOrder(String orderID, String staffStockID, List<StaffStockOrder> orderStock, Date currentDate, double orderTotal, Date approvalDate, String staffUsername, double totalPrice)
+    {
+        this.orderID = orderID;
+        this.staffStockID = staffStockID;
+        this.orderStock = orderStock;
+        this.currentDate = currentDate;
+        this.orderTotal = orderTotal;
+        this.approvalDate = approvalDate;
+        this.staffUsername = staffUsername;
+        this.totalPrice = totalPrice;
+    }
+    
     public CurrentOrder(String orderID, String staffStockID, List<StaffStockOrder> orderStock, Date currentDate, int staffID, double totalPrice)
     {
         this.orderID = orderID;
@@ -57,6 +104,24 @@ public class CurrentOrder
         this.totalPrice = totalPrice;
     }
 
+    public CurrentOrder()
+    {
+    }
+    
+    
+
+    public String getStaffUsername()
+    {
+        return staffUsername;
+    }
+
+    public void setStaffUsername(String staffUsername)
+    {
+        this.staffUsername = staffUsername;
+    }
+
+    
+    
     public double getOrderTotal()
     {
         return orderTotal;
@@ -145,9 +210,32 @@ public class CurrentOrder
         dc.RequestCurrentOrder();
     }
     
-    public void RequestCurrentOrderWithPurchaseOrder(List<PurchaseOrder> po)
+    public void ApproveOrder(List<StationaryStock> stockList)
     {
         DataConnection dc = new DataConnection();
-        dc.RequestCurrentOrderWithPurchaseOrder(po);
+        Order order = new Order(SecurityModule.IDCreation.CreateOrderID(), new StaffStockOrder().GetStaffOrderID(this.staffStockID), new Date());
+        order.getStaffOrder().setOrderStatus("Approved");
+        dc.InsertOrder(order);
+        
+        for (StationaryStock stationaryStock : stockList)
+        {
+            dc.UpdateStockEntry(stationaryStock);
+        }
     }
+    
+    public void DenyOrder()
+    {
+        DataConnection dc = new DataConnection();
+        StaffOrder so = new StaffStockOrder().GetStaffOrderID(this.staffStockID);
+        so.setOrderStatus("Request Denied");
+        dc.DenyOrder(so);
+    }
+
+    @Override
+    public String toString()
+    {
+        return "CurrentOrder{" + "orderID=" + orderID + ", staffStockID=" + staffStockID + ", orderStock=" + orderStock + ", currentDate=" + currentDate + ", orderTotal=" + orderTotal + ", approvalDate=" + approvalDate + ", staffUsername=" + staffUsername + ", staffID=" + staffID + ", totalPrice=" + totalPrice + ", viewOrder=" + viewOrder + ", viewStaffOrder=" + viewStaffOrder + ", viewStaffPending=" + viewStaffPending + '}';
+    }
+    
+    
 }

@@ -359,23 +359,73 @@ public class OrderDialog extends javax.swing.JDialog
                 lblStaffStockOrderID.setText(Authentication.ActiveAccess.CurrentOrder.getStaffStockID());
                 lblDateCreated.setText(new java.sql.Date(new java.util.Date().getTime()).toString());
                 lblDateCompleted.setText("N/a");
-                lblCreatedUser.setText(Authentication.AuthenticationSettings.getConnectedStaff().getStaffName());
+                lblCreatedUser.setText(Authentication.AuthenticationSettings.getConnectedStaff().getStaffUsername());
                 lblGrandTotal.setText("0.0");
             }
             else
             {
-                if(isLoadedOrder)
+                if(Authentication.ActiveAccess.CurrentOrder.getOrderID() != null)
                 {
-                    lblOrderID.setText(Authentication.ActiveAccess.CurrentOrder.getOrderID());  
+                    lblOrderID.setText(Authentication.ActiveAccess.CurrentOrder.getOrderID());                 
+                }
+                else
+                {
+                    lblOrderID.setText("N/a"); 
+                }
+                
+                if(Authentication.ActiveAccess.CurrentOrder.getApprovalDate() != null)
+                {
                     lblDateCompleted.setText(Authentication.ActiveAccess.CurrentOrder.getApprovalDate().toString());
+                }
+                else
+                {
+                    lblDateCompleted.setText("N/a");
+                }
+                
+                if(String.valueOf(Authentication.ActiveAccess.CurrentOrder.getTotalPrice()) != null)
+                {
                     lblGrandTotal.setText(String.valueOf(Authentication.ActiveAccess.CurrentOrder.getTotalPrice()));
                 }
-                    
-                lblOrderID.setText("N/a"); 
-                lblDateCompleted.setText("N/a");
+                
+                if(Authentication.AuthenticationSettings.getConnectedStaff() != null)
+                {
+                    lblCreatedUser.setText(Authentication.AuthenticationSettings.getConnectedStaff().getStaffUsername());
+                }
+                else
+                {
+                    lblCreatedUser.setText(Authentication.ActiveAccess.CurrentOrder.getStaffUsername());
+                }
+                
+                if(Authentication.ActiveAccess.CurrentOrder.getCurrentDate() != null)
+                {
+                    lblDateCreated.setText(Authentication.ActiveAccess.CurrentOrder.getCurrentDate().toString());
+                }
+                else
+                {
+                     lblDateCreated.setText(new java.sql.Date(new java.util.Date().getTime()).toString());   
+                }
+         
                 lblStaffStockOrderID.setText(Authentication.ActiveAccess.CurrentOrder.getStaffStockID());
-                lblDateCreated.setText(new java.sql.Date(new java.util.Date().getTime()).toString());
-                lblCreatedUser.setText(Authentication.AuthenticationSettings.getConnectedStaff().getStaffName());
+                       
+            }
+            
+            if(Authentication.ActiveAccess.CurrentOrder.isViewOrder())
+            {
+                btnApproveOrder.setText("Generate Order Report");
+                btnCancelOrder.setVisible(false);
+                btnRemoveSelectedItem.setVisible(false);
+            }
+            else if(Authentication.ActiveAccess.CurrentOrder.isViewStaffOrder())
+            {
+                btnRemoveSelectedItem.setVisible(false);
+                btnApproveOrder.setText("Approve Order");
+                btnCancelOrder.setText("Deny Order");
+            }
+            else if(Authentication.ActiveAccess.CurrentOrder.isViewStaffPending())
+            {
+                btnApproveOrder.setVisible(false);
+                btnCancelOrder.setVisible(false);
+                btnRemoveSelectedItem.setVisible(false);
             }
 
             PopulateOrderItemsTable();
@@ -417,32 +467,95 @@ public class OrderDialog extends javax.swing.JDialog
     private void btnCancelOrderMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnCancelOrderMouseClicked
     {//GEN-HEADEREND:event_btnCancelOrderMouseClicked
         
-        int choice = JOptionPane.showConfirmDialog(this, "Are you sure you want cancel this current order? All changes will be lost.", "User Confirmation", JOptionPane.YES_NO_OPTION);
-
-        if (choice == JOptionPane.YES_OPTION)
+        if(btnCancelOrder.getText().equals("Deny Order"))
         {
-            ClearDialog();
-        }        
+            int choice = JOptionPane.showConfirmDialog(this, "Are you sure you want deny this current order? All changes will be lost.", "User Confirmation", JOptionPane.YES_NO_OPTION);
+
+            if (choice == JOptionPane.YES_OPTION)
+            {
+                Authentication.ActiveAccess.CurrentOrder.DenyOrder();
+                ClearDialog();
+            }
+        }
+        else
+        {
+            int choice = JOptionPane.showConfirmDialog(this, "Are you sure you want cancel this current order? All changes will be lost.", "User Confirmation", JOptionPane.YES_NO_OPTION);
+
+            if (choice == JOptionPane.YES_OPTION)
+            {
+                ClearDialog();
+            }
+        }
     }//GEN-LAST:event_btnCancelOrderMouseClicked
 
     private void btnApproveOrderMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnApproveOrderMouseClicked
     {//GEN-HEADEREND:event_btnApproveOrderMouseClicked
-        int choice = JOptionPane.showConfirmDialog(this, "You are about to request this order, are you sure?", "User Confirmation", JOptionPane.YES_NO_OPTION);
+        boolean createPurchaseOrder = false;
+        List<StationaryStock> stockList = new ArrayList<>();
+        if(btnApproveOrder.getText().equals("Approve Order"))
+        {
+            int choice = JOptionPane.showConfirmDialog(this, "You are about to approve this order, are you sure?", "User Confirmation", JOptionPane.YES_NO_OPTION);
 
-        if (choice == JOptionPane.YES_OPTION)
-        {               
-            Authentication.ActiveAccess.CurrentOrder.setStaffStockID(lblStaffStockOrderID.getText());
-            Authentication.ActiveAccess.CurrentOrder.setOrderStock(Authentication.ActiveAccess.getCurrentOrderList());
-            Authentication.ActiveAccess.CurrentOrder.setCurrentDate(new Date());
-            Authentication.ActiveAccess.CurrentOrder.setStaffID(Authentication.AuthenticationSettings.getCurrentUserID());
-            Authentication.ActiveAccess.CurrentOrder.setOrderTotal(grandTotal);
-            Authentication.ActiveAccess.CurrentOrder.RequestCurrentOrder();  
-            
-            Helper.DisplayError("Order request submitted successful!", "Request Submit successful");
-            ClearDialog();
+            if (choice == JOptionPane.YES_OPTION)
+            {                      
+                for (StaffStockOrder staffStockOrder : Authentication.ActiveAccess.CurrentOrderList)
+                {
+                    StationaryStock stock = new StationaryStock().GetAllProductFromID(staffStockOrder.getStationaryStockID());
+                    stock.setQuantity(stock.getQuantity() - staffStockOrder.getQuantity());
+                    
+                    if(stock.getQuantity() < 0)
+                    {
+                        createPurchaseOrder = true;
+                        CreatePurchaseOrder(staffStockOrder);
+                    }
+                    else
+                    {
+                        stockList.add(stock);
+                    }
+                }
+
+                if(!createPurchaseOrder)
+                {
+                    Authentication.ActiveAccess.CurrentOrder.ApproveOrder(stockList);
+                    Helper.DisplayError("Order approval successfull!", "Request Submit successful");
+                    ClearDialog();
+                }
+                else
+                {
+                    Helper.DisplayError("Order approval unsucessfull, Stock order due to lack of items!", "Request Submit Unsucessfully");
+                    ClearDialog();
+                }
+            }
+        }
+        else if(btnApproveOrder.getText().equals("Generate Order Report"))
+        {
+            new ApplicationHelper.ReportGenerator(Authentication.ActiveAccess.CurrentOrder);
+            Helper.DisplayError("Report Generated Successfully");
+        }
+        else
+        {
+            int choice = JOptionPane.showConfirmDialog(this, "You are about to request this order, are you sure?", "User Confirmation", JOptionPane.YES_NO_OPTION);
+
+            if (choice == JOptionPane.YES_OPTION)
+            {               
+                Authentication.ActiveAccess.CurrentOrder.setStaffStockID(lblStaffStockOrderID.getText());
+                Authentication.ActiveAccess.CurrentOrder.setOrderStock(Authentication.ActiveAccess.getCurrentOrderList());
+                Authentication.ActiveAccess.CurrentOrder.setCurrentDate(new Date());
+                Authentication.ActiveAccess.CurrentOrder.setStaffID(Authentication.AuthenticationSettings.getCurrentUserID());
+                Authentication.ActiveAccess.CurrentOrder.setOrderTotal(grandTotal);
+                Authentication.ActiveAccess.CurrentOrder.RequestCurrentOrder();  
+
+                Helper.DisplayError("Order request submitted successful!", "Request Submit successful");
+                ClearDialog();
+            }
         }
     }//GEN-LAST:event_btnApproveOrderMouseClicked
 
+    public void CreatePurchaseOrder(StaffStockOrder staffStockOrder)
+    {
+        PurchaseOrder po = new PurchaseOrder(SecurityModule.IDCreation.CreateOrderID(), staffStockOrder.getStationaryStockID(), new Date());
+        po.InsertPurchaseOrder();
+    }
     /**
      * @param args the command line arguments
      */

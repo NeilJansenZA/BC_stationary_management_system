@@ -7,18 +7,16 @@ package PresentationModule.JLayoutForms;
 
 import ApplicationHelper.Helper;
 import Authentication.AuthenticationSettings;
-import BusinessModule.Order;
-import BusinessModule.StaffStockOrder;
-import BusinessModule.StationaryCategory;
-import BusinessModule.StationaryStock;
-import BusinessModule.StockComporators.*;
+import BusinessModule.*;
 import BusinessModule.OrderComparators.*;
-import BusinessModule.StaffOrderComparators.*;
 import BusinessModule.OrderDetailsComparators.*;
-import BusinessModule.StaffOrder;
+import BusinessModule.StaffOrderComparators.*;
+import BusinessModule.StockComporators.*;
 import PresentationModule.BC_StationaryManagementSystem;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -37,8 +35,6 @@ public class JStaffModule extends javax.swing.JFrame
 
     private List<Order> approvedOrders = new ArrayList<>();
     private List<StaffOrder> pendingOrders = new ArrayList<>();
-    private List<StaffStockOrder> orderDetails = new ArrayList<>();
-    private List<StaffStockOrder> pendingOrderDetails = new ArrayList<>();
     private List<StationaryStock> stationaryStock = new ArrayList<>();
     private List<StationaryCategory> categories = new ArrayList<>();
     private boolean formLoad = false;
@@ -67,25 +63,28 @@ public class JStaffModule extends javax.swing.JFrame
         jMenuItem2 = new javax.swing.JMenuItem();
         tpStaffControls = new javax.swing.JTabbedPane();
         pnlManageStaff = new javax.swing.JPanel();
+        btnMyOrdersCloseTab = new javax.swing.JButton();
+        tpMyOrderControls = new javax.swing.JTabbedPane();
+        pnlMyOrders = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        cmbSortOrder = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMyOrders = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblOrderDetails = new javax.swing.JTable();
-        btnMyOrdersCloseTab = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        cmbSortOrder = new javax.swing.JComboBox();
-        cmbSortDetails = new javax.swing.JComboBox();
-        pnlUserRegistrationRequests = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        cmbSortOrderPending = new javax.swing.JComboBox();
-        jLabel7 = new javax.swing.JLabel();
-        cmbSortDetailsPending = new javax.swing.JComboBox();
+        btnViewMySelectedOrder = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        txtMyOrderFilterID = new javax.swing.JTextField();
+        cmdOrderViewByDate = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        pnlMyPendingOrders = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblPendingOrders = new javax.swing.JTable();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        tblPendingOrderDetails = new javax.swing.JTable();
-        btnMyOrdersCloseTabPending = new javax.swing.JButton();
+        cmbSortOrderPending = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
+        btnViewMySelectedOrder1 = new javax.swing.JButton();
+        txtMyOrderRequestFilter = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        cmdMyOrderRequestViewByDate = new javax.swing.JComboBox<>();
         pnlViewAllStock = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblAllStockStaff = new javax.swing.JTable();
@@ -106,7 +105,6 @@ public class JStaffModule extends javax.swing.JFrame
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jmStaffOrders = new javax.swing.JMenu();
         jmMyOrders = new javax.swing.JMenuItem();
-        jmStaffOrdersPending = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jmCurrentOrder = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
@@ -121,6 +119,26 @@ public class JStaffModule extends javax.swing.JFrame
         jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        btnMyOrdersCloseTab.setText("Close Tab");
+        btnMyOrdersCloseTab.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                btnMyOrdersCloseTabMouseClicked(evt);
+            }
+        });
+
+        jLabel4.setText("Priority Order Sort:");
+
+        cmbSortOrder.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None", "Order Total - Highest to Lowest", "Order Total - Lowest to Highest", "Order Date - Closest Date to Furthest Date", "Order Date - Furthest Date to Closest Date", "Approval Date - Closest Date to Furthest Date", "Approval Date - Furthest Date to Closest Date" }));
+        cmbSortOrder.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
+                cmbSortOrderItemStateChanged(evt);
+            }
+        });
 
         tblMyOrders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
@@ -152,145 +170,94 @@ public class JStaffModule extends javax.swing.JFrame
                 return canEdit [columnIndex];
             }
         });
-        tblMyOrders.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                tblMyOrdersMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(tblMyOrders);
 
-        tblOrderDetails.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
-
-            },
-            new String []
-            {
-                "Product Name", "Quantity", "Price"
-            }
-        )
-        {
-            Class[] types = new Class []
-            {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
-            };
-            boolean[] canEdit = new boolean []
-            {
-                false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex)
-            {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(tblOrderDetails);
-
-        btnMyOrdersCloseTab.setText("Close Tab");
-        btnMyOrdersCloseTab.addMouseListener(new java.awt.event.MouseAdapter()
+        btnViewMySelectedOrder.setText("View Selected Order");
+        btnViewMySelectedOrder.addMouseListener(new java.awt.event.MouseAdapter()
         {
             public void mouseClicked(java.awt.event.MouseEvent evt)
             {
-                btnMyOrdersCloseTabMouseClicked(evt);
+                btnViewMySelectedOrderMouseClicked(evt);
             }
         });
 
-        jLabel4.setText("Priority Order Sort:");
+        jLabel10.setText("Order ID:");
 
-        jLabel5.setText("Priority Details Sort:");
+        txtMyOrderFilterID.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyReleased(java.awt.event.KeyEvent evt)
+            {
+                txtMyOrderFilterIDKeyReleased(evt);
+            }
+        });
 
-        cmbSortOrder.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Order Total - Highest to Lowest", "Order Total - Lowest to Highest", "Order Date - Closest Date to Furthest Date", "Order Date - Furthest Date to Closest Date", "Approval Date - Closest Date to Furthest Date", "Approval Date - Furthest Date to Closest Date" }));
-        cmbSortOrder.setSelectedIndex(-1);
-        cmbSortOrder.addItemListener(new java.awt.event.ItemListener()
+        cmdOrderViewByDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Yearly", "Monthly", "Daily" }));
+        cmdOrderViewByDate.addItemListener(new java.awt.event.ItemListener()
         {
             public void itemStateChanged(java.awt.event.ItemEvent evt)
             {
-                cmbSortOrderItemStateChanged(evt);
+                cmdOrderViewByDateItemStateChanged(evt);
             }
         });
 
-        cmbSortDetails.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Quantity - Highest to Lowest", "Quantity - Lowest to Highest", "Price - Highest to Lowest", "Price - Lowest to Highest" }));
-        cmbSortDetails.setSelectedIndex(-1);
-        cmbSortDetails.addItemListener(new java.awt.event.ItemListener()
-        {
-            public void itemStateChanged(java.awt.event.ItemEvent evt)
-            {
-                cmbSortDetailsItemStateChanged(evt);
-            }
-        });
+        jLabel9.setText("View Orders By Date:");
 
-        javax.swing.GroupLayout pnlManageStaffLayout = new javax.swing.GroupLayout(pnlManageStaff);
-        pnlManageStaff.setLayout(pnlManageStaffLayout);
-        pnlManageStaffLayout.setHorizontalGroup(
-            pnlManageStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlManageStaffLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlMyOrdersLayout = new javax.swing.GroupLayout(pnlMyOrders);
+        pnlMyOrders.setLayout(pnlMyOrdersLayout);
+        pnlMyOrdersLayout.setHorizontalGroup(
+            pnlMyOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlMyOrdersLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlManageStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMyOrdersCloseTab)
-                    .addGroup(pnlManageStaffLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                .addGroup(pnlMyOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE)
+                    .addGroup(pnlMyOrdersLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
                         .addGap(18, 18, 18)
-                        .addComponent(cmbSortOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                .addGroup(pnlManageStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlManageStaffLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmbSortDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtMyOrderFilterID, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMyOrdersLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(pnlMyOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnViewMySelectedOrder, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMyOrdersLayout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmdOrderViewByDate, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
-        );
-        pnlManageStaffLayout.setVerticalGroup(
-            pnlManageStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlManageStaffLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(pnlManageStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+            .addGroup(pnlMyOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMyOrdersLayout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(cmbSortOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbSortDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addGroup(pnlManageStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addComponent(cmbSortOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
+        );
+        pnlMyOrdersLayout.setVerticalGroup(
+            pnlMyOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMyOrdersLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlMyOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtMyOrderFilterID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addGroup(pnlMyOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmdOrderViewByDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnMyOrdersCloseTab)
+                .addComponent(btnViewMySelectedOrder)
                 .addContainerGap())
+            .addGroup(pnlMyOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlMyOrdersLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(pnlMyOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(cmbSortOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(401, Short.MAX_VALUE)))
         );
 
-        tpStaffControls.addTab("My Orders", pnlManageStaff);
-
-        jLabel6.setText("Priority Order Sort:");
-
-        cmbSortOrderPending.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Order Total - Highest to Lowest", "Order Total - Lowest to Highest", "Order Date - Closest Date to Furthest Date", "Order Date - Furthest Date to Closest Date" }));
-        cmbSortOrderPending.setSelectedIndex(-1);
-        cmbSortOrderPending.addItemListener(new java.awt.event.ItemListener()
-        {
-            public void itemStateChanged(java.awt.event.ItemEvent evt)
-            {
-                cmbSortOrderPendingItemStateChanged(evt);
-            }
-        });
-
-        jLabel7.setText("Priority Details Sort:");
-
-        cmbSortDetailsPending.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Quantity - Highest to Lowest", "Quantity - Lowest to Highest", "Price - Highest to Lowest", "Price - Lowest to Highest" }));
-        cmbSortDetailsPending.setSelectedIndex(-1);
-        cmbSortDetailsPending.addItemListener(new java.awt.event.ItemListener()
-        {
-            public void itemStateChanged(java.awt.event.ItemEvent evt)
-            {
-                cmbSortDetailsPendingItemStateChanged(evt);
-            }
-        });
+        tpMyOrderControls.addTab("All My Orders", pnlMyOrders);
 
         tblPendingOrders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
@@ -322,97 +289,120 @@ public class JStaffModule extends javax.swing.JFrame
                 return canEdit [columnIndex];
             }
         });
-        tblPendingOrders.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                tblPendingOrdersMouseClicked(evt);
-            }
-        });
         jScrollPane4.setViewportView(tblPendingOrders);
 
-        tblPendingOrderDetails.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
-
-            },
-            new String []
-            {
-                "Product Name", "Quantity", "Price"
-            }
-        )
+        cmbSortOrderPending.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None", "Order Total - Highest to Lowest", "Order Total - Lowest to Highest", "Order Date - Closest Date to Furthest Date", "Order Date - Furthest Date to Closest Date" }));
+        cmbSortOrderPending.addItemListener(new java.awt.event.ItemListener()
         {
-            Class[] types = new Class []
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
             {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
-            };
-            boolean[] canEdit = new boolean []
-            {
-                false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex)
-            {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
-                return canEdit [columnIndex];
+                cmbSortOrderPendingItemStateChanged(evt);
             }
         });
-        jScrollPane5.setViewportView(tblPendingOrderDetails);
 
-        btnMyOrdersCloseTabPending.setText("Close Tab");
-        btnMyOrdersCloseTabPending.addMouseListener(new java.awt.event.MouseAdapter()
+        jLabel6.setText("Priority Order Sort:");
+
+        btnViewMySelectedOrder1.setText("View Selected Order");
+        btnViewMySelectedOrder1.addMouseListener(new java.awt.event.MouseAdapter()
         {
             public void mouseClicked(java.awt.event.MouseEvent evt)
             {
-                btnMyOrdersCloseTabPendingMouseClicked(evt);
+                btnViewMySelectedOrder1MouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout pnlUserRegistrationRequestsLayout = new javax.swing.GroupLayout(pnlUserRegistrationRequests);
-        pnlUserRegistrationRequests.setLayout(pnlUserRegistrationRequestsLayout);
-        pnlUserRegistrationRequestsLayout.setHorizontalGroup(
-            pnlUserRegistrationRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlUserRegistrationRequestsLayout.createSequentialGroup()
+        txtMyOrderRequestFilter.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyReleased(java.awt.event.KeyEvent evt)
+            {
+                txtMyOrderRequestFilterKeyReleased(evt);
+            }
+        });
+
+        jLabel11.setText("Stock Order ID:");
+
+        jLabel12.setText("View Orders By Date:");
+
+        cmdMyOrderRequestViewByDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Yearly", "Monthly", "Daily" }));
+        cmdMyOrderRequestViewByDate.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
+                cmdMyOrderRequestViewByDateItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlMyPendingOrdersLayout = new javax.swing.GroupLayout(pnlMyPendingOrders);
+        pnlMyPendingOrders.setLayout(pnlMyPendingOrdersLayout);
+        pnlMyPendingOrdersLayout.setHorizontalGroup(
+            pnlMyPendingOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlMyPendingOrdersLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlUserRegistrationRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMyOrdersCloseTabPending)
-                    .addGroup(pnlUserRegistrationRequestsLayout.createSequentialGroup()
+                .addGroup(pnlMyPendingOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlMyPendingOrdersLayout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtMyOrderRequestFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 269, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
-                        .addComponent(cmbSortOrderPending, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                .addGroup(pnlUserRegistrationRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlUserRegistrationRequestsLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmbSortDetailsPending, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cmbSortOrderPending, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlMyPendingOrdersLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(pnlMyPendingOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnViewMySelectedOrder1)
+                            .addGroup(pnlMyPendingOrdersLayout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmdMyOrderRequestViewByDate, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
-        pnlUserRegistrationRequestsLayout.setVerticalGroup(
-            pnlUserRegistrationRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlUserRegistrationRequestsLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(pnlUserRegistrationRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7)
+        pnlMyPendingOrdersLayout.setVerticalGroup(
+            pnlMyPendingOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMyPendingOrdersLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlMyPendingOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbSortOrderPending, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbSortDetailsPending, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addGroup(pnlUserRegistrationRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel11)
+                    .addComponent(txtMyOrderRequestFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlMyPendingOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmdMyOrderRequestViewByDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnMyOrdersCloseTabPending)
+                .addComponent(btnViewMySelectedOrder1)
+                .addGap(60, 60, 60))
+        );
+
+        tpMyOrderControls.addTab("My Pending Orders", pnlMyPendingOrders);
+
+        javax.swing.GroupLayout pnlManageStaffLayout = new javax.swing.GroupLayout(pnlManageStaff);
+        pnlManageStaff.setLayout(pnlManageStaffLayout);
+        pnlManageStaffLayout.setHorizontalGroup(
+            pnlManageStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlManageStaffLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlManageStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tpMyOrderControls)
+                    .addGroup(pnlManageStaffLayout.createSequentialGroup()
+                        .addComponent(btnMyOrdersCloseTab)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+        pnlManageStaffLayout.setVerticalGroup(
+            pnlManageStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlManageStaffLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tpMyOrderControls, javax.swing.GroupLayout.PREFERRED_SIZE, 459, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMyOrdersCloseTab)
                 .addContainerGap())
         );
 
-        tpStaffControls.addTab("Pending Orders", pnlUserRegistrationRequests);
+        tpStaffControls.addTab("Orders", pnlManageStaff);
 
         tblAllStockStaff.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
@@ -477,8 +467,7 @@ public class JStaffModule extends javax.swing.JFrame
 
         jLabel3.setText("Priority Sort:");
 
-        cmbPrioritySort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Price - High to Low", "Price - Low to High", "Quantity - High to Low", "Quantity - Low to High", "Date - Closest Date to Furthest Date", "Date - Furthest Date to Closest Date" }));
-        cmbPrioritySort.setSelectedIndex(-1);
+        cmbPrioritySort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "Price - High to Low", "Price - Low to High", "Quantity - High to Low", "Quantity - Low to High", "Date - Closest Date to Furthest Date", "Date - Furthest Date to Closest Date" }));
         cmbPrioritySort.addItemListener(new java.awt.event.ItemListener()
         {
             public void itemStateChanged(java.awt.event.ItemEvent evt)
@@ -494,7 +483,7 @@ public class JStaffModule extends javax.swing.JFrame
             .addGroup(pnlViewAllStockLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlViewAllStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1006, Short.MAX_VALUE)
                     .addGroup(pnlViewAllStockLayout.createSequentialGroup()
                         .addComponent(btnViewStationaryCloseTab)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -529,7 +518,7 @@ public class JStaffModule extends javax.swing.JFrame
                     .addComponent(jLabel2)
                     .addComponent(cmbFilterCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlViewAllStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnViewStationaryCloseTab)
@@ -541,7 +530,6 @@ public class JStaffModule extends javax.swing.JFrame
 
         jmStaffAccount.setText("Account");
 
-        jmStaffMyAccount.setIcon(new javax.swing.ImageIcon("J:\\Belgium Campus\\Third Year (2017)\\PRG 321\\Project\\BC_stationary_management_system\\icons\\icons8-Checked User Male-16.png")); // NOI18N
         jmStaffMyAccount.setText("My Account");
         jmStaffMyAccount.addActionListener(new java.awt.event.ActionListener()
         {
@@ -552,7 +540,6 @@ public class JStaffModule extends javax.swing.JFrame
         });
         jmStaffAccount.add(jmStaffMyAccount);
 
-        jmStaffLogout.setIcon(new javax.swing.ImageIcon("J:\\Belgium Campus\\Third Year (2017)\\PRG 321\\Project\\BC_stationary_management_system\\icons\\icons8-Logout Rounded Up-16.png")); // NOI18N
         jmStaffLogout.setText("Logout");
         jmStaffLogout.addActionListener(new java.awt.event.ActionListener()
         {
@@ -564,7 +551,6 @@ public class JStaffModule extends javax.swing.JFrame
         jmStaffAccount.add(jmStaffLogout);
         jmStaffAccount.add(jSeparator2);
 
-        jmStaffModuleClose.setIcon(new javax.swing.ImageIcon("J:\\Belgium Campus\\Third Year (2017)\\PRG 321\\Project\\BC_stationary_management_system\\icons\\icons8-Cancel-16.png")); // NOI18N
         jmStaffModuleClose.setText("Close");
         jmStaffModuleClose.addActionListener(new java.awt.event.ActionListener()
         {
@@ -580,7 +566,6 @@ public class JStaffModule extends javax.swing.JFrame
 
         jmStaffOrders.setText("Orders");
 
-        jmMyOrders.setIcon(new javax.swing.ImageIcon("J:\\Belgium Campus\\Third Year (2017)\\PRG 321\\Project\\BC_stationary_management_system\\icons\\icons8-List-16.png")); // NOI18N
         jmMyOrders.setText("My Orders");
         jmMyOrders.addActionListener(new java.awt.event.ActionListener()
         {
@@ -590,20 +575,8 @@ public class JStaffModule extends javax.swing.JFrame
             }
         });
         jmStaffOrders.add(jmMyOrders);
-
-        jmStaffOrdersPending.setIcon(new javax.swing.ImageIcon("J:\\Belgium Campus\\Third Year (2017)\\PRG 321\\Project\\BC_stationary_management_system\\icons\\icons8-Bulleted List-16.png")); // NOI18N
-        jmStaffOrdersPending.setText("My Pending Orders");
-        jmStaffOrdersPending.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jmStaffOrdersPendingActionPerformed(evt);
-            }
-        });
-        jmStaffOrders.add(jmStaffOrdersPending);
         jmStaffOrders.add(jSeparator4);
 
-        jmCurrentOrder.setIcon(new javax.swing.ImageIcon("J:\\Belgium Campus\\Third Year (2017)\\PRG 321\\Project\\BC_stationary_management_system\\icons\\icons8-Buy-16.png")); // NOI18N
         jmCurrentOrder.setText("View Current Order");
         jmCurrentOrder.addActionListener(new java.awt.event.ActionListener()
         {
@@ -619,7 +592,6 @@ public class JStaffModule extends javax.swing.JFrame
 
         jmStaffStationary.setText("Stationary");
 
-        jmStaffViewStationary.setIcon(new javax.swing.ImageIcon("J:\\Belgium Campus\\Third Year (2017)\\PRG 321\\Project\\BC_stationary_management_system\\icons\\icons8-Edit-16.png")); // NOI18N
         jmStaffViewStationary.setText("View Stationary");
         jmStaffViewStationary.setToolTipText("");
         jmStaffViewStationary.addActionListener(new java.awt.event.ActionListener()
@@ -649,8 +621,8 @@ public class JStaffModule extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tpStaffControls, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(tpStaffControls)
+                .addContainerGap())
         );
 
         pack();
@@ -662,7 +634,7 @@ public class JStaffModule extends javax.swing.JFrame
     {
         try
         {
-            cmbFilterCategory.addItem(null);
+            cmbFilterCategory.addItem("None");
             categories = new StationaryCategory().ReadStationaryCategory();
 
             for (StationaryCategory categoryData : categories)
@@ -670,7 +642,7 @@ public class JStaffModule extends javax.swing.JFrame
                 cmbFilterCategory.addItem(categoryData.getName());
             }
 
-            cmbFilterCategory.setSelectedIndex(-1);
+            cmbFilterCategory.setSelectedIndex(0);
         } catch (NullPointerException npe)
         {
             Helper.DisplayError(npe.toString());
@@ -708,26 +680,14 @@ public class JStaffModule extends javax.swing.JFrame
         approvedOrders = new Order().LoadMyApprovedOrders();
     }
 
-    private void LoadTableOrderDetailsData()
-    {
-        String stockOrderID = tblMyOrders.getValueAt(tblMyOrders.getSelectedRow(), 1).toString();
-        orderDetails = new StaffStockOrder().GetOrderDetails(stockOrderID);
-    }
-    
-    private void LoadTablePendingOrderDetailsData()
-    {
-        String stockOrderID = tblPendingOrders.getValueAt(tblPendingOrders.getSelectedRow(), 0).toString();
-        pendingOrderDetails = new StaffStockOrder().GetOrderDetails(stockOrderID);
-    }
-
     private void LoadTableAllStockData()
     {
         stationaryStock = new StationaryStock().LoadStationaryStock();
     }
-    
+
     private void LoadMyPendingOrders()
     {
-        pendingOrders = new StaffOrder().LoadPendingOrders();
+        pendingOrders = new StaffOrder().LoadMyPendingOrders();
     }
 
     //</editor-fold>
@@ -750,31 +710,6 @@ public class JStaffModule extends javax.swing.JFrame
             }
 
             tblMyOrders.setModel(model);
-        } catch (ArrayIndexOutOfBoundsException aiob)
-        {
-            Helper.DisplayError(aiob.toString());
-        } catch (Exception ex)
-        {
-            Helper.DisplayError(ex.toString());
-        }
-    }
-
-    private void PopulateOrderDetails()
-    {
-        try
-        {
-            DefaultTableModel model = (DefaultTableModel) tblOrderDetails.getModel();
-
-            for (StaffStockOrder details : orderDetails)
-            {
-                Object[] o = new Object[3];
-                o[0] = new StationaryStock().GetProductFromID(details.getStationaryStockID());
-                o[1] = details.getQuantity();
-                o[2] = details.getPrice();
-                model.addRow(o);
-            }
-
-            tblOrderDetails.setModel(model);
         } catch (ArrayIndexOutOfBoundsException aiob)
         {
             Helper.DisplayError(aiob.toString());
@@ -816,13 +751,13 @@ public class JStaffModule extends javax.swing.JFrame
             Helper.DisplayError(ex.getMessage());
         }
     }
-    
+
     private void PopulateTablePendingOrders()
     {
         try
         {
             DefaultTableModel model = (DefaultTableModel) tblPendingOrders.getModel();
-            
+
             for (StaffOrder staffOrder : pendingOrders)
             {
                 Object[] o = new Object[4];
@@ -832,40 +767,14 @@ public class JStaffModule extends javax.swing.JFrame
                 o[3] = staffOrder.getOrderStatus();
                 model.addRow(o);
             }
-            
+
             tblPendingOrders.setModel(model);
-        }
-        catch (ArrayIndexOutOfBoundsException aiob)
-        {
-            Helper.DisplayError(aiob.toString());
-        } catch (Exception ex)
-        {
-            Helper.DisplayError(ex.getMessage());
-        }
-    }
-    
-    private void PopulatePendingOrderDetails()
-    {
-        try
-        {
-            DefaultTableModel model = (DefaultTableModel) tblPendingOrderDetails.getModel();
-
-            for (StaffStockOrder details : pendingOrderDetails)
-            {
-                Object[] o = new Object[3];
-                o[0] = new StationaryStock().GetProductFromID(details.getStationaryStockID());
-                o[1] = details.getQuantity();
-                o[2] = details.getPrice();
-                model.addRow(o);
-            }
-
-            tblPendingOrderDetails.setModel(model);
         } catch (ArrayIndexOutOfBoundsException aiob)
         {
             Helper.DisplayError(aiob.toString());
         } catch (Exception ex)
         {
-            Helper.DisplayError(ex.toString());
+            Helper.DisplayError(ex.getMessage());
         }
     }
     //</editor-fold>
@@ -914,105 +823,103 @@ public class JStaffModule extends javax.swing.JFrame
             {
                 if (!tpStaffControls.getSelectedComponent().equals(tabPanels[0]))
                 {
-                    tpStaffControls.addTab("My Orders", tabPanels[0]);
+                    tpStaffControls.addTab("Orders", tabPanels[0]);
                     tpStaffControls.setSelectedIndex(tpStaffControls.getComponentCount() - 1);
                     LoadTableUserOrderData();
                     PopulateUserOrdersTable();
+                    LoadMyPendingOrders();
+                    PopulateTablePendingOrders();
                     loadedTabs[0] = true;
                 }
             } catch (NullPointerException npe)
             {
-                tpStaffControls.addTab("My Orders", tabPanels[0]);
+                tpStaffControls.addTab("Orders", tabPanels[0]);
                 tpStaffControls.setSelectedIndex(tpStaffControls.getComponentCount() - 1);
                 LoadTableUserOrderData();
                 PopulateUserOrdersTable();
+                LoadMyPendingOrders();
+                PopulateTablePendingOrders();
                 loadedTabs[0] = true;
             }
         }
     }//GEN-LAST:event_jmMyOrdersActionPerformed
 
-    private void tblMyOrdersMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_tblMyOrdersMouseClicked
-    {//GEN-HEADEREND:event_tblMyOrdersMouseClicked
-        DefaultTableModel model = (DefaultTableModel) tblOrderDetails.getModel();
-        model.setRowCount(0);
-        LoadTableOrderDetailsData();
-        PopulateOrderDetails();
-    }//GEN-LAST:event_tblMyOrdersMouseClicked
-
-    private void btnMyOrdersCloseTabMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnMyOrdersCloseTabMouseClicked
-    {//GEN-HEADEREND:event_btnMyOrdersCloseTabMouseClicked
-        DefaultTableModel model = (DefaultTableModel) tblMyOrders.getModel();
-        model.setRowCount(0);
-        DefaultTableModel model2 = (DefaultTableModel) tblOrderDetails.getModel();
-        model2.setRowCount(0);
-        tpStaffControls.remove(tabPanels[0]);
-        loadedTabs[0] = false;
-    }//GEN-LAST:event_btnMyOrdersCloseTabMouseClicked
-
     private void jmStaffViewStationaryActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmStaffViewStationaryActionPerformed
     {//GEN-HEADEREND:event_jmStaffViewStationaryActionPerformed
-        if (!loadedTabs[2])
+        if (!loadedTabs[1])
         {
             try
             {
-                if (!tpStaffControls.getSelectedComponent().equals(tabPanels[2]))
+                if (!tpStaffControls.getSelectedComponent().equals(tabPanels[1]))
                 {
-                    tpStaffControls.addTab("View All Stationary", tabPanels[2]);
+                    tpStaffControls.addTab("View All Stationary", tabPanels[1]);
                     tpStaffControls.setSelectedIndex(tpStaffControls.getComponentCount() - 1);
                     LoadTableAllStockData();
                     PopulateTableAllStock();
-                    loadedTabs[2] = true;
+                    loadedTabs[1] = true;
                 }
             } catch (NullPointerException npe)
             {
-                tpStaffControls.addTab("View All Stationary", tabPanels[2]);
+                tpStaffControls.addTab("View All Stationary", tabPanels[1]);
                 tpStaffControls.setSelectedIndex(tpStaffControls.getComponentCount() - 1);
                 LoadTableAllStockData();
                 PopulateTableAllStock();
-                loadedTabs[2] = true;
+                loadedTabs[1] = true;
             }
         }
     }//GEN-LAST:event_jmStaffViewStationaryActionPerformed
 
-    private void btnViewStationaryCloseTabMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnViewStationaryCloseTabMouseClicked
-    {//GEN-HEADEREND:event_btnViewStationaryCloseTabMouseClicked
+    private void jmCurrentOrderActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmCurrentOrderActionPerformed
+    {//GEN-HEADEREND:event_jmCurrentOrderActionPerformed
+        if (!Authentication.ActiveAccess.getCurrentOrderList().isEmpty())
+        {
+            OrderDialog od = new OrderDialog(null, true);
+            od.setVisible(true);           
+        } else
+        {
+            Helper.DisplayError("There is no current order yet, please add some stationary stock to create one.", "No Existing Order");
+        }
+    }//GEN-LAST:event_jmCurrentOrderActionPerformed
+
+    private void cmbPrioritySortItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_cmbPrioritySortItemStateChanged
+    {//GEN-HEADEREND:event_cmbPrioritySortItemStateChanged
+        switch (cmbPrioritySort.getSelectedIndex())
+        {
+            case 0:
+            Collections.sort(stationaryStock, new StockID());
+            break;
+            case 1:
+            Collections.sort(stationaryStock, new StockPrice_HighToLow());
+            break;
+
+            case 2:
+            Collections.sort(stationaryStock, new StockPrice_LowToHigh());
+            break;
+
+            case 3:
+            Collections.sort(stationaryStock, new StockQuantity_HighToLow());
+            break;
+
+            case 4:
+            Collections.sort(stationaryStock, new StockQuantity_LowToHigh());
+            break;
+
+            case 5:
+            Collections.sort(stationaryStock, new StockDate_ClosestToFurthest());
+            break;
+
+            case 6:
+            Collections.sort(stationaryStock, new StockDate_FurthestToClosest());
+            break;
+        }
+
         DefaultTableModel model = (DefaultTableModel) tblAllStockStaff.getModel();
         model.setRowCount(0);
-        tpStaffControls.remove(tabPanels[2]);
-        loadedTabs[2] = false;
-    }//GEN-LAST:event_btnViewStationaryCloseTabMouseClicked
+        PopulateTableAllStock();
+    }//GEN-LAST:event_cmbPrioritySortItemStateChanged
 
-    private void txtFilterProductNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFilterProductNameKeyReleased
-        try
-        {
-            LoadTableAllStockData();
-            List<StationaryStock> stockToRemove = new ArrayList<>();
-
-            for (StationaryStock stock : stationaryStock)
-            {
-                if (!stock.getProductName().toUpperCase().contains(txtFilterProductName.getText().toUpperCase()))
-                {
-                    stockToRemove.add(stock);
-                }
-            }
-
-            stationaryStock.removeAll(stockToRemove);
-
-            DefaultTableModel model = (DefaultTableModel) tblAllStockStaff.getModel();
-            model.setRowCount(0);
-            PopulateTableAllStock();
-
-            if (stationaryStock.size() <= 0)
-            {
-                Helper.DisplayError("There are no products that match that filter", "Filter Information");
-            }
-        } catch (Exception ex)
-        {
-            Helper.DisplayError(ex.toString(), "Error In Filter");
-        }
-    }//GEN-LAST:event_txtFilterProductNameKeyReleased
-
-    private void cmbFilterCategoryItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbFilterCategoryItemStateChanged
+    private void cmbFilterCategoryItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_cmbFilterCategoryItemStateChanged
+    {//GEN-HEADEREND:event_cmbFilterCategoryItemStateChanged
         if (formLoad)
         {
             try
@@ -1058,189 +965,39 @@ public class JStaffModule extends javax.swing.JFrame
         }
     }//GEN-LAST:event_cmbFilterCategoryItemStateChanged
 
-    private void cmbPrioritySortItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbPrioritySortItemStateChanged
-        switch (cmbPrioritySort.getSelectedIndex())
+    private void txtFilterProductNameKeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_txtFilterProductNameKeyReleased
+    {//GEN-HEADEREND:event_txtFilterProductNameKeyReleased
+        try
         {
-            case 0:
-                Collections.sort(stationaryStock, new StockPrice_HighToLow());
-                break;
+            LoadTableAllStockData();
+            List<StationaryStock> stockToRemove = new ArrayList<>();
 
-            case 1:
-                Collections.sort(stationaryStock, new StockPrice_LowToHigh());
-                break;
-
-            case 2:
-                Collections.sort(stationaryStock, new StockQuantity_HighToLow());
-                break;
-
-            case 3:
-                Collections.sort(stationaryStock, new StockQuantity_LowToHigh());
-                break;
-
-            case 4:
-                Collections.sort(stationaryStock, new StockDate_ClosestToFurthest());
-                break;
-
-            case 5:
-                Collections.sort(stationaryStock, new StockDate_FurthestToClosest());
-                break;
-        }
-
-        DefaultTableModel model = (DefaultTableModel) tblAllStockStaff.getModel();
-        model.setRowCount(0);
-        PopulateTableAllStock();
-    }//GEN-LAST:event_cmbPrioritySortItemStateChanged
-
-    private void cmbSortOrderItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbSortOrderItemStateChanged
-        switch (cmbSortOrder.getSelectedIndex())
-        {
-            case 0:
-                Collections.sort(approvedOrders, new OrderTotal_HighestToLowest());
-                break;
-
-            case 1:
-                Collections.sort(approvedOrders, new OrderTotal_LowestToHighest());
-                break;
-
-            case 2:
-                Collections.sort(approvedOrders, new OrderDate_ClosestToFurthest());
-                break;
-
-            case 3:
-                Collections.sort(approvedOrders, new OrderDate_FurthestToClosest());
-                break;
-
-            case 4:
-                Collections.sort(approvedOrders, new OrderApprovalDate_ClosestToFurthest());
-                break;
-
-            case 5:
-                Collections.sort(approvedOrders, new OrderApprovalDate_FurthestToClosest());
-                break;
-        }
-
-        DefaultTableModel model = (DefaultTableModel) tblMyOrders.getModel();
-        model.setRowCount(0);
-        PopulateUserOrdersTable();
-    }//GEN-LAST:event_cmbSortOrderItemStateChanged
-
-    private void cmbSortDetailsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbSortDetailsItemStateChanged
-        switch (cmbSortDetails.getSelectedIndex())
-        {
-            case 0:
-                Collections.sort(orderDetails, new OrderDetailsQuantity_HighestToLowest());
-                break;
-
-            case 1:
-                Collections.sort(orderDetails, new OrderDetailsQuantity_LowestToHighest());
-                break;
-
-            case 2:
-                Collections.sort(orderDetails, new OrderDetailsPrice_HighestToLowest());
-                break;
-
-            case 3:
-                Collections.sort(orderDetails, new OrderDetailsPrice_LowestToHighest());
-                break;
-        }
-
-        DefaultTableModel model = (DefaultTableModel) tblOrderDetails.getModel();
-        model.setRowCount(0);
-        PopulateOrderDetails();
-    }//GEN-LAST:event_cmbSortDetailsItemStateChanged
-
-    private void cmbSortOrderPendingItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_cmbSortOrderPendingItemStateChanged
-    {//GEN-HEADEREND:event_cmbSortOrderPendingItemStateChanged
-        switch (cmbSortOrderPending.getSelectedIndex())
-        {
-            case 0:
-                Collections.sort(pendingOrders, new StaffOrderTotal_HighestToLowest());
-                break;
-
-            case 1:
-                Collections.sort(pendingOrders, new StaffOrderTotal_LowestToHighest());
-                break;
-
-            case 2:
-                Collections.sort(pendingOrders, new StaffOrderDate_ClosestToFurthest());
-                break;
-
-            case 3:
-                Collections.sort(pendingOrders, new StaffOrderDate_FurthestToClosest());
-                break;
-        }
-
-        DefaultTableModel model = (DefaultTableModel) tblPendingOrders.getModel();
-        model.setRowCount(0);
-        PopulateTablePendingOrders();
-    }//GEN-LAST:event_cmbSortOrderPendingItemStateChanged
-
-    private void cmbSortDetailsPendingItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_cmbSortDetailsPendingItemStateChanged
-    {//GEN-HEADEREND:event_cmbSortDetailsPendingItemStateChanged
-        switch(cmbSortDetailsPending.getSelectedIndex())
-        {
-            case 0:
-                Collections.sort(pendingOrderDetails, new OrderDetailsQuantity_HighestToLowest());
-                break;
-
-            case 1:
-                Collections.sort(pendingOrderDetails, new OrderDetailsQuantity_LowestToHighest());
-                break;
-
-            case 2:
-                Collections.sort(pendingOrderDetails, new OrderDetailsPrice_HighestToLowest());
-                break;
-
-            case 3:
-                Collections.sort(pendingOrderDetails, new OrderDetailsPrice_LowestToHighest());
-                break;
-        }
-        
-        DefaultTableModel model = (DefaultTableModel) tblPendingOrderDetails.getModel();
-        model.setRowCount(0);
-        PopulatePendingOrderDetails();
-    }//GEN-LAST:event_cmbSortDetailsPendingItemStateChanged
-
-    private void tblPendingOrdersMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_tblPendingOrdersMouseClicked
-    {//GEN-HEADEREND:event_tblPendingOrdersMouseClicked
-        DefaultTableModel model = (DefaultTableModel) tblPendingOrderDetails.getModel();
-        model.setRowCount(0);
-        LoadTablePendingOrderDetailsData();
-        PopulatePendingOrderDetails();
-    }//GEN-LAST:event_tblPendingOrdersMouseClicked
-
-    private void btnMyOrdersCloseTabPendingMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnMyOrdersCloseTabPendingMouseClicked
-    {//GEN-HEADEREND:event_btnMyOrdersCloseTabPendingMouseClicked
-        DefaultTableModel model = (DefaultTableModel) tblPendingOrders.getModel();
-        model.setRowCount(0);
-        tpStaffControls.remove(tabPanels[1]);
-        loadedTabs[1] = false;
-    }//GEN-LAST:event_btnMyOrdersCloseTabPendingMouseClicked
-
-    private void jmStaffOrdersPendingActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmStaffOrdersPendingActionPerformed
-    {//GEN-HEADEREND:event_jmStaffOrdersPendingActionPerformed
-        if (!loadedTabs[1])
-        {
-            try
+            for (StationaryStock stock : stationaryStock)
             {
-                if (!tpStaffControls.getSelectedComponent().equals(tabPanels[1]))
+                if (!stock.getProductName().toUpperCase().contains(txtFilterProductName.getText().toUpperCase()))
                 {
-                    tpStaffControls.addTab("Pending Orders", tabPanels[1]);
-                    tpStaffControls.setSelectedIndex(tpStaffControls.getComponentCount() - 1);
-                    LoadMyPendingOrders();
-                    PopulateTablePendingOrders();
-                    loadedTabs[1] = true;
+                    stockToRemove.add(stock);
                 }
-            } catch (NullPointerException npe)
-            {
-                tpStaffControls.addTab("Pending Orders", tabPanels[1]);
-                tpStaffControls.setSelectedIndex(tpStaffControls.getComponentCount() - 1);
-                LoadMyPendingOrders();
-                PopulateTablePendingOrders();
-                loadedTabs[1] = true;
             }
+
+            stationaryStock.removeAll(stockToRemove);
+
+            DefaultTableModel model = (DefaultTableModel) tblAllStockStaff.getModel();
+            model.setRowCount(0);
+            PopulateTableAllStock();
+
+            if (stationaryStock.size() <= 0)
+            {
+                throw new FilterException("There are no products that match that filter");
+            }
+        } catch (FilterException fe)
+        {
+            Helper.DisplayError(fe.toString(), "Filter Exception");
+        } catch (Exception ex)
+        {
+            Helper.DisplayError(ex.toString(), "Error In Filter");
         }
-    }//GEN-LAST:event_jmStaffOrdersPendingActionPerformed
+    }//GEN-LAST:event_txtFilterProductNameKeyReleased
 
     private void btnAddFromStationaryMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnAddFromStationaryMouseClicked
     {//GEN-HEADEREND:event_btnAddFromStationaryMouseClicked
@@ -1249,18 +1006,18 @@ public class JStaffModule extends javax.swing.JFrame
             int stationaryStockID = Integer.parseInt(tblAllStockStaff.getValueAt(tblAllStockStaff.getSelectedRow(), 0).toString());
             int quantity = Integer.parseInt(JOptionPane.showInputDialog("Please enter a quantity amount you would like to request: "));
             double price = Double.parseDouble(tblAllStockStaff.getValueAt(tblAllStockStaff.getSelectedRow(), 4).toString());
-            
-            if(quantity < 1)
+
+            if (quantity < 1)
             {
                 throw new NumberFormatException();
             }
-  
+
             StaffStockOrder selectedStockEntry = new StaffStockOrder(stationaryStockID, quantity, price);
             List<StaffStockOrder> orderToRemove = new ArrayList<>();
-            
+
             for (StaffStockOrder checkDup : Authentication.ActiveAccess.CurrentOrderList)
             {
-                if(checkDup.getStationaryStockID() == selectedStockEntry.getStationaryStockID())
+                if (checkDup.getStationaryStockID() == selectedStockEntry.getStationaryStockID())
                 {
                     orderToRemove.add(checkDup);
                     selectedStockEntry.setQuantity(selectedStockEntry.getQuantity() + checkDup.getQuantity());
@@ -1270,26 +1027,365 @@ public class JStaffModule extends javax.swing.JFrame
             Authentication.ActiveAccess.CurrentOrderList.removeAll(orderToRemove);
             Authentication.ActiveAccess.CurrentOrderList.add(selectedStockEntry);
             Helper.DisplayError("Succesfully added to current order.", "Succesfully added");
-        }
-        catch (NumberFormatException nfe)
+        } catch (NumberFormatException nfe)
         {
             Helper.DisplayError("Please enter a correct quantity value", "Invalid Type Entered");
         }
     }//GEN-LAST:event_btnAddFromStationaryMouseClicked
 
-    private void jmCurrentOrderActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmCurrentOrderActionPerformed
-    {//GEN-HEADEREND:event_jmCurrentOrderActionPerformed
-        if(!Authentication.ActiveAccess.getCurrentOrderList().isEmpty())
+    private void btnViewStationaryCloseTabMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnViewStationaryCloseTabMouseClicked
+    {//GEN-HEADEREND:event_btnViewStationaryCloseTabMouseClicked
+        DefaultTableModel model = (DefaultTableModel) tblAllStockStaff.getModel();
+        model.setRowCount(0);
+        tpStaffControls.remove(tabPanels[1]);
+        loadedTabs[1] = false;
+    }//GEN-LAST:event_btnViewStationaryCloseTabMouseClicked
+
+    private void cmbSortOrderItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_cmbSortOrderItemStateChanged
+    {//GEN-HEADEREND:event_cmbSortOrderItemStateChanged
+        switch (cmbSortOrder.getSelectedIndex())
         {
-            OrderDialog od = new OrderDialog(null, true);
-            od.setVisible(true);
+            case 0:
+                Collections.sort(approvedOrders, new OrderID());
+                break;
+            case 1:
+            Collections.sort(approvedOrders, new OrderTotal_HighestToLowest());
+            break;
+
+            case 2:
+            Collections.sort(approvedOrders, new OrderTotal_LowestToHighest());
+            break;
+
+            case 3:
+            Collections.sort(approvedOrders, new OrderDate_ClosestToFurthest());
+            break;
+
+            case 4:
+            Collections.sort(approvedOrders, new OrderDate_FurthestToClosest());
+            break;
+
+            case 5:
+            Collections.sort(approvedOrders, new OrderApprovalDate_ClosestToFurthest());
+            break;
+
+            case 6:
+            Collections.sort(approvedOrders, new OrderApprovalDate_FurthestToClosest());
+            break;
         }
-        else
+
+        DefaultTableModel model = (DefaultTableModel) tblMyOrders.getModel();
+        model.setRowCount(0);
+        PopulateUserOrdersTable();
+    }//GEN-LAST:event_cmbSortOrderItemStateChanged
+
+    private void btnMyOrdersCloseTabMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnMyOrdersCloseTabMouseClicked
+    {//GEN-HEADEREND:event_btnMyOrdersCloseTabMouseClicked
+        DefaultTableModel model = (DefaultTableModel) tblMyOrders.getModel();
+        model.setRowCount(0);
+        DefaultTableModel model2 = (DefaultTableModel) tblPendingOrders.getModel();
+        model2.setRowCount(0);
+        tpStaffControls.remove(tabPanels[0]);
+        loadedTabs[0] = false;
+    }//GEN-LAST:event_btnMyOrdersCloseTabMouseClicked
+
+    private void cmbSortOrderPendingItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_cmbSortOrderPendingItemStateChanged
+    {//GEN-HEADEREND:event_cmbSortOrderPendingItemStateChanged
+        switch (cmbSortOrderPending.getSelectedIndex())
         {
-            Helper.DisplayError("There is no current order yet, please add some stationary stock to create one.", "No Existing Order");
+            case 0:
+            Collections.sort(pendingOrders, new StaffOrderID());
+                break;
+            case 1:
+            Collections.sort(pendingOrders, new StaffOrderTotal_HighestToLowest());
+            break;
+
+            case 2:
+            Collections.sort(pendingOrders, new StaffOrderTotal_LowestToHighest());
+            break;
+
+            case 3:
+            Collections.sort(pendingOrders, new StaffOrderDate_ClosestToFurthest());
+            break;
+
+            case 4:
+            Collections.sort(pendingOrders, new StaffOrderDate_FurthestToClosest());
+            break;
         }
-    }//GEN-LAST:event_jmCurrentOrderActionPerformed
-    //</editor-fold>
+
+        DefaultTableModel model = (DefaultTableModel) tblPendingOrders.getModel();
+        model.setRowCount(0);
+        PopulateTablePendingOrders();
+    }//GEN-LAST:event_cmbSortOrderPendingItemStateChanged
+
+    private void btnViewMySelectedOrderMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnViewMySelectedOrderMouseClicked
+    {//GEN-HEADEREND:event_btnViewMySelectedOrderMouseClicked
+        try
+        {
+            String stockOrderID = tblMyOrders.getValueAt(tblMyOrders.getSelectedRow(), 1).toString();
+            String orderID = tblMyOrders.getValueAt(tblMyOrders.getSelectedRow(), 0).toString();
+            Date approvalDate = (Date)tblMyOrders.getValueAt(tblMyOrders.getSelectedRow(), 3);
+            Date orderDate = (Date)tblMyOrders.getValueAt(tblMyOrders.getSelectedRow(), 2);
+            double orderTotal = (Double)tblMyOrders.getValueAt(tblMyOrders.getSelectedRow(), 4);
+
+            Authentication.ActiveAccess.CurrentOrder = new CurrentOrder();
+            Authentication.ActiveAccess.CurrentOrder.setOrderID(orderID);
+            Authentication.ActiveAccess.CurrentOrder.setApprovalDate(approvalDate);
+            Authentication.ActiveAccess.CurrentOrder.setTotalPrice(orderTotal);
+            Authentication.ActiveAccess.CurrentOrder.setCurrentDate(orderDate);
+            Authentication.ActiveAccess.CurrentOrder.setStaffUsername(AuthenticationSettings.getConnectedStaff().getStaffUsername());
+            Authentication.ActiveAccess.CurrentOrder.setStaffStockID(stockOrderID);
+            Authentication.ActiveAccess.CurrentOrder.setViewOrder(true);
+
+            SelectOrder(stockOrderID);
+        }
+        catch (ArrayIndexOutOfBoundsException ex)
+        {
+            Helper.DisplayError("Please ensure you select a table entry before performing this action", "Error in order selection");
+        }
+        catch (Exception ex)
+        {
+            Helper.DisplayError(ex.toString());
+        }
+
+    }//GEN-LAST:event_btnViewMySelectedOrderMouseClicked
+
+    private void btnViewMySelectedOrder1MouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnViewMySelectedOrder1MouseClicked
+    {//GEN-HEADEREND:event_btnViewMySelectedOrder1MouseClicked
+        try
+        {      
+            String stockOrderID = tblPendingOrders.getValueAt(tblPendingOrders.getSelectedRow(), 0).toString();
+            Date orderDate = (Date)tblPendingOrders.getValueAt(tblPendingOrders.getSelectedRow(), 1);
+            double orderTotal = (Double)tblPendingOrders.getValueAt(tblPendingOrders.getSelectedRow(), 2);
+            
+            Authentication.ActiveAccess.CurrentOrder = new CurrentOrder();
+
+            Authentication.ActiveAccess.CurrentOrder.setTotalPrice(orderTotal);
+            Authentication.ActiveAccess.CurrentOrder.setCurrentDate(orderDate);
+            Authentication.ActiveAccess.CurrentOrder.setStaffUsername(AuthenticationSettings.getConnectedStaff().getStaffUsername());
+            Authentication.ActiveAccess.CurrentOrder.setStaffStockID(stockOrderID);
+            Authentication.ActiveAccess.CurrentOrder.setViewStaffPending(true);
+            
+            SelectOrder(stockOrderID);
+        }
+        catch (ArrayIndexOutOfBoundsException ex)
+        {
+            Helper.DisplayError("Please ensure you select a table entry before performing this action", "Error in order selection");
+        }
+        catch (Exception ex)
+        {
+            Helper.DisplayError(ex.toString());
+        }
+    }//GEN-LAST:event_btnViewMySelectedOrder1MouseClicked
+
+    private void txtMyOrderFilterIDKeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_txtMyOrderFilterIDKeyReleased
+    {//GEN-HEADEREND:event_txtMyOrderFilterIDKeyReleased
+        try
+        {
+            LoadTableUserOrderData();
+            List<Order> orderToRemove = new ArrayList<>();
+
+            for (Order order : approvedOrders)
+            {
+                if(!order.getOrderID().toUpperCase().contains(txtMyOrderFilterID.getText().toUpperCase()))
+                {
+                    orderToRemove.add(order);
+                }
+            }
+
+            approvedOrders.removeAll(orderToRemove);
+
+            DefaultTableModel model = (DefaultTableModel) tblMyOrders.getModel();
+            model.setRowCount(0);
+            PopulateUserOrdersTable();
+
+            if (approvedOrders.size() <= 0)
+            {
+                throw new FilterException("There are no orders that match that filter");
+            }
+        }
+        catch (FilterException fe)
+        {
+            Helper.DisplayError(fe.getMessage(), "Filter Exception");
+        }
+        catch (Exception ex)
+        {
+            Helper.DisplayError(ex.toString(), "Error In Filter");
+        }
+    }//GEN-LAST:event_txtMyOrderFilterIDKeyReleased
+
+    private void cmdOrderViewByDateItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_cmdOrderViewByDateItemStateChanged
+    {//GEN-HEADEREND:event_cmdOrderViewByDateItemStateChanged
+        List<Order> toRemove = new ArrayList<>();
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        LoadTableUserOrderData();
+
+        switch(cmdOrderViewByDate.getSelectedIndex())
+        {        
+            case 1:
+                for (Order order : approvedOrders)
+                {
+                    cal1.setTime(order.getApprovalDate());
+                    cal2.setTime(new Date());
+                    
+                    boolean sameYear = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
+                    if(!sameYear)
+                    {
+                        toRemove.add(order);
+                    }
+                }
+                break;
+                
+            case 2:
+                for (Order order : approvedOrders)
+                {
+                    cal1.setTime(order.getApprovalDate());
+                    cal2.setTime(new Date());
+                    
+                    boolean sameMonth = ((cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH)) && (cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)));
+                    if(!sameMonth)
+                    {
+                        toRemove.add(order);
+                    }
+                }
+                break;
+                
+            case 3:
+                for (Order order : approvedOrders)
+                {
+                    cal1.setTime(order.getApprovalDate());
+                    cal2.setTime(new Date());
+                    
+                    boolean sameDay = cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
+                    if(!sameDay)
+                    {
+                        toRemove.add(order);
+                    }
+                }
+                break;
+        }
+
+        approvedOrders.removeAll(toRemove);
+
+        DefaultTableModel model = (DefaultTableModel) tblMyOrders.getModel();
+        model.setRowCount(0);
+        PopulateUserOrdersTable();
+    }//GEN-LAST:event_cmdOrderViewByDateItemStateChanged
+
+    private void txtMyOrderRequestFilterKeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_txtMyOrderRequestFilterKeyReleased
+    {//GEN-HEADEREND:event_txtMyOrderRequestFilterKeyReleased
+        try
+        {
+            LoadMyPendingOrders();
+            List<StaffOrder> pendingOrderToRemove = new ArrayList<>();
+
+            for (StaffOrder staffOrder : pendingOrders)
+            {
+                if(!staffOrder.getStaffStockOrderID().toUpperCase().contains(txtMyOrderRequestFilter.getText().toUpperCase()))
+                {
+                    pendingOrderToRemove.add(staffOrder);
+                }
+            }
+
+            pendingOrders.removeAll(pendingOrderToRemove);
+
+            DefaultTableModel model = (DefaultTableModel) tblPendingOrders.getModel();
+            model.setRowCount(0);
+            PopulateTablePendingOrders();
+
+            if (pendingOrders.size() <= 0)
+            {
+                throw new FilterException("There are no orders that match that filter");
+            }
+        }
+        catch (FilterException fe)
+        {
+            Helper.DisplayError(fe.getMessage(), "Filter Exception");
+        }
+        catch (Exception ex)
+        {
+            Helper.DisplayError(ex.toString(), "Error In Filter");
+        }
+    }//GEN-LAST:event_txtMyOrderRequestFilterKeyReleased
+
+    private void cmdMyOrderRequestViewByDateItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_cmdMyOrderRequestViewByDateItemStateChanged
+    {//GEN-HEADEREND:event_cmdMyOrderRequestViewByDateItemStateChanged
+        List<StaffOrder> toRemove = new ArrayList<>();
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        LoadMyPendingOrders();
+
+        switch(cmdMyOrderRequestViewByDate.getSelectedIndex())
+        {
+            case 1:
+            for (StaffOrder pendingOrder : pendingOrders)
+            {
+                cal1.setTime(pendingOrder.getOrderDate());
+                cal2.setTime(new Date());
+
+                boolean sameYear = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
+                if(!sameYear)
+                {
+                    toRemove.add(pendingOrder);
+                }
+            }
+            break;
+
+            case 2:
+            for (StaffOrder pendingOrder : pendingOrders)
+            {
+                cal1.setTime(pendingOrder.getOrderDate());
+                cal2.setTime(new Date());
+
+                boolean sameMonth = ((cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH)) && (cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)));
+                if(!sameMonth)
+                {
+                    toRemove.add(pendingOrder);
+                }
+            }
+            break;
+
+            case 3:
+            for (StaffOrder pendingOrder : pendingOrders)
+            {
+                cal1.setTime(pendingOrder.getOrderDate());
+                cal2.setTime(new Date());
+
+                boolean sameDay = cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
+                if(!sameDay)
+                {
+                    toRemove.add(pendingOrder);
+                }
+            }
+            break;
+        }
+
+        pendingOrders.removeAll(toRemove);
+
+        DefaultTableModel model = (DefaultTableModel) tblPendingOrders.getModel();
+        model.setRowCount(0);
+        PopulateTablePendingOrders();
+    }//GEN-LAST:event_cmdMyOrderRequestViewByDateItemStateChanged
+
+    private void SelectOrder(String stockOrderID)
+    {
+        Authentication.ActiveAccess.CurrentOrder.setOrderStock(new StaffStockOrder().GetOrderDetails(stockOrderID));
+        Authentication.ActiveAccess.CurrentOrderList = Authentication.ActiveAccess.CurrentOrder.getOrderStock();
+        OrderDialog od = new OrderDialog(null, true);
+        od.setVisible(true);
+        
+        DefaultTableModel model = (DefaultTableModel) tblMyOrders.getModel();
+        model.setRowCount(0);
+        DefaultTableModel model2 = (DefaultTableModel) tblPendingOrders.getModel();
+        model2.setRowCount(0);
+        
+        LoadTableUserOrderData();
+        LoadMyPendingOrders();
+        PopulateUserOrdersTable();
+        PopulateTablePendingOrders();
+    }
+    
+//</editor-fold>
     /**
      * @param args the command line arguments
      */
@@ -1339,29 +1435,30 @@ public class JStaffModule extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddFromStationary;
     private javax.swing.JButton btnMyOrdersCloseTab;
-    private javax.swing.JButton btnMyOrdersCloseTabPending;
+    private javax.swing.JButton btnViewMySelectedOrder;
+    private javax.swing.JButton btnViewMySelectedOrder1;
     private javax.swing.JButton btnViewStationaryCloseTab;
     private javax.swing.JComboBox<String> cmbFilterCategory;
     private javax.swing.JComboBox<String> cmbPrioritySort;
-    private javax.swing.JComboBox cmbSortDetails;
-    private javax.swing.JComboBox cmbSortDetailsPending;
     private javax.swing.JComboBox cmbSortOrder;
     private javax.swing.JComboBox cmbSortOrderPending;
+    private javax.swing.JComboBox<String> cmdMyOrderRequestViewByDate;
+    private javax.swing.JComboBox<String> cmdOrderViewByDate;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
@@ -1374,19 +1471,20 @@ public class JStaffModule extends javax.swing.JFrame
     private javax.swing.JMenuItem jmStaffModuleClose;
     private javax.swing.JMenuItem jmStaffMyAccount;
     private javax.swing.JMenu jmStaffOrders;
-    private javax.swing.JMenuItem jmStaffOrdersPending;
     private javax.swing.JMenu jmStaffStationary;
     private javax.swing.JMenuItem jmStaffViewStationary;
     private javax.swing.JMenuBar jmbStaffModule;
     private javax.swing.JPanel pnlManageStaff;
-    private javax.swing.JPanel pnlUserRegistrationRequests;
+    private javax.swing.JPanel pnlMyOrders;
+    private javax.swing.JPanel pnlMyPendingOrders;
     private javax.swing.JPanel pnlViewAllStock;
     private javax.swing.JTable tblAllStockStaff;
     private javax.swing.JTable tblMyOrders;
-    private javax.swing.JTable tblOrderDetails;
-    private javax.swing.JTable tblPendingOrderDetails;
     private javax.swing.JTable tblPendingOrders;
+    private javax.swing.JTabbedPane tpMyOrderControls;
     private javax.swing.JTabbedPane tpStaffControls;
     private javax.swing.JTextField txtFilterProductName;
+    private javax.swing.JTextField txtMyOrderFilterID;
+    private javax.swing.JTextField txtMyOrderRequestFilter;
     // End of variables declaration//GEN-END:variables
 }

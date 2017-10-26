@@ -5,6 +5,7 @@
  */
 package BusinessModule;
 
+import DataAccessModule.DataConnection;
 import java.util.Date;
 
 /**
@@ -13,14 +14,25 @@ import java.util.Date;
  */
 public class PurchaseOrder
 {
-    private int purchaseOrderID;
+    DataConnection dc = new DataConnection();
+    private String purchaseOrderID;
     private int stationaryStockID;
     private Date purchaseDate;
     private int quantity;
     private int price;
 
-    public PurchaseOrder(int purchaseOrderID, int stationaryStockID, Date purchaseDate, int quantity, int price)
+    public PurchaseOrder(String purchaseOrderID, int stationaryStockID, Date purchaseDate)
     {
+        this.dc = new DataConnection();
+        this.purchaseOrderID = purchaseOrderID;
+        this.stationaryStockID = stationaryStockID;
+        this.purchaseDate = purchaseDate;
+    }
+    
+
+    public PurchaseOrder(String purchaseOrderID, int stationaryStockID, Date purchaseDate, int quantity, int price)
+    {
+        this.dc = new DataConnection();
         this.purchaseOrderID = purchaseOrderID;
         this.stationaryStockID = stationaryStockID;
         this.purchaseDate = purchaseDate;
@@ -30,6 +42,7 @@ public class PurchaseOrder
 
     public PurchaseOrder(int stationaryStockID, Date purchaseDate, int quantity, int price)
     {
+        this.dc = new DataConnection();
         this.stationaryStockID = stationaryStockID;
         this.purchaseDate = purchaseDate;
         this.quantity = quantity;
@@ -41,12 +54,12 @@ public class PurchaseOrder
         this.stationaryStockID = stationaryStockID;
     }
 
-    public int getPurchaseOrderID()
+    public String getPurchaseOrderID()
     {
         return purchaseOrderID;
     }
 
-    public void setPurchaseOrderID(int purchaseOrderID)
+    public void setPurchaseOrderID(String purchaseOrderID)
     {
         this.purchaseOrderID = purchaseOrderID;
     }
@@ -89,5 +102,10 @@ public class PurchaseOrder
     public void setPrice(int price)
     {
         this.price = price;
+    }
+    
+    public void InsertPurchaseOrder()
+    {
+        dc.InsertPurchaseOrder(this);
     }
 }

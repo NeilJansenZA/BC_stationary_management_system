@@ -87,4 +87,9 @@ public class StaffStockOrder
     {
         return (List<StaffStockOrder>) dc.GetOrderDetails(staffStockID);
     }
+    
+    public StaffOrder GetStaffOrderID(String staffStockID)
+    {
+        return (StaffOrder) dc.GetStaffOrderID(staffStockID);
+    }
 }

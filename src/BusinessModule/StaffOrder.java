@@ -51,14 +51,31 @@ public class StaffOrder
         this.orderTotal = orderTotal;
     }
     
-    public StaffOrder(int staffID, String staffStockOrderID, Date orderDate, double orderTotal)
+    public StaffOrder(int staffID, String staffStockOrderID, Date orderDate, double orderTotal, String orderStatus)
     {
         this.dc = new DataConnection();
         this.staffID = staffID;
         this.staffStockOrderID = staffStockOrderID;       
         this.orderDate = orderDate;
         this.orderTotal = orderTotal;
+        this.orderStatus = orderStatus;
     }
+
+    public StaffOrder(int staffID, String staffStockOrderID, Date orderDate, double orderTotal)
+    {
+        this.staffID = staffID;
+        this.staffStockOrderID = staffStockOrderID;
+        this.orderDate = orderDate;
+        this.orderTotal = orderTotal;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "StaffOrder{" + "staffOrderID=" + staffOrderID + ", staffID=" + staffID + ", staffStockOrderID=" + staffStockOrderID + ", orderDate=" + orderDate + ", orderTotal=" + orderTotal + ", orderStatus=" + orderStatus + '}';
+    }
+    
+    
 
     public StaffOrder()
     {
@@ -125,8 +142,13 @@ public class StaffOrder
         this.orderStatus = orderStatus;
     }
     
-    public List<StaffOrder> LoadPendingOrders()
+    public List<StaffOrder> LoadMyPendingOrders()
     {
         return dc.LoadMyPendingOrders();
+    }
+    
+    public List<StaffOrder> LoadAllPendingOrders()
+    {
+        return dc.LoadAllPendingOrders();
     }
 }
