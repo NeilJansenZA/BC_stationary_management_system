@@ -23,9 +23,21 @@ import javax.swing.table.DefaultTableModel;
 public class OrderDialog extends javax.swing.JDialog {
 
     private double grandTotal = 0.0;
+    private boolean ordered = false;
     private boolean isLoadedOrder = false;
     private List<StationaryStock> stationary = new ArrayList<>();
     private List<PurchaseOrder> purchaseOrders = new ArrayList<>();
+
+    public boolean isOrdered()
+    {
+        return ordered;
+    }
+
+    public void setOrdered(boolean ordered)
+    {
+        this.ordered = ordered;
+    }
+    
 
     /**
      * Creates new form OrderDialog
@@ -439,6 +451,7 @@ public class OrderDialog extends javax.swing.JDialog {
                     Authentication.ActiveAccess.CurrentOrder.RequestCurrentOrder();  
 
                     Helper.DisplayError("Order request submitted successful!", "Request Submit successful");
+                    ordered = true;
                     ClearDialog();
                     break;
                 case "Approve Order": {

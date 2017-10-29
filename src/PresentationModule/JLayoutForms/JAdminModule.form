@@ -34,12 +34,12 @@
             <Property name="text" type="java.lang.String" value="Accounts"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jmManageRegisteredUsers">
+            <MenuItem class="javax.swing.JMenuItem" name="jmManageUsers">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Manage Staff"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmManageRegisteredUsersActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmManageUsersActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -219,15 +219,15 @@
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="9" rowCount="0">
-                                <Column editable="false" title="ID" type="java.lang.Object"/>
-                                <Column editable="false" title="Name" type="java.lang.Object"/>
-                                <Column editable="false" title="Surname" type="java.lang.Object"/>
-                                <Column editable="false" title="Campus Name" type="java.lang.Object"/>
-                                <Column editable="false" title="Department Name" type="java.lang.Object"/>
-                                <Column editable="false" title="Cell No" type="java.lang.Object"/>
-                                <Column editable="false" title="Email" type="java.lang.Object"/>
-                                <Column editable="false" title="Username" type="java.lang.Object"/>
-                                <Column editable="false" title="Password" type="java.lang.Object"/>
+                                <Column editable="false" title="ID" type="java.lang.Integer"/>
+                                <Column editable="false" title="Name" type="java.lang.String"/>
+                                <Column editable="false" title="Surname" type="java.lang.String"/>
+                                <Column editable="false" title="Campus Name" type="java.lang.String"/>
+                                <Column editable="false" title="Department Name" type="java.lang.String"/>
+                                <Column editable="false" title="Cell No" type="java.lang.String"/>
+                                <Column editable="false" title="Email" type="java.lang.String"/>
+                                <Column editable="false" title="Username" type="java.lang.String"/>
+                                <Column editable="false" title="Password" type="java.lang.String"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -343,14 +343,14 @@
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="9" rowCount="0">
                                 <Column editable="false" title="Request Date" type="java.lang.Object"/>
-                                <Column editable="false" title="Name" type="java.lang.Object"/>
-                                <Column editable="false" title="Surname" type="java.lang.Object"/>
-                                <Column editable="false" title="Campus Name" type="java.lang.Object"/>
-                                <Column editable="false" title="Department Name" type="java.lang.Object"/>
-                                <Column editable="false" title="Cell No" type="java.lang.Object"/>
-                                <Column editable="false" title="Email" type="java.lang.Object"/>
-                                <Column editable="false" title="Username" type="java.lang.Object"/>
-                                <Column editable="false" title="Password" type="java.lang.Object"/>
+                                <Column editable="false" title="Name" type="java.lang.String"/>
+                                <Column editable="false" title="Surname" type="java.lang.String"/>
+                                <Column editable="false" title="Campus Name" type="java.lang.String"/>
+                                <Column editable="false" title="Department Name" type="java.lang.String"/>
+                                <Column editable="false" title="Cell No" type="java.lang.String"/>
+                                <Column editable="false" title="Email" type="java.lang.String"/>
+                                <Column editable="false" title="Username" type="java.lang.String"/>
+                                <Column editable="false" title="Password" type="java.lang.String"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -840,9 +840,6 @@
                               </Table>
                             </Property>
                           </Properties>
-                          <Events>
-                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblAllOrdersMouseClicked"/>
-                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>

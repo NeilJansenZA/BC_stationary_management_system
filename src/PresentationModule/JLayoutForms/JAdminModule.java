@@ -20,6 +20,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -74,7 +76,7 @@ public class JAdminModule extends javax.swing.JFrame {
 
     // </editor-fold>
     
-
+    // <editor-fold defaultstate="collapsed" desc="Load Tabs">
     private void LoadTab() {
         totalTabs = tpAdminControls.getComponentCount();
         tabPanels = new JPanel[totalTabs];
@@ -92,6 +94,111 @@ public class JAdminModule extends javax.swing.JFrame {
             Helper.DisplayError(ex.toString());
         }
     }
+    
+    private void LoadManageUsersTab()
+    {
+        if (!loadedTabs[0])
+        {
+            try
+            {
+                if (!tpAdminControls.getSelectedComponent().equals(tabPanels[0]))
+                {
+                    tpAdminControls.addTab("Manage Staff", tabPanels[0]);
+                    tpAdminControls.setSelectedComponent(tabPanels[0]);
+                    LoadAllUsers();
+                    LoadRegisterRequests();
+                    PopulateTableUsers();
+                    PopulateTableRegister();
+                    loadedTabs[0] = true;
+                }
+            } catch (NullPointerException npe)
+            {
+                tpAdminControls.addTab("Manage Staff", tabPanels[0]);
+                tpAdminControls.setSelectedComponent(tabPanels[0]);
+                LoadAllUsers();
+                LoadRegisterRequests();
+                PopulateTableUsers();
+                PopulateTableRegister();
+                loadedTabs[0] = true;
+            }
+        }
+        else
+        {
+            tpAdminControls.setSelectedComponent(tabPanels[0]);
+            LoadAllUsers();
+            LoadRegisterRequests();
+            PopulateTableUsers();
+            PopulateTableRegister();
+        }
+    }
+    
+    private void LoadStationaryTab()
+    {
+        if (!loadedTabs[1]) {
+            try {
+                if (!tpAdminControls.getSelectedComponent().equals(tabPanels[1])) {
+                    tpAdminControls.addTab("Manage All Stock", tabPanels[1]);
+                    tpAdminControls.setSelectedComponent(tabPanels[1]);
+                    LoadTableAllStockData();
+                    PopulateTableAllStock();
+                    loadedTabs[1] = true;
+                }
+            } catch (NullPointerException npe) {
+                tpAdminControls.addTab("Manage All Stock", tabPanels[1]);
+                tpAdminControls.setSelectedComponent(tabPanels[1]);
+                LoadTableAllStockData();
+                PopulateTableAllStock();
+                loadedTabs[1] = true;
+            }
+        }
+        else
+        {
+            tpAdminControls.setSelectedComponent(tabPanels[1]);
+            LoadTableAllStockData();
+            PopulateTableAllStock();
+        }
+    }
+    
+    private void LoadOrdersTab()
+    {
+        if (!loadedTabs[2]) {
+            try {
+                if (!tpAdminControls.getSelectedComponent().equals(tabPanels[2])) {
+                    tpAdminControls.addTab("View Orders", tabPanels[2]);
+                    tpAdminControls.setSelectedComponent(tabPanels[2]);
+                    LoadTableAllOrders();
+                    LoadTableAllPendingOrders();
+                    LoadTablePurchaseOrdersData();
+                    PopulateTableAllOrders();
+                    PopulateTableAllPendingOrders();
+                    PopulateTablePurchaseOrders();
+                    loadedTabs[2] = true;
+                }
+            } catch (NullPointerException npe) {
+                tpAdminControls.addTab("View Orders", tabPanels[2]);
+                tpAdminControls.setSelectedComponent(tabPanels[2]);
+                LoadTableAllOrders();
+                LoadTableAllPendingOrders();
+                LoadTablePurchaseOrdersData();
+                PopulateTableAllOrders();
+                PopulateTableAllPendingOrders();
+                PopulateTablePurchaseOrders();
+                loadedTabs[2] = true;
+            }
+        }
+        else
+        {
+            tpAdminControls.setSelectedComponent(tabPanels[2]);
+            LoadTableAllOrders();
+            LoadTableAllPendingOrders();
+            LoadTablePurchaseOrdersData();
+            PopulateTableAllOrders();
+            PopulateTableAllPendingOrders();
+            PopulateTablePurchaseOrders();
+        }
+    }
+    
+    // </editor-fold>
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -100,7 +207,8 @@ public class JAdminModule extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         tpAdminControls = new javax.swing.JTabbedPane();
         pnlManageStaff = new javax.swing.JPanel();
@@ -123,9 +231,9 @@ public class JAdminModule extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtFilterProductName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        cmbFilterCategory = new javax.swing.JComboBox<String>();
+        cmbFilterCategory = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        cmbPrioritySort = new javax.swing.JComboBox<String>();
+        cmbPrioritySort = new javax.swing.JComboBox<>();
         btnGenerateStockReport = new javax.swing.JButton();
         pnlViewAllOrders = new javax.swing.JPanel();
         btnCloseViewOrdersTab = new javax.swing.JButton();
@@ -138,8 +246,8 @@ public class JAdminModule extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         txtOrderFilterID = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        cmdOrderViewByDate = new javax.swing.JComboBox<String>();
-        cmdOrderSort = new javax.swing.JComboBox<String>();
+        cmdOrderViewByDate = new javax.swing.JComboBox<>();
+        cmdOrderSort = new javax.swing.JComboBox<>();
         jLabel19 = new javax.swing.JLabel();
         btnViewSelectedOrder = new javax.swing.JButton();
         bntGenerateAllOrderReport = new javax.swing.JButton();
@@ -150,8 +258,8 @@ public class JAdminModule extends javax.swing.JFrame {
         txtRequestOrderFilterUsername = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        cmdOrderPrioritySort = new javax.swing.JComboBox<String>();
-        cmdOrderRequestViewByDate = new javax.swing.JComboBox<String>();
+        cmdOrderPrioritySort = new javax.swing.JComboBox<>();
+        cmdOrderRequestViewByDate = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         txtOrderRequestFilterID = new javax.swing.JTextField();
         btnViewSelectedStaffOrder = new javax.swing.JButton();
@@ -165,7 +273,7 @@ public class JAdminModule extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jmAdminClose = new javax.swing.JMenuItem();
         jmAccounts = new javax.swing.JMenu();
-        jmManageRegisteredUsers = new javax.swing.JMenuItem();
+        jmManageUsers = new javax.swing.JMenuItem();
         jmStationary = new javax.swing.JMenu();
         jmManageAllStock = new javax.swing.JMenuItem();
         jmInserStock = new javax.swing.JMenuItem();
@@ -176,18 +284,32 @@ public class JAdminModule extends javax.swing.JFrame {
         setTitle("The Belgium Campus Stationary Management System - Administration Module");
 
         tblViewUsers.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
 
             },
-            new String [] {
+            new String []
+            {
                 "ID", "Name", "Surname", "Campus Name", "Department Name", "Cell No", "Email", "Username", "Password"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
+        )
+        {
+            Class[] types = new Class []
+            {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean []
+            {
                 false, false, false, false, false, false, false, false, false
             };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
+            public Class getColumnClass(int columnIndex)
+            {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
                 return canEdit [columnIndex];
             }
         });
@@ -214,18 +336,32 @@ public class JAdminModule extends javax.swing.JFrame {
         tpManageStaff.addTab("All Staff", pnlAllStaff);
 
         tblRegisterRequests.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
 
             },
-            new String [] {
+            new String []
+            {
                 "Request Date", "Name", "Surname", "Campus Name", "Department Name", "Cell No", "Email", "Username", "Password"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
+        )
+        {
+            Class[] types = new Class []
+            {
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean []
+            {
                 false, false, false, false, false, false, false, false, false
             };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
+            public Class getColumnClass(int columnIndex)
+            {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
                 return canEdit [columnIndex];
             }
         });
@@ -233,15 +369,19 @@ public class JAdminModule extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblRegisterRequests);
 
         btnDeleteRegisterUser.setText("Delete User");
-        btnDeleteRegisterUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnDeleteRegisterUser.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnDeleteRegisterUserMouseClicked(evt);
             }
         });
 
         btnAcceptUser.setText("Accept User");
-        btnAcceptUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnAcceptUser.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnAcceptUserMouseClicked(evt);
             }
         });
@@ -275,8 +415,10 @@ public class JAdminModule extends javax.swing.JFrame {
         tpManageStaff.addTab("Registration Requests", pnlRegistrationRequests);
 
         btnViewUsersBack.setText("Close Tab");
-        btnViewUsersBack.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnViewUsersBack.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnViewUsersBackMouseClicked(evt);
             }
         });
@@ -309,73 +451,92 @@ public class JAdminModule extends javax.swing.JFrame {
         tpAdminControls.addTab("Manage Staff", pnlManageStaff);
 
         tblAllStock.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
 
             },
-            new String [] {
+            new String []
+            {
                 "Stationary Stock ID", "Product Name", "Category Name", "Model", "Price", "Quantity", "Date Of Entry / Update"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
+        )
+        {
+            boolean[] canEdit = new boolean []
+            {
                 false, false, false, false, false, false, false
             };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
                 return canEdit [columnIndex];
             }
         });
         jScrollPane3.setViewportView(tblAllStock);
 
         btnViewAllStockBack.setText("Close Tab");
-        btnViewAllStockBack.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnViewAllStockBack.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnViewAllStockBackMouseClicked(evt);
             }
         });
 
         btnPromptUpdate.setText("Update");
         btnPromptUpdate.setToolTipText("");
-        btnPromptUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnPromptUpdate.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnPromptUpdateMouseClicked(evt);
             }
         });
 
         btnDeleteStock.setText("Delete");
-        btnDeleteStock.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnDeleteStock.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnDeleteStockMouseClicked(evt);
             }
         });
 
         jLabel1.setText("Product Name:");
 
-        txtFilterProductName.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
+        txtFilterProductName.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyReleased(java.awt.event.KeyEvent evt)
+            {
                 txtFilterProductNameKeyReleased(evt);
             }
         });
 
         jLabel2.setText("Category Name:");
 
-        cmbFilterCategory.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        cmbFilterCategory.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
                 cmbFilterCategoryItemStateChanged(evt);
             }
         });
 
         jLabel3.setText("Priority Sort:");
 
-        cmbPrioritySort.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None", "Price - High to Low", "Price - Low to High", "Quantity - High to Low", "Quantity - Low to High", "Date - Closest Date to Furthest Date", "Date - Furthest Date to Closest Date" }));
-        cmbPrioritySort.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        cmbPrioritySort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "Price - High to Low", "Price - Low to High", "Quantity - High to Low", "Quantity - Low to High", "Date - Closest Date to Furthest Date", "Date - Furthest Date to Closest Date" }));
+        cmbPrioritySort.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
                 cmbPrioritySortItemStateChanged(evt);
             }
         });
 
         btnGenerateStockReport.setText("Generate Stock Report");
-        btnGenerateStockReport.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnGenerateStockReport.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnGenerateStockReportMouseClicked(evt);
             }
         });
@@ -439,70 +600,82 @@ public class JAdminModule extends javax.swing.JFrame {
         tpAdminControls.addTab("Manage Stock", pnlViewAllStock);
 
         btnCloseViewOrdersTab.setText("Close Tab");
-        btnCloseViewOrdersTab.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnCloseViewOrdersTab.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnCloseViewOrdersTabMouseClicked(evt);
             }
         });
 
         tblAllOrders.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
 
             },
-            new String [] {
+            new String []
+            {
                 "Order ID", "Stock Order ID", "Staff Username", "Order Date", "Approval Date", "Order Total"
             }
-        ) {
-            Class[] types = new Class [] {
+        )
+        {
+            Class[] types = new Class []
+            {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
             };
-            boolean[] canEdit = new boolean [] {
+            boolean[] canEdit = new boolean []
+            {
                 false, false, false, false, false, false
             };
 
-            public Class getColumnClass(int columnIndex) {
+            public Class getColumnClass(int columnIndex)
+            {
                 return types [columnIndex];
             }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
                 return canEdit [columnIndex];
-            }
-        });
-        tblAllOrders.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblAllOrdersMouseClicked(evt);
             }
         });
         jScrollPane4.setViewportView(tblAllOrders);
 
         jLabel16.setText("Search Username:");
 
-        txtOrderFilterUsername.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
+        txtOrderFilterUsername.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyReleased(java.awt.event.KeyEvent evt)
+            {
                 txtOrderFilterUsernameKeyReleased(evt);
             }
         });
 
         jLabel17.setText("Order ID:");
 
-        txtOrderFilterID.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
+        txtOrderFilterID.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyReleased(java.awt.event.KeyEvent evt)
+            {
                 txtOrderFilterIDKeyReleased(evt);
             }
         });
 
         jLabel18.setText("View Orders By Date:");
 
-        cmdOrderViewByDate.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All", "Yearly", "Monthly", "Daily" }));
-        cmdOrderViewByDate.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        cmdOrderViewByDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Yearly", "Monthly", "Daily" }));
+        cmdOrderViewByDate.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
                 cmdOrderViewByDateItemStateChanged(evt);
             }
         });
 
-        cmdOrderSort.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None", "Order Date - Closest to Furthest", "Order Date - Furthest to Closest", "Approval Date - Closest to Furthest", "Approval Date - Furthest to Closest", "Order Total - Highest to Lowest", "Order Total - Lowest to Highest" }));
-        cmdOrderSort.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        cmdOrderSort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "Order Date - Closest to Furthest", "Order Date - Furthest to Closest", "Approval Date - Closest to Furthest", "Approval Date - Furthest to Closest", "Order Total - Highest to Lowest", "Order Total - Lowest to Highest" }));
+        cmdOrderSort.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
                 cmdOrderSortItemStateChanged(evt);
             }
         });
@@ -510,15 +683,19 @@ public class JAdminModule extends javax.swing.JFrame {
         jLabel19.setText("Priority Sort:");
 
         btnViewSelectedOrder.setText("View Selected Order");
-        btnViewSelectedOrder.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnViewSelectedOrder.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnViewSelectedOrderMouseClicked(evt);
             }
         });
 
         bntGenerateAllOrderReport.setText("Generate Order Report");
-        bntGenerateAllOrderReport.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        bntGenerateAllOrderReport.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 bntGenerateAllOrderReportMouseClicked(evt);
             }
         });
@@ -591,25 +768,32 @@ public class JAdminModule extends javax.swing.JFrame {
         tpOrderControls.addTab("All Orders", pnlAllOrders);
 
         tblOrderRequests.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
 
             },
-            new String [] {
+            new String []
+            {
                 "Stock Order ID", "Staff Username", "Order Date", "Order Total", "Order Status"
             }
-        ) {
-            Class[] types = new Class [] {
+        )
+        {
+            Class[] types = new Class []
+            {
                 java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Double.class, java.lang.String.class
             };
-            boolean[] canEdit = new boolean [] {
+            boolean[] canEdit = new boolean []
+            {
                 false, false, false, false, false
             };
 
-            public Class getColumnClass(int columnIndex) {
+            public Class getColumnClass(int columnIndex)
+            {
                 return types [columnIndex];
             }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
                 return canEdit [columnIndex];
             }
         });
@@ -617,8 +801,10 @@ public class JAdminModule extends javax.swing.JFrame {
 
         jLabel4.setText("Search Username:");
 
-        txtRequestOrderFilterUsername.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
+        txtRequestOrderFilterUsername.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyReleased(java.awt.event.KeyEvent evt)
+            {
                 txtRequestOrderFilterUsernameKeyReleased(evt);
             }
         });
@@ -627,31 +813,39 @@ public class JAdminModule extends javax.swing.JFrame {
 
         jLabel6.setText("View Orders By Date:");
 
-        cmdOrderPrioritySort.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None", "Order Date - Closest to Furthest", "Order Date - Furthest to Closest", "Order Total - Highest to Lowest", "Order Total - Lowest to Highest" }));
-        cmdOrderPrioritySort.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        cmdOrderPrioritySort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "Order Date - Closest to Furthest", "Order Date - Furthest to Closest", "Order Total - Highest to Lowest", "Order Total - Lowest to Highest" }));
+        cmdOrderPrioritySort.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
                 cmdOrderPrioritySortItemStateChanged(evt);
             }
         });
 
-        cmdOrderRequestViewByDate.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All", "Yearly", "Monthly", "Daily" }));
-        cmdOrderRequestViewByDate.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        cmdOrderRequestViewByDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Yearly", "Monthly", "Daily" }));
+        cmdOrderRequestViewByDate.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
                 cmdOrderRequestViewByDateItemStateChanged(evt);
             }
         });
 
         jLabel10.setText("Stock Order ID:");
 
-        txtOrderRequestFilterID.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
+        txtOrderRequestFilterID.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyReleased(java.awt.event.KeyEvent evt)
+            {
                 txtOrderRequestFilterIDKeyReleased(evt);
             }
         });
 
         btnViewSelectedStaffOrder.setText("View Selected Order");
-        btnViewSelectedStaffOrder.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnViewSelectedStaffOrder.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnViewSelectedStaffOrderMouseClicked(evt);
             }
         });
@@ -720,33 +914,42 @@ public class JAdminModule extends javax.swing.JFrame {
         tpOrderControls.addTab("Order Requests", pnlOrderRequests);
 
         tblPurchaseOrders.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
 
             },
-            new String [] {
+            new String []
+            {
                 "Purchase Order ID", "Stock Name", "Date", "Quantity", "Price"
             }
-        ) {
-            Class[] types = new Class [] {
+        )
+        {
+            Class[] types = new Class []
+            {
                 java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Double.class
             };
-            boolean[] canEdit = new boolean [] {
+            boolean[] canEdit = new boolean []
+            {
                 false, false, false, false, false
             };
 
-            public Class getColumnClass(int columnIndex) {
+            public Class getColumnClass(int columnIndex)
+            {
                 return types [columnIndex];
             }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
                 return canEdit [columnIndex];
             }
         });
         jScrollPane5.setViewportView(tblPurchaseOrders);
 
         btnAcceptPurchaseOrder.setText("Accept Purchase Order Request");
-        btnAcceptPurchaseOrder.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        btnAcceptPurchaseOrder.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 btnAcceptPurchaseOrderMouseClicked(evt);
             }
         });
@@ -805,8 +1008,10 @@ public class JAdminModule extends javax.swing.JFrame {
         jmAdminApplication.setText("Application");
 
         jmAdminLogout.setText("Logout");
-        jmAdminLogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmAdminLogout.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmAdminLogoutActionPerformed(evt);
             }
         });
@@ -814,8 +1019,10 @@ public class JAdminModule extends javax.swing.JFrame {
         jmAdminApplication.add(jSeparator1);
 
         jmAdminClose.setText("Close");
-        jmAdminClose.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmAdminClose.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmAdminCloseActionPerformed(evt);
             }
         });
@@ -825,13 +1032,15 @@ public class JAdminModule extends javax.swing.JFrame {
 
         jmAccounts.setText("Accounts");
 
-        jmManageRegisteredUsers.setText("Manage Staff");
-        jmManageRegisteredUsers.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmManageRegisteredUsersActionPerformed(evt);
+        jmManageUsers.setText("Manage Staff");
+        jmManageUsers.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jmManageUsersActionPerformed(evt);
             }
         });
-        jmAccounts.add(jmManageRegisteredUsers);
+        jmAccounts.add(jmManageUsers);
 
         jmbAdminModule.add(jmAccounts);
 
@@ -839,8 +1048,10 @@ public class JAdminModule extends javax.swing.JFrame {
 
         jmManageAllStock.setText("Manage All Stock");
         jmManageAllStock.setActionCommand("");
-        jmManageAllStock.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmManageAllStock.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmManageAllStockActionPerformed(evt);
             }
         });
@@ -848,8 +1059,10 @@ public class JAdminModule extends javax.swing.JFrame {
 
         jmInserStock.setText("Insert Stock");
         jmInserStock.setActionCommand("Insert New Stock");
-        jmInserStock.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmInserStock.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmInserStockActionPerformed(evt);
             }
         });
@@ -860,8 +1073,10 @@ public class JAdminModule extends javax.swing.JFrame {
         jmOrders.setText("Manage Orders");
 
         jmViewAllOrders.setText("View Orders");
-        jmViewAllOrders.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmViewAllOrders.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmViewAllOrdersActionPerformed(evt);
             }
         });
@@ -893,6 +1108,16 @@ public class JAdminModule extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // <editor-fold defaultstate="collapsed" desc="Load Table Data">
+    private void LoadAllUsers()
+    {
+        users = new Staff().LoadUsers();
+    }
+    
+    private void LoadRegisterRequests()
+    {
+        registerStaff = new Staff().LoadRegisterRequests();
+    }
+    
     private void LoadTableAllOrders()
     {
         allOrders = new Order().LoadAllOrders();
@@ -911,6 +1136,7 @@ public class JAdminModule extends javax.swing.JFrame {
     {
         purchaseOrders = new PurchaseOrder().LoadAllPurchaseOrders();
     }
+    
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Populate Tables">
@@ -918,6 +1144,7 @@ public class JAdminModule extends javax.swing.JFrame {
     {
         try {
             DefaultTableModel model = (DefaultTableModel) tblPurchaseOrders.getModel();
+            model.setRowCount(0);
 
             for (PurchaseOrder po : purchaseOrders) {
                 Object[] o = new Object[5];
@@ -929,19 +1156,16 @@ public class JAdminModule extends javax.swing.JFrame {
                 model.addRow(o);
             }
 
-            tblViewUsers.setModel(model);
-            tblViewUsers.getColumnModel().getColumn(0).setPreferredWidth(15);
-        } catch (ArrayIndexOutOfBoundsException aiob) {
-            Helper.DisplayError(aiob.toString());
+            tblPurchaseOrders.setModel(model);
+            tblPurchaseOrders.getColumnModel().getColumn(0).setPreferredWidth(15);
         } catch (Exception ex) {
             Helper.DisplayError(ex.toString());
         }
     }
     private void PopulateTableUsers() {
         try {
-            users = new Staff().LoadUsers();
-
             DefaultTableModel model = (DefaultTableModel) tblViewUsers.getModel();
+            model.setRowCount(0);
 
             for (Staff staffData : users) {
                 Object[] o = new Object[9];
@@ -959,8 +1183,6 @@ public class JAdminModule extends javax.swing.JFrame {
 
             tblViewUsers.setModel(model);
             tblViewUsers.getColumnModel().getColumn(0).setPreferredWidth(15);
-        } catch (ArrayIndexOutOfBoundsException aiob) {
-            Helper.DisplayError(aiob.toString());
         } catch (Exception ex) {
             Helper.DisplayError(ex.toString());
         }
@@ -968,10 +1190,9 @@ public class JAdminModule extends javax.swing.JFrame {
 
     private void PopulateTableRegister() {
         try {
-            registerStaff = new Staff().LoadRegisterRequests();
-
             DefaultTableModel model = (DefaultTableModel) tblRegisterRequests.getModel();
-
+            model.setRowCount(0);
+            
             for (Staff staffData : registerStaff) {
                 Object[] o = new Object[9];
                 o[0] = staffData.getRegisterRequestDate();
@@ -987,8 +1208,6 @@ public class JAdminModule extends javax.swing.JFrame {
             }
 
             tblRegisterRequests.setModel(model);
-        } catch (ArrayIndexOutOfBoundsException aiob) {
-            Helper.DisplayError(aiob.toString());
         } catch (Exception ex) {
             Helper.DisplayError(ex.toString());
         }
@@ -997,7 +1216,8 @@ public class JAdminModule extends javax.swing.JFrame {
     private void PopulateTableAllStock() {
         try {
             DefaultTableModel model = (DefaultTableModel) tblAllStock.getModel();
-
+            model.setRowCount(0);
+            
             for (StationaryStock stockData : stationaryStock) {
                 Object[] o = new Object[9];
                 o[0] = stockData.getStationaryStockID();
@@ -1015,16 +1235,15 @@ public class JAdminModule extends javax.swing.JFrame {
             tblAllStock.getColumnModel().getColumn(0).setPreferredWidth(30);
             tblAllStock.getColumnModel().getColumn(4).setPreferredWidth(30);
             tblAllStock.getColumnModel().getColumn(5).setPreferredWidth(30);
-        } catch (ArrayIndexOutOfBoundsException aiob) {
-            Helper.DisplayError(aiob.toString());
         } catch (Exception ex) {
-            Helper.DisplayError(ex.getMessage());
+            Helper.DisplayError(ex.toString());
         }
     }
 
     private void PopulateTableAllOrders() {
         try {
             DefaultTableModel model = (DefaultTableModel) tblAllOrders.getModel();
+            model.setRowCount(0);
 
             for (Order order : allOrders) {
                 Object[] o = new Object[6];
@@ -1038,8 +1257,6 @@ public class JAdminModule extends javax.swing.JFrame {
 
                 tblAllOrders.setModel(model);
             }
-        } catch (ArrayIndexOutOfBoundsException aiob) {
-            Helper.DisplayError(aiob.toString());
         } catch (Exception ex) {
             Helper.DisplayError(ex.toString());
         }
@@ -1049,6 +1266,7 @@ public class JAdminModule extends javax.swing.JFrame {
     {
         try {
             DefaultTableModel model = (DefaultTableModel) tblOrderRequests.getModel();
+            model.setRowCount(0);
 
             for (StaffOrder staffOrder : pendingOrders) {
                 Object[] o = new Object[5];
@@ -1061,8 +1279,6 @@ public class JAdminModule extends javax.swing.JFrame {
 
                 tblOrderRequests.setModel(model);
             }
-        } catch (ArrayIndexOutOfBoundsException aiob) {
-            Helper.DisplayError(aiob.toString());
         } catch (Exception ex) {
             Helper.DisplayError(ex.toString());
         }
@@ -1120,23 +1336,7 @@ public class JAdminModule extends javax.swing.JFrame {
     }
     private void jmManageAllStockActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmManageAllStockActionPerformed
     {//GEN-HEADEREND:event_jmManageAllStockActionPerformed
-        if (!loadedTabs[1]) {
-            try {
-                if (!tpAdminControls.getSelectedComponent().equals(tabPanels[1])) {
-                    tpAdminControls.addTab("Manage All Stock", tabPanels[1]);
-                    tpAdminControls.setSelectedIndex(tpAdminControls.getComponentCount() - 1);
-                    LoadTableAllStockData();
-                    PopulateTableAllStock();
-                    loadedTabs[1] = true;
-                }
-            } catch (NullPointerException npe) {
-                tpAdminControls.addTab("Manage All Stock", tabPanels[1]);
-                tpAdminControls.setSelectedIndex(tpAdminControls.getComponentCount() - 1);
-                LoadTableAllStockData();
-                PopulateTableAllStock();
-                loadedTabs[1] = true;
-            }
-        }
+        LoadStationaryTab();
     }//GEN-LAST:event_jmManageAllStockActionPerformed
 
     private void jmInserStockActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmInserStockActionPerformed
@@ -1146,40 +1346,8 @@ public class JAdminModule extends javax.swing.JFrame {
     }//GEN-LAST:event_jmInserStockActionPerformed
 
     private void jmViewAllOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmViewAllOrdersActionPerformed
-        if (!loadedTabs[2]) {
-            try {
-                if (!tpAdminControls.getSelectedComponent().equals(tabPanels[2])) {
-                    tpAdminControls.addTab("View Orders", tabPanels[2]);
-                    tpAdminControls.setSelectedIndex(tpAdminControls.getComponentCount() - 1);
-                    LoadTableAllOrders();
-                    LoadTableAllPendingOrders();
-                    LoadTablePurchaseOrdersData();
-                    PopulateTableAllOrders();
-                    PopulateTableAllPendingOrders();
-                    PopulateTablePurchaseOrders();
-                    loadedTabs[2] = true;
-                }
-            } catch (NullPointerException npe) {
-                tpAdminControls.addTab("View Orders", tabPanels[2]);
-                tpAdminControls.setSelectedIndex(tpAdminControls.getComponentCount() - 1);
-                LoadTableAllOrders();
-                LoadTableAllPendingOrders();
-                LoadTablePurchaseOrdersData();
-                PopulateTableAllOrders();
-                PopulateTableAllPendingOrders();
-                PopulateTablePurchaseOrders();
-                loadedTabs[2] = true;
-            }
-        }
+        LoadOrdersTab();
     }//GEN-LAST:event_jmViewAllOrdersActionPerformed
-
-    private void tblAllOrdersMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_tblAllOrdersMouseClicked
-    {//GEN-HEADEREND:event_tblAllOrdersMouseClicked
-        //        DefaultTableModel model = (DefaultTableModel) tblOrderDetails.getModel();
-        //        model.setRowCount(0);
-        //        LoadTableOrderDetailsData();
-        //        PopulateOrderDetails();
-    }//GEN-LAST:event_tblAllOrdersMouseClicked
 
     private void btnCloseViewOrdersTabMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnCloseViewOrdersTabMouseClicked
     {//GEN-HEADEREND:event_btnCloseViewOrdersTabMouseClicked
@@ -1361,7 +1529,7 @@ public class JAdminModule extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tblAllStock.getModel();
         model.setRowCount(0);
         tpAdminControls.remove(tabPanels[1]);
-        loadedTabs[1] = true;
+        loadedTabs[1] = false;
     }//GEN-LAST:event_btnViewAllStockBackMouseClicked
 
     private void btnViewUsersBackMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnViewUsersBackMouseClicked
@@ -1419,30 +1587,10 @@ public class JAdminModule extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDeleteRegisterUserMouseClicked
 
-    private void jmManageRegisteredUsersActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmManageRegisteredUsersActionPerformed
-    {//GEN-HEADEREND:event_jmManageRegisteredUsersActionPerformed
-        if (!loadedTabs[0])
-        {
-            try
-            {
-                if (!tpAdminControls.getSelectedComponent().equals(tabPanels[0]))
-                {
-                    tpAdminControls.addTab("Manage Staff", tabPanels[0]);
-                    tpAdminControls.setSelectedIndex(tpAdminControls.getComponentCount() - 1);
-                    PopulateTableUsers();
-                    PopulateTableRegister();
-                    loadedTabs[0] = true;
-                }
-            } catch (NullPointerException npe)
-            {
-                tpAdminControls.addTab("Manage Staff", tabPanels[0]);
-                tpAdminControls.setSelectedIndex(tpAdminControls.getComponentCount() - 1);
-                PopulateTableUsers();
-                PopulateTableRegister();
-                loadedTabs[0] = true;
-            }
-        }
-    }//GEN-LAST:event_jmManageRegisteredUsersActionPerformed
+    private void jmManageUsersActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmManageUsersActionPerformed
+    {//GEN-HEADEREND:event_jmManageUsersActionPerformed
+        LoadManageUsersTab();
+    }//GEN-LAST:event_jmManageUsersActionPerformed
 
     private void txtRequestOrderFilterUsernameKeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_txtRequestOrderFilterUsernameKeyReleased
     {//GEN-HEADEREND:event_txtRequestOrderFilterUsernameKeyReleased
@@ -1979,7 +2127,7 @@ public class JAdminModule extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmAdminLogout;
     private javax.swing.JMenuItem jmInserStock;
     private javax.swing.JMenuItem jmManageAllStock;
-    private javax.swing.JMenuItem jmManageRegisteredUsers;
+    private javax.swing.JMenuItem jmManageUsers;
     private javax.swing.JMenu jmOrders;
     private javax.swing.JMenu jmStationary;
     private javax.swing.JMenuItem jmViewAllOrders;
