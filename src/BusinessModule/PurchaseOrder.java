@@ -5,7 +5,7 @@
  */
 package BusinessModule;
 
-import DataAccessModule.DataConnection;
+import RemoteClient.ServerConnection;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +15,6 @@ import java.util.List;
  */
 public class PurchaseOrder
 {
-    DataConnection dc = new DataConnection();
     private String purchaseOrderID;
     private int stationaryStockID;
     private Date purchaseDate;
@@ -24,7 +23,6 @@ public class PurchaseOrder
 
     public PurchaseOrder(String purchaseOrderID, int stationaryStockID, Date purchaseDate)
     {
-        this.dc = new DataConnection();
         this.purchaseOrderID = purchaseOrderID;
         this.stationaryStockID = stationaryStockID;
         this.purchaseDate = purchaseDate;
@@ -33,7 +31,6 @@ public class PurchaseOrder
 
     public PurchaseOrder(String purchaseOrderID, int stationaryStockID, Date purchaseDate, int quantity, double price)
     {
-        this.dc = new DataConnection();
         this.purchaseOrderID = purchaseOrderID;
         this.stationaryStockID = stationaryStockID;
         this.purchaseDate = purchaseDate;
@@ -43,7 +40,6 @@ public class PurchaseOrder
 
     public PurchaseOrder(int stationaryStockID, Date purchaseDate, int quantity, double price)
     {
-        this.dc = new DataConnection();
         this.stationaryStockID = stationaryStockID;
         this.purchaseDate = purchaseDate;
         this.quantity = quantity;
@@ -107,11 +103,11 @@ public class PurchaseOrder
     
     public void InsertPurchaseOrder()
     {
-        dc.InsertPurchaseOrder(this);
+        ServerConnection sc = ServerConnection.GetInstance();
+        sc.InsertPurchaseOrder(this);
     }
 
     public PurchaseOrder() {
-        this.dc = new DataConnection();
     }
     
     public void UpdateAndRemovePurchaseOrder()
@@ -119,11 +115,13 @@ public class PurchaseOrder
         int currentStock = 0;
         currentStock = new StationaryStock().GetAllProductFromID(this.getStationaryStockID()).getQuantity();
         currentStock += this.getQuantity();
-        dc.UpdateAndRemovePurchaseOrder(this, currentStock);
+        ServerConnection sc = ServerConnection.GetInstance();
+        sc.UpdateAndRemovePurchaseOrder(this, currentStock);
     }
     
     public List<PurchaseOrder> LoadAllPurchaseOrders()
     {
-        return (List<PurchaseOrder>) dc.LoadPurchaseOrders();
+        ServerConnection sc = ServerConnection.GetInstance();
+        return (List<PurchaseOrder>) sc.LoadPurchaseOrders();
     }
 }

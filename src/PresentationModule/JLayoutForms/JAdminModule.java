@@ -41,6 +41,8 @@ public class JAdminModule extends javax.swing.JFrame {
     private List<Order> allOrders = new ArrayList<>();
     private List<StaffOrder> pendingOrders = new ArrayList<>();
     private List<PurchaseOrder> purchaseOrders = new ArrayList<>();
+    private List<Campus> filterCampus = new ArrayList<>();
+    private List<Department> filterDeparment = new ArrayList<>();
 
     private JPanel[] tabPanels;
     private boolean[] loadedTabs;
@@ -71,6 +73,34 @@ public class JAdminModule extends javax.swing.JFrame {
             cmbFilterCategory.setSelectedIndex(0);
         } catch (NullPointerException npe) {
             Helper.DisplayError(npe.toString());
+        }
+    }
+    
+    private void LoadCampus()
+    {
+        filterCampus = new Campus().ReadCampus();
+
+        cmbFilterCampus.addItem("None");
+        cmbFilterCampusReg.addItem("None");
+        
+        for (Campus campusData : filterCampus)
+        {
+            cmbFilterCampus.addItem(campusData.getCampusName());
+            cmbFilterCampusReg.addItem(campusData.getCampusName());
+        }
+    }
+    
+    private void LoadDepartment()
+    {
+        filterDeparment = new Department().ReadDepartment();
+        
+        cmbFilterDepartment.addItem("None");
+        cmbFilterDepartmentReg.addItem("None");
+
+        for (Department departmentData : filterDeparment)
+        {
+            cmbFilterDepartment.addItem(departmentData.getDepartmentName());
+            cmbFilterDepartmentReg.addItem(departmentData.getDepartmentName());
         }
     }
 
@@ -109,6 +139,8 @@ public class JAdminModule extends javax.swing.JFrame {
                     LoadRegisterRequests();
                     PopulateTableUsers();
                     PopulateTableRegister();
+                    LoadCampus();
+                    LoadDepartment();
                     loadedTabs[0] = true;
                 }
             } catch (NullPointerException npe)
@@ -119,6 +151,8 @@ public class JAdminModule extends javax.swing.JFrame {
                 LoadRegisterRequests();
                 PopulateTableUsers();
                 PopulateTableRegister();
+                LoadCampus();
+                LoadDepartment();
                 loadedTabs[0] = true;
             }
         }
@@ -129,6 +163,8 @@ public class JAdminModule extends javax.swing.JFrame {
             LoadRegisterRequests();
             PopulateTableUsers();
             PopulateTableRegister();
+            LoadCampus();
+            LoadDepartment();
         }
     }
     
@@ -216,11 +252,26 @@ public class JAdminModule extends javax.swing.JFrame {
         pnlAllStaff = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblViewUsers = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtFilterNameSurname = new javax.swing.JTextField();
+        cmbFilterCampus = new javax.swing.JComboBox<>();
+        cmbFilterDepartment = new javax.swing.JComboBox<>();
         pnlRegistrationRequests = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRegisterRequests = new javax.swing.JTable();
         btnDeleteRegisterUser = new javax.swing.JButton();
         btnAcceptUser = new javax.swing.JButton();
+        pnlAllStaff1 = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        tblViewUsers1 = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        txtFilterNameSurnameReg = new javax.swing.JTextField();
+        cmbFilterCampusReg = new javax.swing.JComboBox<>();
+        cmbFilterDepartmentReg = new javax.swing.JComboBox<>();
         btnViewUsersBack = new javax.swing.JButton();
         pnlViewAllStock = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -316,19 +367,78 @@ public class JAdminModule extends javax.swing.JFrame {
         tblViewUsers.setName(""); // NOI18N
         jScrollPane2.setViewportView(tblViewUsers);
 
+        jLabel7.setText("Name / Surname:");
+
+        jLabel8.setText("Campus Name:");
+
+        jLabel9.setText("Department Name:");
+
+        txtFilterNameSurname.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyReleased(java.awt.event.KeyEvent evt)
+            {
+                txtFilterNameSurnameKeyReleased(evt);
+            }
+        });
+
+        cmbFilterCampus.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
+                cmbFilterCampusItemStateChanged(evt);
+            }
+        });
+
+        cmbFilterDepartment.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
+                cmbFilterDepartmentItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlAllStaffLayout = new javax.swing.GroupLayout(pnlAllStaff);
         pnlAllStaff.setLayout(pnlAllStaffLayout);
         pnlAllStaffLayout.setHorizontalGroup(
             pnlAllStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAllStaffLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1018, Short.MAX_VALUE)
+                .addGroup(pnlAllStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1018, Short.MAX_VALUE)
+                    .addGroup(pnlAllStaffLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFilterNameSurname, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel9)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbFilterDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlAllStaffLayout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbFilterCampus, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnlAllStaffLayout.setVerticalGroup(
             pnlAllStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAllStaffLayout.createSequentialGroup()
-                .addContainerGap(129, Short.MAX_VALUE)
+                .addGroup(pnlAllStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlAllStaffLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pnlAllStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(cmbFilterDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlAllStaffLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(pnlAllStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(txtFilterNameSurname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGroup(pnlAllStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(cmbFilterCampus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -386,6 +496,114 @@ public class JAdminModule extends javax.swing.JFrame {
             }
         });
 
+        tblViewUsers1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][]
+            {
+
+            },
+            new String []
+            {
+                "ID", "Name", "Surname", "Campus Name", "Department Name", "Cell No", "Email", "Username", "Password"
+            }
+        )
+        {
+            Class[] types = new Class []
+            {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean []
+            {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex)
+            {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
+                return canEdit [columnIndex];
+            }
+        });
+        tblViewUsers1.setName(""); // NOI18N
+        jScrollPane7.setViewportView(tblViewUsers1);
+
+        jLabel11.setText("Name / Surname:");
+
+        jLabel12.setText("Campus Name:");
+
+        jLabel13.setText("Department Name:");
+
+        txtFilterNameSurnameReg.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyReleased(java.awt.event.KeyEvent evt)
+            {
+                txtFilterNameSurnameRegKeyReleased(evt);
+            }
+        });
+
+        cmbFilterCampusReg.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
+                cmbFilterCampusRegItemStateChanged(evt);
+            }
+        });
+
+        cmbFilterDepartmentReg.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
+                cmbFilterDepartmentRegItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlAllStaff1Layout = new javax.swing.GroupLayout(pnlAllStaff1);
+        pnlAllStaff1.setLayout(pnlAllStaff1Layout);
+        pnlAllStaff1Layout.setHorizontalGroup(
+            pnlAllStaff1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlAllStaff1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlAllStaff1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 1018, Short.MAX_VALUE)
+                    .addGroup(pnlAllStaff1Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFilterNameSurnameReg, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel13)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbFilterDepartmentReg, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlAllStaff1Layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbFilterCampusReg, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        pnlAllStaff1Layout.setVerticalGroup(
+            pnlAllStaff1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAllStaff1Layout.createSequentialGroup()
+                .addGroup(pnlAllStaff1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlAllStaff1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pnlAllStaff1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel13)
+                            .addComponent(cmbFilterDepartmentReg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlAllStaff1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(pnlAllStaff1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(txtFilterNameSurnameReg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGroup(pnlAllStaff1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(cmbFilterCampusReg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         javax.swing.GroupLayout pnlRegistrationRequestsLayout = new javax.swing.GroupLayout(pnlRegistrationRequests);
         pnlRegistrationRequests.setLayout(pnlRegistrationRequestsLayout);
         pnlRegistrationRequestsLayout.setHorizontalGroup(
@@ -398,18 +616,30 @@ public class JAdminModule extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnDeleteRegisterUser)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAcceptUser)))
+                        .addComponent(btnAcceptUser)
+                        .addGap(25, 25, 25)))
                 .addContainerGap())
+            .addGroup(pnlRegistrationRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlRegistrationRequestsLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(pnlAllStaff1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         pnlRegistrationRequestsLayout.setVerticalGroup(
             pnlRegistrationRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlRegistrationRequestsLayout.createSequentialGroup()
-                .addContainerGap(129, Short.MAX_VALUE)
+                .addContainerGap(123, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlRegistrationRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAcceptUser)
-                    .addComponent(btnDeleteRegisterUser)))
+                    .addComponent(btnDeleteRegisterUser)
+                    .addComponent(btnAcceptUser))
+                .addContainerGap())
+            .addGroup(pnlRegistrationRequestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlRegistrationRequestsLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(pnlAllStaff1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         tpManageStaff.addTab("Registration Requests", pnlRegistrationRequests);
@@ -977,7 +1207,7 @@ public class JAdminModule extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tpOrderControls.addTab("Stock Orders", pnlStockOrdeers);
+        tpOrderControls.addTab("Purchase Orders", pnlStockOrdeers);
 
         javax.swing.GroupLayout pnlViewAllOrdersLayout = new javax.swing.GroupLayout(pnlViewAllOrders);
         pnlViewAllOrders.setLayout(pnlViewAllOrdersLayout);
@@ -1496,6 +1726,11 @@ public class JAdminModule extends javax.swing.JFrame {
         {
             Helper.DisplayError("There is no data currently available in the table");
         }
+        finally
+        {
+            LoadTableAllStockData();
+            PopulateTableAllStock();
+        }
     }//GEN-LAST:event_btnDeleteStockMouseClicked
 
     private void btnPromptUpdateMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnPromptUpdateMouseClicked
@@ -1521,6 +1756,11 @@ public class JAdminModule extends javax.swing.JFrame {
         } catch (NullPointerException npe)
         {
             Helper.DisplayError("There is no data currently available in the table");
+        }
+        finally
+        {
+            LoadTableAllStockData();
+            PopulateTableAllStock();
         }
     }//GEN-LAST:event_btnPromptUpdateMouseClicked
 
@@ -1560,6 +1800,13 @@ public class JAdminModule extends javax.swing.JFrame {
         } catch (NullPointerException npe)
         {
             Helper.DisplayError("There is no data currently available in the table");
+        }
+        finally
+        {
+            LoadAllUsers();
+            LoadRegisterRequests();
+            PopulateTableUsers();
+            PopulateTableRegister();
         }
     }//GEN-LAST:event_btnAcceptUserMouseClicked
 
@@ -1952,7 +2199,6 @@ public class JAdminModule extends javax.swing.JFrame {
         {
             Helper.DisplayError(ex.toString());
         }
-        
     }//GEN-LAST:event_btnViewSelectedOrderMouseClicked
 
     private void btnViewSelectedStaffOrderMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_btnViewSelectedStaffOrderMouseClicked
@@ -1981,6 +2227,15 @@ public class JAdminModule extends javax.swing.JFrame {
         catch (Exception ex)
         {
             Helper.DisplayError(ex.toString());
+        }
+        finally
+        {
+            LoadTableAllOrders();
+            LoadTableAllPendingOrders();
+            LoadTablePurchaseOrdersData();
+            PopulateTableAllOrders();
+            PopulateTableAllPendingOrders();
+            PopulateTablePurchaseOrders();
         }
     }//GEN-LAST:event_btnViewSelectedStaffOrderMouseClicked
 
@@ -2019,7 +2274,268 @@ public class JAdminModule extends javax.swing.JFrame {
         {
             Helper.DisplayError("Please select a row first to complete this action", "Row Selection Error");
         }
+        finally
+        {
+            LoadTablePurchaseOrdersData();
+            PopulateTablePurchaseOrders();
+        }
     }//GEN-LAST:event_btnAcceptPurchaseOrderMouseClicked
+
+    private void cmbFilterCampusItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_cmbFilterCampusItemStateChanged
+    {//GEN-HEADEREND:event_cmbFilterCampusItemStateChanged
+        if (formLoad)
+        {
+            try
+            {
+                LoadAllUsers();
+                List<Staff> staffToRemove = new ArrayList<>();
+
+                for (Staff staff : users)
+                {
+                    for (Campus campus : filterCampus)
+                    {
+                        if (campus.getCampusName().equalsIgnoreCase(cmbFilterCampus.getSelectedItem().toString()))
+                        {
+                            if (campus.getCampusID() != staff.getStaffCampusID())
+                            {
+                                staffToRemove.add(staff);
+                            }
+                        }
+                    }
+                }
+
+                users.removeAll(staffToRemove);
+
+                DefaultTableModel model = (DefaultTableModel) tblViewUsers.getModel();
+                model.setRowCount(0);
+                PopulateTableUsers();
+
+                if (users.size() <= 0)
+                {
+                    Helper.DisplayError("There are no users located in requested filter", "Filter Information");
+                }
+            } catch (Exception ex)
+            {
+                if (ex instanceof NullPointerException)
+                {
+                    LoadAllUsers();
+                    PopulateTableUsers();
+                } else
+                {
+                    Helper.DisplayError(ex.toString(), "Error In Filter");
+                }
+            }
+        }
+    }//GEN-LAST:event_cmbFilterCampusItemStateChanged
+
+    private void cmbFilterDepartmentItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_cmbFilterDepartmentItemStateChanged
+    {//GEN-HEADEREND:event_cmbFilterDepartmentItemStateChanged
+        if (formLoad)
+        {
+            try
+            {
+                LoadAllUsers();
+                List<Staff> staffToRemove = new ArrayList<>();
+
+                for (Staff staff : users)
+                {
+                    for (Department dept : filterDeparment)
+                    {
+                        if (dept.getDepartmentName().equalsIgnoreCase(cmbFilterDepartment.getSelectedItem().toString()))
+                        {
+                            if (dept.getDepartmentID() != staff.getStaffDepartment())
+                            {
+                                staffToRemove.add(staff);
+                            }
+                        }
+                    }
+                }
+
+                users.removeAll(staffToRemove);
+
+                DefaultTableModel model = (DefaultTableModel) tblViewUsers.getModel();
+                model.setRowCount(0);
+                PopulateTableUsers();
+
+                if (users.size() <= 0)
+                {
+                    Helper.DisplayError("There are no users located in requested filter", "Filter Information");
+                }
+            } catch (Exception ex)
+            {
+                if (ex instanceof NullPointerException)
+                {
+                    LoadAllUsers();
+                    PopulateTableUsers();
+                } else
+                {
+                    Helper.DisplayError(ex.toString(), "Error In Filter");
+                }
+            }
+        }
+    }//GEN-LAST:event_cmbFilterDepartmentItemStateChanged
+
+    private void txtFilterNameSurnameKeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_txtFilterNameSurnameKeyReleased
+    {//GEN-HEADEREND:event_txtFilterNameSurnameKeyReleased
+        try
+        {
+            LoadAllUsers();
+            List<Staff> staffToRemove = new ArrayList<>();
+
+            for (Staff staff : users)
+            {
+                if (!staff.getStaffName().toUpperCase().contains(txtFilterNameSurname.getText().toUpperCase()))
+                {
+                    if(!staff.getStaffSurname().toUpperCase().contains(txtFilterNameSurname.getText().toUpperCase()))
+                    {
+                        staffToRemove.add(staff);
+                    }
+                }
+            }
+
+            users.removeAll(staffToRemove);
+
+            DefaultTableModel model = (DefaultTableModel) tblViewUsers.getModel();
+            model.setRowCount(0);
+            PopulateTableUsers();
+
+            if (users.size() <= 0)
+            {
+                Helper.DisplayError("There are no users that match that filter", "Filter Information");
+            }
+        } catch (Exception ex)
+        {
+            Helper.DisplayError(ex.toString(), "Error In Filter");
+        }
+    }//GEN-LAST:event_txtFilterNameSurnameKeyReleased
+
+    private void txtFilterNameSurnameRegKeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_txtFilterNameSurnameRegKeyReleased
+    {//GEN-HEADEREND:event_txtFilterNameSurnameRegKeyReleased
+        try
+        {
+            LoadRegisterRequests();
+            List<Staff> staffToRemove = new ArrayList<>();
+
+            for (Staff staff : users)
+            {
+                if (!staff.getStaffName().toUpperCase().contains(txtFilterNameSurnameReg.getText().toUpperCase()))
+                {
+                    if(!staff.getStaffSurname().toUpperCase().contains(txtFilterNameSurnameReg.getText().toUpperCase()))
+                    {
+                        staffToRemove.add(staff);
+                    }
+                }
+            }
+
+            registerStaff.removeAll(staffToRemove);
+
+            DefaultTableModel model = (DefaultTableModel) tblRegisterRequests.getModel();
+            model.setRowCount(0);
+            PopulateTableRegister();
+
+            if (registerStaff.size() <= 0)
+            {
+                Helper.DisplayError("There are no users that match that filter", "Filter Information");
+            }
+        } catch (Exception ex)
+        {
+            Helper.DisplayError(ex.toString(), "Error In Filter");
+        }
+    }//GEN-LAST:event_txtFilterNameSurnameRegKeyReleased
+
+    private void cmbFilterCampusRegItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_cmbFilterCampusRegItemStateChanged
+    {//GEN-HEADEREND:event_cmbFilterCampusRegItemStateChanged
+        if (formLoad)
+        {
+            try
+            {
+                LoadRegisterRequests();
+                List<Staff> staffToRemove = new ArrayList<>();
+
+                for (Staff staff : registerStaff)
+                {
+                    for (Campus campus : filterCampus)
+                    {
+                        if (campus.getCampusName().equalsIgnoreCase(cmbFilterCampusReg.getSelectedItem().toString()))
+                        {
+                            if (campus.getCampusID() != staff.getStaffCampusID())
+                            {
+                                staffToRemove.add(staff);
+                            }
+                        }
+                    }
+                }
+
+                registerStaff.removeAll(staffToRemove);
+
+                DefaultTableModel model = (DefaultTableModel) tblRegisterRequests.getModel();
+                model.setRowCount(0);
+                PopulateTableRegister();
+
+                if (registerStaff.size() <= 0)
+                {
+                    Helper.DisplayError("There are no users located in requested filter", "Filter Information");
+                }
+            } catch (Exception ex)
+            {
+                if (ex instanceof NullPointerException)
+                {
+                    LoadRegisterRequests();
+                    PopulateTableRegister();
+                } else
+                {
+                    Helper.DisplayError(ex.toString(), "Error In Filter");
+                }
+            }
+        }
+    }//GEN-LAST:event_cmbFilterCampusRegItemStateChanged
+
+    private void cmbFilterDepartmentRegItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_cmbFilterDepartmentRegItemStateChanged
+    {//GEN-HEADEREND:event_cmbFilterDepartmentRegItemStateChanged
+        if (formLoad)
+        {
+            try
+            {
+                LoadRegisterRequests();
+                List<Staff> staffToRemove = new ArrayList<>();
+
+                for (Staff staff : registerStaff)
+                {
+                    for (Department dept : filterDeparment)
+                    {
+                        if (dept.getDepartmentName().equalsIgnoreCase(cmbFilterDepartmentReg.getSelectedItem().toString()))
+                        {
+                            if (dept.getDepartmentID() != staff.getStaffDepartment())
+                            {
+                                staffToRemove.add(staff);
+                            }
+                        }
+                    }
+                }
+
+                registerStaff.removeAll(staffToRemove);
+
+                DefaultTableModel model = (DefaultTableModel) tblRegisterRequests.getModel();
+                model.setRowCount(0);
+                PopulateTableRegister();
+
+                if (registerStaff.size() <= 0)
+                {
+                    Helper.DisplayError("There are no users located in requested filter", "Filter Information");
+                }
+            } catch (Exception ex)
+            {
+                if (ex instanceof NullPointerException)
+                {
+                    LoadRegisterRequests();
+                    PopulateTableRegister();
+                } else
+                {
+                    Helper.DisplayError(ex.toString(), "Error In Filter");
+                }
+            }
+        }
+    }//GEN-LAST:event_cmbFilterDepartmentRegItemStateChanged
 
     private void SelectOrder(String stockOrderID)
     {
@@ -2097,7 +2613,11 @@ public class JAdminModule extends javax.swing.JFrame {
     private javax.swing.JButton btnViewSelectedOrder;
     private javax.swing.JButton btnViewSelectedStaffOrder;
     private javax.swing.JButton btnViewUsersBack;
+    private javax.swing.JComboBox<String> cmbFilterCampus;
+    private javax.swing.JComboBox<String> cmbFilterCampusReg;
     private javax.swing.JComboBox<String> cmbFilterCategory;
+    private javax.swing.JComboBox<String> cmbFilterDepartment;
+    private javax.swing.JComboBox<String> cmbFilterDepartmentReg;
     private javax.swing.JComboBox<String> cmbPrioritySort;
     private javax.swing.JComboBox<String> cmdOrderPrioritySort;
     private javax.swing.JComboBox<String> cmdOrderRequestViewByDate;
@@ -2105,6 +2625,9 @@ public class JAdminModule extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmdOrderViewByDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -2114,12 +2637,16 @@ public class JAdminModule extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu jmAccounts;
     private javax.swing.JMenu jmAdminApplication;
@@ -2134,6 +2661,7 @@ public class JAdminModule extends javax.swing.JFrame {
     private javax.swing.JMenuBar jmbAdminModule;
     private javax.swing.JPanel pnlAllOrders;
     private javax.swing.JPanel pnlAllStaff;
+    private javax.swing.JPanel pnlAllStaff1;
     private javax.swing.JPanel pnlManageStaff;
     private javax.swing.JPanel pnlOrderRequests;
     private javax.swing.JPanel pnlRegistrationRequests;
@@ -2146,9 +2674,12 @@ public class JAdminModule extends javax.swing.JFrame {
     private javax.swing.JTable tblPurchaseOrders;
     private javax.swing.JTable tblRegisterRequests;
     private javax.swing.JTable tblViewUsers;
+    private javax.swing.JTable tblViewUsers1;
     private javax.swing.JTabbedPane tpAdminControls;
     private javax.swing.JTabbedPane tpManageStaff;
     private javax.swing.JTabbedPane tpOrderControls;
+    private javax.swing.JTextField txtFilterNameSurname;
+    private javax.swing.JTextField txtFilterNameSurnameReg;
     private javax.swing.JTextField txtFilterProductName;
     private javax.swing.JTextField txtOrderFilterID;
     private javax.swing.JTextField txtOrderFilterUsername;

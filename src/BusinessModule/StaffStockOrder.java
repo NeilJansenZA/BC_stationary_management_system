@@ -5,7 +5,7 @@
  */
 package BusinessModule;
 
-import DataAccessModule.DataConnection;
+import RemoteClient.ServerConnection;
 import java.util.List;
 
 /**
@@ -14,7 +14,6 @@ import java.util.List;
  */
 public class StaffStockOrder
 {
-    private DataConnection dc = new DataConnection();
     private String staffStockID;
     private int stationaryStockID;
     private int quantity;
@@ -22,7 +21,6 @@ public class StaffStockOrder
 
     public StaffStockOrder(int stationaryStockID, int quantity, double price)
     {
-        this.dc = new DataConnection();
         this.stationaryStockID = stationaryStockID;
         this.quantity = quantity;
         this.price = price;
@@ -31,7 +29,6 @@ public class StaffStockOrder
     
     public StaffStockOrder(String staffStockID, int stationaryStockID, int quantity, double price)
     {
-        this.dc = new DataConnection();
         this.staffStockID = staffStockID;
         this.stationaryStockID = stationaryStockID;
         this.quantity = quantity;
@@ -40,7 +37,6 @@ public class StaffStockOrder
 
     public StaffStockOrder()
     {
-        this.dc = new DataConnection();
     }
 
     public String getStaffStockID()
@@ -85,11 +81,13 @@ public class StaffStockOrder
     
     public List<StaffStockOrder> GetOrderDetails(String staffStockID)
     {
-        return (List<StaffStockOrder>) dc.GetOrderDetails(staffStockID);
+        ServerConnection sc = ServerConnection.GetInstance();
+        return (List<StaffStockOrder>) sc.GetOrderDetails(staffStockID);
     }
     
     public StaffOrder GetStaffOrderID(String staffStockID)
     {
-        return (StaffOrder) dc.GetStaffOrderID(staffStockID);
+        ServerConnection sc = ServerConnection.GetInstance();
+        return (StaffOrder) sc.GetStaffOrderID(staffStockID);
     }
 }

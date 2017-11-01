@@ -18,7 +18,6 @@ public class Authentication
     
     public boolean Logon()
     {
-        Internal.GetAuthenticationSettings();
         AuthenticationSettings.setConnected(true);
         
         int register = 1;

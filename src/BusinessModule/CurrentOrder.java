@@ -5,7 +5,7 @@
  */
 package BusinessModule;
 
-import DataAccessModule.DataConnection;
+import RemoteClient.ServerConnection;
 import java.util.Date;
 import java.util.List;
 
@@ -108,8 +108,6 @@ public class CurrentOrder
     {
     }
     
-    
-
     public String getStaffUsername()
     {
         return staffUsername;
@@ -120,8 +118,6 @@ public class CurrentOrder
         this.staffUsername = staffUsername;
     }
 
-    
-    
     public double getOrderTotal()
     {
         return orderTotal;
@@ -131,9 +127,7 @@ public class CurrentOrder
     {
         this.orderTotal = orderTotal;
     }
-    
-    
-    
+
     public String getOrderID()
     {
         return orderID;
@@ -206,29 +200,29 @@ public class CurrentOrder
     
     public void RequestCurrentOrder()
     {
-        DataConnection dc = new DataConnection();
-        dc.RequestCurrentOrder();
+        ServerConnection sc = ServerConnection.GetInstance();
+        sc.RequestCurrentOrder();
     }
     
     public void ApproveOrder(List<StationaryStock> stockList)
     {
-        DataConnection dc = new DataConnection();
+        ServerConnection sc = ServerConnection.GetInstance();
         Order order = new Order(SecurityModule.IDCreation.CreateOrderID(), new StaffStockOrder().GetStaffOrderID(this.staffStockID), new Date());
         order.getStaffOrder().setOrderStatus("Approved");
-        dc.InsertOrder(order);
+        sc.InsertOrder(order);
         
         for (StationaryStock stationaryStock : stockList)
         {
-            dc.UpdateStockEntry(stationaryStock);
+            sc.UpdateStockEntry(stationaryStock);
         }
     }
     
     public void DenyOrder()
     {
-        DataConnection dc = new DataConnection();
+        ServerConnection sc = ServerConnection.GetInstance();
         StaffOrder so = new StaffStockOrder().GetStaffOrderID(this.staffStockID);
         so.setOrderStatus("Request Denied");
-        dc.DenyOrder(so);
+        sc.DenyOrder(so);
     }
 
     @Override
@@ -236,6 +230,4 @@ public class CurrentOrder
     {
         return "CurrentOrder{" + "orderID=" + orderID + ", staffStockID=" + staffStockID + ", orderStock=" + orderStock + ", currentDate=" + currentDate + ", orderTotal=" + orderTotal + ", approvalDate=" + approvalDate + ", staffUsername=" + staffUsername + ", staffID=" + staffID + ", totalPrice=" + totalPrice + ", viewOrder=" + viewOrder + ", viewStaffOrder=" + viewStaffOrder + ", viewStaffPending=" + viewStaffPending + '}';
     }
-    
-    
 }

@@ -377,7 +377,6 @@ public class JRegisterUser extends javax.swing.JFrame
         txtRegUsername.setText("");
         txtRegPassword.setText("");
         txtRegConfirmPassword.setText("");
-
     }
 
     /**

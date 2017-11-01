@@ -5,7 +5,7 @@
  */
 package BusinessModule;
 
-import DataAccessModule.DataConnection;
+import RemoteClient.ServerConnection;
 import java.util.List;
 
 /**
@@ -14,8 +14,6 @@ import java.util.List;
  */
 public class Campus
 {
-    private DataConnection dc = new DataConnection();
-    
     private int campusID;
     private String campusName;
     private String campusAddress;
@@ -29,12 +27,14 @@ public class Campus
     
     public Campus GetCampus(int campusID)
     {
-        return (Campus) dc.GetCampus(campusID);
+        ServerConnection sc = ServerConnection.GetInstance();
+        return (Campus) sc.GetCampus(campusID);
     }
     
     public List<Campus> ReadCampus()
     {
-        return (List<Campus>) dc.ReadCampus();
+        ServerConnection sc = ServerConnection.GetInstance();
+        return (List<Campus>) sc.ReadCampus();
     }
 
     public Campus(int campusID, String campusName, String campusAddress, String campusProvince, String campusCity)

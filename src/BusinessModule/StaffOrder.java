@@ -5,7 +5,8 @@
  */
 package BusinessModule;
 
-import DataAccessModule.DataConnection;
+import Authentication.AuthenticationSettings;
+import RemoteClient.ServerConnection;
 import java.sql.Date;
 import java.util.List;
 
@@ -15,7 +16,6 @@ import java.util.List;
  */
 public class StaffOrder
 {
-    private DataConnection dc = new DataConnection();
     private int staffOrderID;
     private int staffID;
     private String staffStockOrderID;
@@ -25,7 +25,6 @@ public class StaffOrder
 
     public StaffOrder(int staffOrderID, int staffID, String staffStockOrderID, Date orderDate, double orderTotal, String orderStatus)
     {
-        this.dc = new DataConnection();
         this.staffOrderID = staffOrderID;
         this.staffID = staffID;
         this.staffStockOrderID = staffStockOrderID;
@@ -36,7 +35,6 @@ public class StaffOrder
 
     public StaffOrder(String staffStockOrderID, Date orderDate, double orderTotal, String orderStatus)
     {
-        this.dc = new DataConnection();
         this.staffStockOrderID = staffStockOrderID;
         this.orderDate = orderDate;
         this.orderTotal = orderTotal;
@@ -45,7 +43,6 @@ public class StaffOrder
 
     public StaffOrder(String staffStockOrderID, Date orderDate, double orderTotal)
     {
-        this.dc = new DataConnection();
         this.staffStockOrderID = staffStockOrderID;
         this.orderDate = orderDate;
         this.orderTotal = orderTotal;
@@ -53,7 +50,6 @@ public class StaffOrder
     
     public StaffOrder(int staffID, String staffStockOrderID, Date orderDate, double orderTotal, String orderStatus)
     {
-        this.dc = new DataConnection();
         this.staffID = staffID;
         this.staffStockOrderID = staffStockOrderID;       
         this.orderDate = orderDate;
@@ -74,8 +70,6 @@ public class StaffOrder
     {
         return "StaffOrder{" + "staffOrderID=" + staffOrderID + ", staffID=" + staffID + ", staffStockOrderID=" + staffStockOrderID + ", orderDate=" + orderDate + ", orderTotal=" + orderTotal + ", orderStatus=" + orderStatus + '}';
     }
-    
-    
 
     public StaffOrder()
     {
@@ -144,11 +138,13 @@ public class StaffOrder
     
     public List<StaffOrder> LoadMyPendingOrders()
     {
-        return dc.LoadMyPendingOrders();
+        ServerConnection sc = ServerConnection.GetInstance();
+        return (List<StaffOrder>) sc.LoadMyPendingOrders(AuthenticationSettings.getCurrentUserID());
     }
     
     public List<StaffOrder> LoadAllPendingOrders()
     {
-        return dc.LoadAllPendingOrders();
+        ServerConnection sc = ServerConnection.GetInstance();
+        return (List<StaffOrder>) sc.LoadAllPendingOrders();
     }
 }

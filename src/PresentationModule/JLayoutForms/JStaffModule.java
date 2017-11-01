@@ -922,6 +922,11 @@ public class JStaffModule extends javax.swing.JFrame
         {
             Helper.DisplayError("There is no current order yet, please add some stationary stock to create one.", "No Existing Order");
         }
+        finally
+        {
+            LoadMyPendingOrders();
+            PopulateTablePendingOrders();
+        }
     }//GEN-LAST:event_jmCurrentOrderActionPerformed
 
     private void cmbPrioritySortItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_cmbPrioritySortItemStateChanged

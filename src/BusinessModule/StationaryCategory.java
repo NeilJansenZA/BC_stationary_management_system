@@ -5,7 +5,7 @@
  */
 package BusinessModule;
 
-import DataAccessModule.DataConnection;
+import RemoteClient.ServerConnection;
 import java.util.List;
 
 /**
@@ -14,8 +14,6 @@ import java.util.List;
  */
 public class StationaryCategory
 {
-    private DataConnection dc = new DataConnection();
-    
     private int stationaryCategoryID;
     private String name;
     
@@ -23,12 +21,14 @@ public class StationaryCategory
     
     public StationaryCategory GetStationaryCategory(int stationaryCategoryID)
     {
-        return (StationaryCategory) dc.GetStationaryCategory(stationaryCategoryID);
+        ServerConnection sc = ServerConnection.GetInstance();
+        return (StationaryCategory) sc.GetStationaryCategory(stationaryCategoryID);
     }
     
     public List<StationaryCategory> ReadStationaryCategory()
     {
-        return (List<StationaryCategory>) dc.ReadStationaryCategory();
+        ServerConnection sc = ServerConnection.GetInstance();
+        return (List<StationaryCategory>) sc.ReadStationaryCategory();
     }
 
     public StationaryCategory(int stationaryCategoryID, String name)

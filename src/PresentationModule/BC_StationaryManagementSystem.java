@@ -56,8 +56,7 @@ public class BC_StationaryManagementSystem implements Runnable{
         catch (ClassNotFoundException | InstantiationException| IllegalAccessException | UnsupportedLookAndFeelException ex) 
         {
             Helper.DisplayError(ex.toString(), "Error in Setting UI Theme");
-        }
-        
+        }      
     }
     
 }

@@ -5,7 +5,7 @@
  */
 package BusinessModule;
 
-import DataAccessModule.DataConnection;
+import RemoteClient.ServerConnection;
 import static SecurityModule.EncryptionSource.GenerateHash;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +16,6 @@ import java.util.List;
  */
 public class Staff
 {
-    private DataConnection dc = new DataConnection();;
     
     private int staffID;
     private String staffName;
@@ -34,7 +33,6 @@ public class Staff
 
     public Staff(int registerID, Date registerRequestDate, String staffName, String staffSurname, int staffCampusID, int staffDepartment, String staffCellNo, String staffEmail, String staffUsername, String staffPassword)
     {
-        this.dc = new DataConnection();
         this.registerID = registerID;
         this.registerRequestDate = registerRequestDate;
         this.staffName = staffName;
@@ -53,7 +51,6 @@ public class Staff
     
     public Staff(String staffName, String staffSurname, int staffCampusID, int staffDepartment, String staffCellNo, String staffEmail, String staffUsername, String staffPassword)
     {
-        this.dc = new DataConnection();
         this.staffName = staffName;
         this.staffSurname = staffSurname;
         this.staffCampusID = staffCampusID;
@@ -66,7 +63,6 @@ public class Staff
 
     public Staff(int staffID, String staffName, String staffSurname, int staffCampusID, int staffDepartment, String staffCellNo, String staffEmail, String staffUsername, String staffPassword)
     {
-        this.dc = new DataConnection();
         this.staffID = staffID;
         this.staffName = staffName;
         this.staffSurname = staffSurname;
@@ -181,28 +177,33 @@ public class Staff
     
     public void InsertStaffRegistration()
     {
-        dc.InsertStaffRegistration(this);
+        ServerConnection sc = ServerConnection.GetInstance();
+        sc.InsertStaffRegistration(this);
     }
     
     public List<Staff> LoadUsers()
     {
-        return (List<Staff>) dc.LoadUsers();
+        ServerConnection sc = ServerConnection.GetInstance();
+        return (List<Staff>) sc.LoadUsers();
     }
     
     public void InsertStaff()
     {
-        dc.InsertStaff(this);
+        ServerConnection sc = ServerConnection.GetInstance();
+        sc.InsertStaff(this);
         DeleteRegistry();
     }
     
     public void UpdateStaffEntry()
     {
-        dc.UpdateStaffEntry(this);
+        ServerConnection sc = ServerConnection.GetInstance();
+        sc.UpdateStaffEntry(this);
     }
     
     public boolean CheckUsername(String username)
     {
-        int validUsername = dc.CheckUsername(username);
+        ServerConnection sc = ServerConnection.GetInstance();
+        int validUsername = sc.CheckUsername(username);
         boolean valid = false;
         
         switch(validUsername)
@@ -225,24 +226,26 @@ public class Staff
     
     public Staff(String staffUsername, String staffPassword)
     {
-        this.dc = new DataConnection();
         this.staffUsername = staffUsername;
         this.staffPassword = staffPassword;
     }
     
     public Staff ReadStaffMember()
     {
-        return (Staff) dc.ReadStaffMember();
+        ServerConnection sc = ServerConnection.GetInstance();
+        return (Staff) sc.ReadStaffMember(Authentication.AuthenticationSettings.getCurrentUserID());
     }
     
     public Staff ReadStaffMemberOrder(int orderStaffID)
     {
-        return (Staff) dc.ReadStaffMemberOrder(orderStaffID);
+        ServerConnection sc = ServerConnection.GetInstance();
+        return (Staff) sc.ReadStaffMemberOrder(orderStaffID);
     }
     
     public void DeleteRegistry()
     {
-        dc.DeleteRegistry(this.registerID);
+        ServerConnection sc = ServerConnection.GetInstance();
+        sc.DeleteRegistry(this.registerID);
     }
 
     @Override
@@ -253,7 +256,8 @@ public class Staff
     
     public List<Staff> LoadRegisterRequests()
     {
-        return (List<Staff>) dc.LoadRegisterRequests();
+        ServerConnection sc = ServerConnection.GetInstance();
+        return (List<Staff>) sc.LoadRegisterRequests();
     }
 
     public Date getRegisterRequestDate()

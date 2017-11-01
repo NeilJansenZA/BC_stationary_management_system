@@ -1,0 +1,21 @@
+StationaryStock{stationaryStockID=1, productName=Ballpoint Pens, stationaryCategoryID=1, model=Metal Ballpoint Stylus Pen, price=10.0, quantity=2470, dateOfEntryUpdate=2017-10-26}
+StationaryStock{stationaryStockID=2, productName=PP Spiral Notebook, stationaryCategoryID=1, model=09SP3603, price=35.0, quantity=800, dateOfEntryUpdate=2017-10-23}
+StationaryStock{stationaryStockID=3, productName=Yadi Sticky Notes, stationaryCategoryID=1, model=YD656D, price=2.5, quantity=1200, dateOfEntryUpdate=2017-10-23}
+StationaryStock{stationaryStockID=4, productName=Hard Cover Notebook, stationaryCategoryID=1, model=JPCO280215, price=42.3, quantity=230, dateOfEntryUpdate=2017-10-23}
+StationaryStock{stationaryStockID=5, productName=Whiteboard Marker, stationaryCategoryID=2, model=YL-103B, price=11.0, quantity=950, dateOfEntryUpdate=2017-10-26}
+StationaryStock{stationaryStockID=6, productName= A4 Punched Pocket, stationaryCategoryID=3, model=A4PP, price=2.0, quantity=1000, dateOfEntryUpdate=2017-10-23}
+StationaryStock{stationaryStockID=7, productName= File Folder, stationaryCategoryID=3, model=1500GSM, price=5.0, quantity=500, dateOfEntryUpdate=2017-10-23}
+StationaryStock{stationaryStockID=8, productName=Clear Folder, stationaryCategoryID=3, model=CFCC870, price=6.0, quantity=5000, dateOfEntryUpdate=2017-10-23}
+StationaryStock{stationaryStockID=9, productName=Clip Board, stationaryCategoryID=3, model=PVCSCB, price=10.0, quantity=1000, dateOfEntryUpdate=2017-10-23}
+StationaryStock{stationaryStockID=10, productName=View Binder PP, stationaryCategoryID=3, model=SVBPP, price=20.0, quantity=2000, dateOfEntryUpdate=2017-10-23}
+StationaryStock{stationaryStockID=11, productName=Stapler, stationaryCategoryID=4, model= OEMODM, price=10.0, quantity=320, dateOfEntryUpdate=2017-10-23}
+StationaryStock{stationaryStockID=12, productName=Canon CLC4040, stationaryCategoryID=6, model=CLC4040, price=5200.0, quantity=12, dateOfEntryUpdate=2017-10-23}
+StationaryStock{stationaryStockID=14, productName=Landline Telephone, stationaryCategoryID=6, model=Nortel And Avaya, price=300.0, quantity=19, dateOfEntryUpdate=2017-10-26}
+StationaryStock{stationaryStockID=15, productName=A4 COPY PAPER, stationaryCategoryID=7, model=IK PLUS 80gsm A4, price=100.0, quantity=400, dateOfEntryUpdate=2017-10-23}
+StationaryStock{stationaryStockID=16, productName=USB flash drive, stationaryCategoryID=8, model=CXU217, price=50.0, quantity=47, dateOfEntryUpdate=2017-10-26}
+StationaryStock{stationaryStockID=17, productName=Desktop PC, stationaryCategoryID=8, model=Dual Core G3930 PC, price=3650.0, quantity=11, dateOfEntryUpdate=2017-10-26}
+StationaryStock{stationaryStockID=18, productName=Plastic Chair Black, stationaryCategoryID=6, model=310345EA, price=59.0, quantity=199, dateOfEntryUpdate=2017-10-26}
+StationaryStock{stationaryStockID=19, productName=KODA Capri Midback Chair Black, stationaryCategoryID=6, model=325173EA, price=799.0, quantity=48, dateOfEntryUpdate=2017-10-26}
+StationaryStock{stationaryStockID=20, productName=Office desk, stationaryCategoryID=6, model=ROB700, price=700.0, quantity=29, dateOfEntryUpdate=2017-10-26}
+StationaryStock{stationaryStockID=21, productName=Brother Refurbished Printer, stationaryCategoryID=6, model=MFC8880DN, price=2500.0, quantity=10, dateOfEntryUpdate=2017-10-23}
+StationaryStock{stationaryStockID=22, productName=Parrot Whiteboard Magnetic, stationaryCategoryID=19, model= 6002305009959, price=695.0, quantity=10, dateOfEntryUpdate=2017-10-26}

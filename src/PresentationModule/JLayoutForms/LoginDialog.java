@@ -163,8 +163,11 @@ public class LoginDialog extends javax.swing.JDialog
     
     private void ExitOnLoginAttemts()
     {
-        JOptionPane.showConfirmDialog(this, AuthenticationSettings.getValidationError(), "Authentication Error", JOptionPane.DEFAULT_OPTION);
-        logonCount++;
+        if(!AuthenticationSettings.getValidationError().isEmpty())
+        {
+            JOptionPane.showConfirmDialog(this, AuthenticationSettings.getValidationError(), "Authentication Error", JOptionPane.DEFAULT_OPTION);
+            logonCount++;
+        }
         if(logonCount >= logonAttemptMax)
         {
             JOptionPane.showConfirmDialog(this, "This application will now be terminated due to 3 failed authentication attempts", "Authentication Error", JOptionPane.DEFAULT_OPTION);
@@ -201,7 +204,8 @@ public class LoginDialog extends javax.swing.JDialog
                     ExitOnLoginAttemts();
                 }
             }
-        } catch (Exception ex)
+        } 
+        catch (Exception ex)
         {
             System.out.println(ex);
         }

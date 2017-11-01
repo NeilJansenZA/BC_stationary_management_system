@@ -5,9 +5,10 @@
  */
 package SecurityModule;
 
+import ApplicationHelper.Helper;
 import Authentication.*;
 import BusinessModule.Staff;
-import DataAccessModule.DataConnection;
+import RemoteClient.ServerConnection;
 
 /**
  *
@@ -33,7 +34,7 @@ public class Internal
             AuthenticationSettings.setAdminConnected(true);
             return true;
         } 
-        if (userID > -1)
+        if (userID > 0)
         {
             AuthenticationSettings.setConnected(true);
             AuthenticationSettings.setCurrentUserID(userID);
@@ -50,7 +51,6 @@ public class Internal
     private Staff StaffConnect()
     {
         String validationError = "";
-        DataConnection dc = new DataConnection();
         try
         {
             Staff staff = new Staff().ReadStaffMember();
@@ -63,7 +63,7 @@ public class Internal
             }
         } catch (Exception e)
         {
-            validationError = e.getMessage();
+            AuthenticationSettings.setValidationError(e.toString());
             return null;
         }
     }
@@ -72,11 +72,11 @@ public class Internal
     {
         int userID = -2;
         int result = 0;
-        DataConnection dc = new DataConnection();
+        ServerConnection sc = ServerConnection.GetInstance();
 
         try
-        {
-            result = dc.Login(username, password);
+        { 
+            result = sc.Login(username, password);
             if (result != 0)
             {
                 userID = result;
@@ -85,7 +85,7 @@ public class Internal
             {
                 userID = 0;
             }
-        } 
+        }
         catch (Exception e)
         {
             userID = -2;
@@ -93,20 +93,5 @@ public class Internal
         }
 
         return userID;
-    }
-
-    public static void GetAuthenticationSettings()
-    {
-        String connectionString = "";
-        String username = "";
-        String password = "";
-
-        connectionString = "jdbc:mysql://localhost:3306/bc_stationary_management_system";
-        username = "root";
-        password = "";
-
-        AuthenticationSettings.setConnectionString(connectionString);
-        AuthenticationSettings.setConnectionUsername(username);
-        AuthenticationSettings.setConnectionPassword(password);
     }
 }

@@ -5,7 +5,6 @@
  */
 package BusinessModule;
 
-import DataAccessModule.DataConnection;
 import static SecurityModule.EncryptionSource.GenerateHash;
 import SecurityModule.Internal;
 

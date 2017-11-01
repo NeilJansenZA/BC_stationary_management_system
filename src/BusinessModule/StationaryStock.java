@@ -5,7 +5,7 @@
  */
 package BusinessModule;
 
-import DataAccessModule.DataConnection;
+import RemoteClient.ServerConnection;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -16,8 +16,6 @@ import java.util.List;
  */
 public class StationaryStock implements Serializable
 {
-    private DataConnection dc = new DataConnection();
-    
     private int stationaryStockID;
     private String productName;
     private int stationaryCategoryID;
@@ -121,12 +119,14 @@ public class StationaryStock implements Serializable
     
     public void InsertStationaryStock()
     {
-        dc.InsertStationaryStock(this);
+        ServerConnection sc = ServerConnection.GetInstance();
+        sc.InsertStationaryStock(this);
     }
     
     public List<StationaryStock> LoadStationaryStock()
     {
-        return (List<StationaryStock>) dc.LoadStationaryStock();
+        ServerConnection sc = ServerConnection.GetInstance();
+        return (List<StationaryStock>) sc.LoadStationaryStock();
     }
 
     public StationaryStock(String productName, int stationaryCategoryID, String model, double price, int quantity)
@@ -141,26 +141,30 @@ public class StationaryStock implements Serializable
     @Override
     public String toString()
     {
-        return "StationaryStock{" + "dc=" + dc + ", stationaryStockID=" + stationaryStockID + ", productName=" + productName + ", stationaryCategoryID=" + stationaryCategoryID + ", model=" + model + ", price=" + price + ", quantity=" + quantity + ", dateOfEntryUpdate=" + dateOfEntryUpdate + '}';
+        return "StationaryStock{stationaryStockID=" + stationaryStockID + ", productName=" + productName + ", stationaryCategoryID=" + stationaryCategoryID + ", model=" + model + ", price=" + price + ", quantity=" + quantity + ", dateOfEntryUpdate=" + dateOfEntryUpdate + '}';
     }
     
     public void DeleteStockItem()
     {
-        dc.DeleteStockItem(this.stationaryStockID);
+        ServerConnection sc = ServerConnection.GetInstance();
+        sc.DeleteStockItem(this.stationaryStockID);
     }
     
     public void UpdateStockEntry()
     {
-        dc.UpdateStockEntry(this);
+        ServerConnection sc = ServerConnection.GetInstance();
+        sc.UpdateStockEntry(this);
     }
     
     public String GetProductFromID(int productID)
     {
-        return dc.GetProductFromID(productID);
+        ServerConnection sc = ServerConnection.GetInstance();
+        return sc.GetProductFromID(productID);
     }
     
     public StationaryStock GetAllProductFromID(int productID)
     {
-        return (StationaryStock) dc.GetAllProductFromID(productID);
+        ServerConnection sc = ServerConnection.GetInstance();
+        return (StationaryStock) sc.GetAllProductFromID(productID);
     }
 }

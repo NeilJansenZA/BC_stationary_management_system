@@ -5,7 +5,7 @@
  */
 package BusinessModule;
 
-import DataAccessModule.DataConnection;
+import RemoteClient.ServerConnection;
 import java.util.List;
 
 /**
@@ -13,9 +13,7 @@ import java.util.List;
  * @author Neil
  */
 public class Department
-{
-    private DataConnection dc = new DataConnection();
-    
+{   
     private int departmentID;
     private String departmentName;
 
@@ -27,7 +25,8 @@ public class Department
     
     public Department GetDepartment(int departmentID)
     {
-        return (Department) dc.GetDepartment(departmentID);
+        ServerConnection sc = ServerConnection.GetInstance();
+        return (Department) sc.GetDepartment(departmentID);
     }
     
     public Department()
@@ -37,7 +36,8 @@ public class Department
     
     public List<Department> ReadDepartment()
     {
-        return (List<Department>) dc.ReadDepartment();
+        ServerConnection sc = ServerConnection.GetInstance();
+        return (List<Department>) sc.ReadDepartment();
     }
 
     public int getDepartmentID()

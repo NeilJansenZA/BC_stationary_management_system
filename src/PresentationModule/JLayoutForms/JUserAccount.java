@@ -401,11 +401,8 @@ public class JUserAccount extends javax.swing.JFrame
 
     private void LoadBoxes()
     {
-        Campus campus = new Campus();
-        Department department = new Department();
-
-        staffCampus = campus.ReadCampus();
-        staffDepartment = department.ReadDepartment();
+        staffCampus = new Campus().ReadCampus();
+        staffDepartment = new Department().ReadDepartment();
 
         for (Campus campusData : staffCampus)
         {

@@ -5,7 +5,8 @@
  */
 package BusinessModule;
 
-import DataAccessModule.DataConnection;
+import Authentication.AuthenticationSettings;
+import RemoteClient.ServerConnection;
 import java.util.Date;
 import java.util.List;
 
@@ -15,19 +16,16 @@ import java.util.List;
  */
 public class Order
 {
-    private DataConnection dc = new DataConnection();
     private String orderID;
     private StaffOrder staffOrder;
     private Date approvalDate;
 
     public Order()
     {
-        this.dc = new DataConnection();
     }
 
     public Order(String orderID, StaffOrder staffOrder, Date approvalDate)
     {
-        this.dc = new DataConnection();
         this.orderID = orderID;
         this.staffOrder = staffOrder;
         this.approvalDate = approvalDate;
@@ -65,14 +63,14 @@ public class Order
     
     public List<Order> LoadMyApprovedOrders()
     {
-        this.dc = new DataConnection();
-        return (List<Order>) dc.LoadMyApprovedOrders();
+        ServerConnection sc = ServerConnection.GetInstance();
+        return (List<Order>) sc.LoadMyApprovedOrders(AuthenticationSettings.getCurrentUserID());
     }
     
     public List<Order> LoadAllOrders()
     {
-        this.dc = new DataConnection();
-        return (List<Order>) dc.LoadAllOrders();
+        ServerConnection sc = ServerConnection.GetInstance();
+        return (List<Order>) sc.LoadAllOrders();
     }
 
     @Override

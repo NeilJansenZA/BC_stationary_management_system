@@ -19,6 +19,7 @@ public class Helper
     {
         return FocusManager.getCurrentManager().getActiveWindow();
     }
+    
     public static void DisplayError(String errorMessage)
     {
         try
@@ -35,7 +36,7 @@ public class Helper
         }
         catch(Exception ex)
         {
-            
+            JOptionPane.showConfirmDialog(null, ex.toString(), "Error Display Error", JOptionPane.DEFAULT_OPTION);
         }
     }
     

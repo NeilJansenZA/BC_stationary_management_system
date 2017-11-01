@@ -13,44 +13,11 @@ import BusinessModule.Staff;
  */
 public class AuthenticationSettings
 {
-    private static String ConnectionString;
-    private static String ConnectionUsername;
-    private static String ConnectionPassword;
     private static int CurrentUserID;
     private static boolean Connected;
     private static String ValidationError;
     private static boolean AdminConnected;
     private static Staff ConnectedStaff;
-
-    public static String getConnectionString()
-    {
-        return ConnectionString;
-    }
-
-    public static void setConnectionString(String aConnectionString)
-    {
-        ConnectionString = aConnectionString;
-    }
-
-    public static String getConnectionUsername()
-    {
-        return ConnectionUsername;
-    }
-
-    public static void setConnectionUsername(String aConnectionUsername)
-    {
-        ConnectionUsername = aConnectionUsername;
-    }
-
-    public static String getConnectionPassword()
-    {
-        return ConnectionPassword;
-    }
-
-    public static void setConnectionPassword(String aConnectionPassword)
-    {
-        ConnectionPassword = aConnectionPassword;
-    }
 
     public static int getCurrentUserID()
     {
